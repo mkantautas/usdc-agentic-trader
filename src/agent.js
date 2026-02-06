@@ -1,5 +1,5 @@
 /**
- * USDC Agentic Trader v2
+ * USDC Agentic Trader
  *
  * An autonomous AI agent that manages a USDC portfolio on Solana devnet.
  * Uses Claude to analyze market data and make trading decisions.
@@ -748,7 +748,7 @@ async function tradingCycle(state) {
 async function main() {
   console.log(`
 ╔══════════════════════════════════════════════════════════════╗
-║              USDC AGENTIC TRADER v2                          ║
+║              USDC AGENTIC TRADER                             ║
 ║     Autonomous AI + USDC + Drift Perps on Solana Devnet      ║
 ║                                                              ║
 ║     Proving: AI agents + USDC > humans + USDC                ║

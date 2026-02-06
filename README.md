@@ -1,4 +1,4 @@
-# USDC Agentic Trader v2
+# USDC Agentic Trader
 
 **An autonomous AI agent that manages a USDC portfolio on Solana devnet — with perpetual futures shorting/longing via Drift Protocol.**
 
