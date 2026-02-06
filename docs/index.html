@@ -286,6 +286,15 @@
       const driftPct = totalWithDrift > 0 ? (driftBal / totalWithDrift * 100) : 0;
       const lastPrice = data.prices.length > 0 ? data.prices[data.prices.length - 1].price : 0;
 
+      // P&L data
+      const perf = data.performance || {};
+      const initialBal = perf.initialBalance || totalWithDrift;
+      const totalPnL = perf.totalPnL || 0;
+      const totalPnLPct = perf.totalPnLPercent || 0;
+      const realizedPnL = perf.realizedPnL || 0;
+      const unrealizedPnL = perf.unrealizedPnL || 0;
+      const pnlPositive = totalPnL >= 0;
+
       // Position card HTML
       let positionHtml = '';
       if (data.drift) {
@@ -378,6 +387,21 @@
           <div class="stat-label">Across all wallets + Drift collateral</div>
         </div>
 
+        <!-- Portfolio P&L -->
+        <div class="card">
+          <h3>Portfolio Performance</h3>
+          <div class="stat-big ${pnlPositive ? 'green' : 'red'}">${pnlPositive ? '+' : ''}$${totalPnL.toFixed(2)}</div>
+          <div class="stat-label">${pnlPositive ? '+' : ''}${totalPnLPct.toFixed(2)}% since start (${initialBal.toFixed(2)} USDC)</div>
+          <div class="stat-row" style="margin-top:12px">
+            <span class="label">Realized P&L</span>
+            <span class="${realizedPnL >= 0 ? 'green' : 'red'}">${realizedPnL >= 0 ? '+' : ''}$${realizedPnL.toFixed(4)}</span>
+          </div>
+          <div class="stat-row">
+            <span class="label">Unrealized P&L</span>
+            <span class="${unrealizedPnL >= 0 ? 'green' : 'red'}">${unrealizedPnL >= 0 ? '+' : ''}$${unrealizedPnL.toFixed(4)}</span>
+          </div>
+        </div>
+
         <!-- SOL Price -->
         <div class="card">
           <h3>SOL Price (Live Feed)</h3>
@@ -407,6 +431,14 @@
           <div class="stat-row">
             <span class="label">Drift</span>
             <span class="${data.drift ? 'green' : 'dim'}">${data.drift ? 'Connected' : 'Unavailable'}</span>
+          </div>
+        </div>
+
+        <!-- Portfolio Value Chart -->
+        <div class="card full-width">
+          <h3>Portfolio Value Over Time</h3>
+          <div class="chart-container">
+            <canvas id="portfolioChart"></canvas>
           </div>
         </div>
 
@@ -504,6 +536,11 @@
       if (data.prices && data.prices.length > 1) {
         drawPriceChart(data.prices);
       }
+
+      // Draw portfolio value chart
+      if (data.balanceHistory && data.balanceHistory.length > 1) {
+        drawPortfolioChart(data.balanceHistory, data.performance?.initialBalance);
+      }
     }
 
     function drawPriceChart(prices) {
@@ -561,6 +598,90 @@
       const gradient = ctx.createLinearGradient(0, padding.top, 0, h - padding.bottom);
       gradient.addColorStop(0, 'rgba(39, 117, 202, 0.3)');
       gradient.addColorStop(1, 'rgba(39, 117, 202, 0)');
+
+      ctx.lineTo(lastX, h - padding.bottom);
+      ctx.lineTo(padding.left, h - padding.bottom);
+      ctx.closePath();
+      ctx.fillStyle = gradient;
+      ctx.fill();
+    }
+
+    function drawPortfolioChart(history, initialBalance) {
+      const canvas = document.getElementById('portfolioChart');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      const dpr = window.devicePixelRatio || 1;
+
+      canvas.width = canvas.offsetWidth * dpr;
+      canvas.height = canvas.offsetHeight * dpr;
+      ctx.scale(dpr, dpr);
+
+      const w = canvas.offsetWidth;
+      const h = canvas.offsetHeight;
+      const padding = { top: 10, right: 10, bottom: 20, left: 50 };
+
+      const values = history.map(p => p.total);
+      const min = Math.min(...values, initialBalance || Infinity) * 0.998;
+      const max = Math.max(...values, initialBalance || 0) * 1.002;
+      const range = max - min || 1;
+
+      // Grid lines
+      ctx.strokeStyle = '#1e1e2e';
+      ctx.lineWidth = 1;
+      for (let i = 0; i <= 4; i++) {
+        const y = padding.top + (h - padding.top - padding.bottom) * (i / 4);
+        ctx.beginPath();
+        ctx.moveTo(padding.left, y);
+        ctx.lineTo(w - padding.right, y);
+        ctx.stroke();
+
+        const val = max - (range * i / 4);
+        ctx.fillStyle = '#666680';
+        ctx.font = '10px monospace';
+        ctx.textAlign = 'right';
+        ctx.fillText('$' + val.toFixed(2), padding.left - 5, y + 3);
+      }
+
+      // Initial balance line (dashed)
+      if (initialBalance) {
+        const initY = padding.top + (1 - (initialBalance - min) / range) * (h - padding.top - padding.bottom);
+        ctx.beginPath();
+        ctx.strokeStyle = '#ffd70066';
+        ctx.lineWidth = 1;
+        ctx.setLineDash([5, 5]);
+        ctx.moveTo(padding.left, initY);
+        ctx.lineTo(w - padding.right, initY);
+        ctx.stroke();
+        ctx.setLineDash([]);
+        ctx.fillStyle = '#ffd700';
+        ctx.font = '9px monospace';
+        ctx.textAlign = 'left';
+        ctx.fillText('Start: $' + initialBalance.toFixed(2), padding.left + 4, initY - 4);
+      }
+
+      // Portfolio value line
+      const lastVal = values[values.length - 1];
+      const isUp = lastVal >= (initialBalance || values[0]);
+      const lineColor = isUp ? '#00d4aa' : '#ff4466';
+
+      ctx.beginPath();
+      ctx.strokeStyle = lineColor;
+      ctx.lineWidth = 2;
+      const stepX = (w - padding.left - padding.right) / (values.length - 1);
+
+      values.forEach((v, i) => {
+        const x = padding.left + i * stepX;
+        const y = padding.top + (1 - (v - min) / range) * (h - padding.top - padding.bottom);
+        if (i === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      });
+      ctx.stroke();
+
+      // Gradient fill
+      const lastX = padding.left + (values.length - 1) * stepX;
+      const gradient = ctx.createLinearGradient(0, padding.top, 0, h - padding.bottom);
+      gradient.addColorStop(0, isUp ? 'rgba(0, 212, 170, 0.2)' : 'rgba(255, 68, 102, 0.2)');
+      gradient.addColorStop(1, isUp ? 'rgba(0, 212, 170, 0)' : 'rgba(255, 68, 102, 0)');
 
       ctx.lineTo(lastX, h - padding.bottom);
       ctx.lineTo(padding.left, h - padding.bottom);

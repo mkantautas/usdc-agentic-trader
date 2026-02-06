@@ -434,7 +434,10 @@ function loadState() {
     cycle: 0,
     startTime: Date.now(),
     totalTransactions: 0,
-    totalVolumeUSDC: 0
+    totalVolumeUSDC: 0,
+    initialBalance: null,        // Set on first cycle
+    balanceHistory: [],          // Track total balance over time
+    realizedPnL: 0,             // Accumulated realized P&L from Drift trades
   };
 }
 
@@ -447,6 +450,12 @@ function saveDashboardData(state, agentBalance, treasuryBalance, driftInfo) {
   const docsDir = path.join(__dirname, '..', 'docs');
   if (!fs.existsSync(docsDir)) fs.mkdirSync(docsDir, { recursive: true });
 
+  const totalNow = agentBalance + treasuryBalance + (driftInfo?.driftBalance || 0);
+  const initialBal = state.initialBalance || totalNow;
+  const unrealizedPnL = driftInfo?.position?.unrealizedPnl || 0;
+  const realizedPnL = state.realizedPnL || 0;
+  const totalPnL = totalNow - initialBal;
+
   const dashData = {
     lastUpdated: new Date().toISOString(),
     wallet: wallet.publicKey.toString(),
@@ -454,8 +463,17 @@ function saveDashboardData(state, agentBalance, treasuryBalance, driftInfo) {
     balances: {
       agent: agentBalance,
       treasury: treasuryBalance,
-      total: agentBalance + treasuryBalance + (driftInfo?.driftBalance || 0)
+      total: totalNow
     },
+    performance: {
+      initialBalance: initialBal,
+      currentBalance: totalNow,
+      totalPnL: totalPnL,
+      totalPnLPercent: initialBal > 0 ? (totalPnL / initialBal * 100) : 0,
+      realizedPnL: realizedPnL,
+      unrealizedPnL: unrealizedPnL,
+    },
+    balanceHistory: (state.balanceHistory || []).slice(-200),
     drift: driftInfo?.available ? {
       balance: driftInfo.driftBalance || 0,
       freeCollateral: driftInfo.freeCollateral || 0,
@@ -657,9 +675,22 @@ async function tradingCycle(state) {
     getSOLBalance(wallet.publicKey)
   ]);
 
+  const totalBalance = agentBalance + treasuryBalance + (driftInfo.driftBalance || 0);
+
+  // Track initial balance on first cycle
+  if (state.initialBalance === null || state.initialBalance === undefined) {
+    state.initialBalance = totalBalance;
+    console.log(`  Initial balance recorded: ${totalBalance.toFixed(2)} USDC`);
+  }
+
+  // Track balance history (every cycle)
+  state.balanceHistory = state.balanceHistory || [];
+  state.balanceHistory.push({ time: Date.now(), total: totalBalance, agent: agentBalance, treasury: treasuryBalance, drift: driftInfo.driftBalance || 0 });
+  if (state.balanceHistory.length > 500) state.balanceHistory = state.balanceHistory.slice(-500);
+
   console.log(`  Agent:    ${agentBalance.toFixed(2)} USDC | ${agentSOL.toFixed(4)} SOL`);
   console.log(`  Treasury: ${treasuryBalance.toFixed(2)} USDC`);
-  console.log(`  Total:    ${(agentBalance + treasuryBalance).toFixed(2)} USDC`);
+  console.log(`  Total:    ${totalBalance.toFixed(2)} USDC`);
 
   if (driftInfo.available) {
     console.log(`  [Drift]   ${driftInfo.driftBalance.toFixed(2)} USDC collateral | Free: ${driftInfo.freeCollateral.toFixed(2)}`);
@@ -726,6 +757,13 @@ async function tradingCycle(state) {
   if (result.txSig) {
     state.totalTransactions++;
     state.totalVolumeUSDC += result.amount;
+  }
+
+  // Track realized P&L from Drift position closes
+  state.realizedPnL = state.realizedPnL || 0;
+  if (['CLOSE_SHORT', 'CLOSE_LONG'].includes(result.action) && driftInfo.position) {
+    state.realizedPnL += driftInfo.position.unrealizedPnl || 0;
+    console.log(`  Realized P&L updated: $${state.realizedPnL.toFixed(4)}`);
   }
 
   // 7. Save state and dashboard
