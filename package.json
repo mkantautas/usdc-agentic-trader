@@ -1,0 +1,22 @@
+{
+  "name": "usdc-agentic-trader",
+  "version": "1.0.0",
+  "description": "Autonomous AI trading agent that manages USDC on Solana - proving agents + USDC > humans + USDC",
+  "main": "src/agent.js",
+  "scripts": {
+    "start": "node src/agent.js",
+    "setup": "node src/setup-wallet.js",
+    "dashboard": "node src/dashboard-server.js",
+    "fund": "node src/faucet.js",
+    "status": "node src/status.js"
+  },
+  "keywords": ["usdc", "solana", "ai-agent", "trading", "hackathon", "agentic-commerce"],
+  "author": "mkantautas",
+  "license": "MIT",
+  "dependencies": {
+    "@solana/web3.js": "^1.91.0",
+    "@solana/spl-token": "^0.3.8",
+    "bs58": "^6.0.0",
+    "dotenv": "^17.2.3"
+  }
+}

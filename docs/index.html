@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>USDC Agentic Trader | Live Dashboard</title>
+  <style>
+    :root {
+      --bg: #0a0a0f;
+      --card: #12121a;
+      --border: #1e1e2e;
+      --text: #e0e0e0;
+      --dim: #666680;
+      --accent: #2775ca;
+      --green: #00d4aa;
+      --red: #ff4466;
+      --yellow: #ffd700;
+      --purple: #8b5cf6;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 20px;
+    }
+    .header {
+      text-align: center;
+      padding: 30px 0;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 30px;
+    }
+    .header h1 {
+      font-size: 28px;
+      background: linear-gradient(135deg, var(--accent), var(--green));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .header .subtitle {
+      color: var(--dim);
+      margin-top: 8px;
+      font-size: 14px;
+    }
+    .header .network-badge {
+      display: inline-block;
+      background: var(--accent);
+      color: white;
+      padding: 3px 12px;
+      border-radius: 12px;
+      font-size: 11px;
+      margin-top: 10px;
+      text-transform: uppercase;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+    }
+    .card h3 {
+      font-size: 12px;
+      text-transform: uppercase;
+      color: var(--dim);
+      margin-bottom: 12px;
+      letter-spacing: 1px;
+    }
+    .stat-big {
+      font-size: 36px;
+      font-weight: bold;
+    }
+    .stat-label {
+      font-size: 12px;
+      color: var(--dim);
+      margin-top: 4px;
+    }
+    .stat-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .stat-row:last-child { border-bottom: none; }
+    .stat-row .label { color: var(--dim); }
+    .green { color: var(--green); }
+    .red { color: var(--red); }
+    .yellow { color: var(--yellow); }
+    .purple { color: var(--purple); }
+
+    .progress-bar {
+      width: 100%;
+      height: 8px;
+      background: var(--border);
+      border-radius: 4px;
+      margin-top: 12px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      border-radius: 4px;
+      transition: width 0.5s ease;
+    }
+    .progress-agent { background: var(--accent); }
+    .progress-treasury { background: var(--green); }
+
+    .trade-list {
+      max-height: 300px;
+      overflow-y: auto;
+    }
+    .trade-item {
+      padding: 10px;
+      border-bottom: 1px solid var(--border);
+      font-size: 13px;
+    }
+    .trade-item:last-child { border-bottom: none; }
+    .trade-action {
+      font-weight: bold;
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      margin-right: 8px;
+    }
+    .action-ALLOCATE_TO_TREASURY { background: rgba(255, 68, 102, 0.2); color: var(--red); }
+    .action-WITHDRAW_FROM_TREASURY { background: rgba(0, 212, 170, 0.2); color: var(--green); }
+    .action-REBALANCE { background: rgba(139, 92, 246, 0.2); color: var(--purple); }
+    .action-HOLD { background: rgba(102, 102, 128, 0.2); color: var(--dim); }
+    .trade-tx { font-size: 11px; color: var(--accent); text-decoration: none; }
+    .trade-tx:hover { text-decoration: underline; }
+
+    .chart-container {
+      width: 100%;
+      height: 200px;
+      position: relative;
+    }
+    canvas { width: 100%; height: 100%; }
+
+    .wallet-addr {
+      font-size: 12px;
+      color: var(--dim);
+      word-break: break-all;
+    }
+    .wallet-addr a { color: var(--accent); text-decoration: none; }
+    .wallet-addr a:hover { text-decoration: underline; }
+
+    .pulse {
+      width: 8px;
+      height: 8px;
+      background: var(--green);
+      border-radius: 50%;
+      display: inline-block;
+      animation: pulse 2s infinite;
+      margin-right: 6px;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    .full-width { grid-column: 1 / -1; }
+
+    .footer {
+      text-align: center;
+      padding: 30px 0;
+      color: var(--dim);
+      font-size: 12px;
+      margin-top: 30px;
+    }
+    .footer a { color: var(--accent); text-decoration: none; }
+
+    .no-data {
+      text-align: center;
+      padding: 40px;
+      color: var(--dim);
+    }
+
+    @media (max-width: 768px) {
+      .grid { grid-template-columns: 1fr; }
+      .stat-big { font-size: 28px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>USDC AGENTIC TRADER</h1>
+    <div class="subtitle">Autonomous AI Agent Managing USDC on Solana</div>
+    <div class="network-badge">Solana Devnet</div>
+  </div>
+
+  <div class="grid" id="dashboard">
+    <div class="no-data" id="loading">
+      Loading dashboard data...
+    </div>
+  </div>
+
+  <div class="footer">
+    <p>Built for the <a href="https://www.moltbook.com/m/usdc">USDC Hackathon</a> on Moltbook</p>
+    <p style="margin-top:8px">Proving: AI agents + USDC &gt; humans + USDC</p>
+    <p style="margin-top:8px"><a href="https://github.com/mkantautas/usdc-agentic-trader">GitHub</a></p>
+  </div>
+
+  <script>
+    async function loadData() {
+      try {
+        const res = await fetch('data.json?' + Date.now());
+        if (!res.ok) throw new Error('No data');
+        return await res.json();
+      } catch {
+        return null;
+      }
+    }
+
+    function formatTime(ms) {
+      const s = Math.floor(ms / 1000);
+      const m = Math.floor(s / 60);
+      const h = Math.floor(m / 60);
+      if (h > 0) return `${h}h ${m % 60}m`;
+      if (m > 0) return `${m}m ${s % 60}s`;
+      return `${s}s`;
+    }
+
+    function renderDashboard(data) {
+      if (!data) {
+        document.getElementById('dashboard').innerHTML = `
+          <div class="no-data full-width">
+            <h2>No Data Yet</h2>
+            <p style="margin-top:12px;color:var(--dim)">The agent hasn't run yet. Start it with: <code>npm start</code></p>
+            <p style="margin-top:8px;color:var(--dim)">Once running, this dashboard updates automatically.</p>
+          </div>
+        `;
+        return;
+      }
+
+      const agentPct = data.balances.total > 0 ? (data.balances.agent / data.balances.total * 100) : 50;
+      const lastPrice = data.prices.length > 0 ? data.prices[data.prices.length - 1].price : 0;
+
+      let tradesHtml = '';
+      if (data.trades && data.trades.length > 0) {
+        const recentTrades = [...data.trades].reverse().slice(0, 20);
+        tradesHtml = recentTrades.map(t => {
+          const time = new Date(t.time).toLocaleTimeString();
+          const txLink = t.txSig
+            ? `<a class="trade-tx" href="https://explorer.solana.com/tx/${t.txSig}?cluster=devnet" target="_blank">View TX →</a>`
+            : '';
+          return `
+            <div class="trade-item">
+              <span class="trade-action action-${t.action}">${t.action}</span>
+              <span>${t.amount?.toFixed(2) || 0} USDC</span>
+              <span style="color:var(--dim);margin-left:8px">${time}</span>
+              <div style="margin-top:4px;color:var(--dim);font-size:11px">${t.reason || ''}</div>
+              ${txLink ? `<div style="margin-top:4px">${txLink}</div>` : ''}
+            </div>
+          `;
+        }).join('');
+      } else {
+        tradesHtml = '<div class="trade-item" style="color:var(--dim)">No trades yet</div>';
+      }
+
+      // Price chart data
+      const priceData = data.prices || [];
+
+      document.getElementById('dashboard').innerHTML = `
+        <!-- Total Balance -->
+        <div class="card">
+          <h3>Total USDC Balance</h3>
+          <div class="stat-big green">$${data.balances.total.toFixed(2)}</div>
+          <div class="stat-label">Across agent + treasury wallets</div>
+        </div>
+
+        <!-- SOL Price -->
+        <div class="card">
+          <h3>SOL Price (Live Feed)</h3>
+          <div class="stat-big">$${lastPrice.toFixed(2)}</div>
+          <div class="stat-label">Used for market analysis</div>
+        </div>
+
+        <!-- Agent Status -->
+        <div class="card">
+          <h3><span class="pulse"></span>Agent Status</h3>
+          <div class="stat-row">
+            <span class="label">Cycles</span>
+            <span>${data.stats.totalCycles}</span>
+          </div>
+          <div class="stat-row">
+            <span class="label">Transactions</span>
+            <span class="green">${data.stats.totalTransactions}</span>
+          </div>
+          <div class="stat-row">
+            <span class="label">Volume</span>
+            <span>${data.stats.totalVolumeUSDC.toFixed(2)} USDC</span>
+          </div>
+          <div class="stat-row">
+            <span class="label">Uptime</span>
+            <span>${formatTime(data.stats.uptime)}</span>
+          </div>
+        </div>
+
+        <!-- Balance Distribution -->
+        <div class="card">
+          <h3>Balance Distribution</h3>
+          <div class="stat-row">
+            <span class="label">Agent Wallet</span>
+            <span style="color:var(--accent)">${data.balances.agent.toFixed(2)} USDC</span>
+          </div>
+          <div class="stat-row">
+            <span class="label">Treasury Wallet</span>
+            <span class="green">${data.balances.treasury.toFixed(2)} USDC</span>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill progress-agent" style="width:${agentPct}%;display:inline-block"></div><div class="progress-fill progress-treasury" style="width:${100 - agentPct}%;display:inline-block"></div>
+          </div>
+          <div style="display:flex;justify-content:space-between;margin-top:6px;font-size:11px;color:var(--dim)">
+            <span>Agent ${agentPct.toFixed(0)}%</span>
+            <span>Treasury ${(100 - agentPct).toFixed(0)}%</span>
+          </div>
+        </div>
+
+        <!-- Wallets -->
+        <div class="card">
+          <h3>Wallets (Devnet)</h3>
+          <div style="margin-bottom:12px">
+            <div style="font-size:11px;color:var(--dim);margin-bottom:4px">Agent Wallet</div>
+            <div class="wallet-addr"><a href="https://explorer.solana.com/address/${data.wallet}?cluster=devnet" target="_blank">${data.wallet}</a></div>
+          </div>
+          <div>
+            <div style="font-size:11px;color:var(--dim);margin-bottom:4px">Treasury Wallet</div>
+            <div class="wallet-addr"><a href="https://explorer.solana.com/address/${data.treasury}?cluster=devnet" target="_blank">${data.treasury}</a></div>
+          </div>
+        </div>
+
+        <!-- Price Chart -->
+        <div class="card">
+          <h3>SOL Price History</h3>
+          <div class="chart-container">
+            <canvas id="priceChart"></canvas>
+          </div>
+        </div>
+
+        <!-- Trade History -->
+        <div class="card full-width">
+          <h3>Recent Agent Decisions</h3>
+          <div class="trade-list">
+            ${tradesHtml}
+          </div>
+        </div>
+
+        <!-- Architecture -->
+        <div class="card full-width">
+          <h3>How It Works</h3>
+          <div style="font-size:13px;line-height:1.8;color:var(--dim)">
+            <pre style="overflow-x:auto;font-size:12px;color:var(--text)">
+┌─────────────┐    ┌──────────────┐    ┌──────────────┐    ┌──────────────┐
+│  Market Data │───→│  AI Analysis │───→│   Decision   │───→│ USDC Transfer│
+│  (CoinGecko) │    │   (Claude)   │    │   Engine     │    │  (Solana TX) │
+└─────────────┘    └──────────────┘    └──────────────┘    └──────────────┘
+                                                                    │
+                          ┌─────────────────────────────────────────┘
+                          ▼
+                   ┌──────────────┐    ┌──────────────┐
+                   │  Agent Wallet│◄──►│   Treasury   │
+                   │   (Active)   │    │   (Reserve)  │
+                   └──────────────┘    └──────────────┘
+            </pre>
+            <p style="margin-top:12px">
+              The agent autonomously manages USDC between two wallets based on market conditions.
+              It uses real market data from CoinGecko, AI analysis via Claude, and executes
+              real USDC transfers on Solana devnet. Every decision is logged with reasoning.
+            </p>
+          </div>
+        </div>
+      `;
+
+      // Draw price chart
+      if (priceData.length > 1) {
+        drawPriceChart(priceData);
+      }
+    }
+
+    function drawPriceChart(prices) {
+      const canvas = document.getElementById('priceChart');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      const dpr = window.devicePixelRatio || 1;
+
+      canvas.width = canvas.offsetWidth * dpr;
+      canvas.height = canvas.offsetHeight * dpr;
+      ctx.scale(dpr, dpr);
+
+      const w = canvas.offsetWidth;
+      const h = canvas.offsetHeight;
+      const padding = { top: 10, right: 10, bottom: 20, left: 50 };
+
+      const values = prices.map(p => p.price);
+      const min = Math.min(...values) * 0.999;
+      const max = Math.max(...values) * 1.001;
+      const range = max - min || 1;
+
+      // Grid lines
+      ctx.strokeStyle = '#1e1e2e';
+      ctx.lineWidth = 1;
+      for (let i = 0; i <= 4; i++) {
+        const y = padding.top + (h - padding.top - padding.bottom) * (i / 4);
+        ctx.beginPath();
+        ctx.moveTo(padding.left, y);
+        ctx.lineTo(w - padding.right, y);
+        ctx.stroke();
+
+        const val = max - (range * i / 4);
+        ctx.fillStyle = '#666680';
+        ctx.font = '10px monospace';
+        ctx.textAlign = 'right';
+        ctx.fillText('$' + val.toFixed(2), padding.left - 5, y + 3);
+      }
+
+      // Price line
+      ctx.beginPath();
+      ctx.strokeStyle = '#2775ca';
+      ctx.lineWidth = 2;
+      const stepX = (w - padding.left - padding.right) / (values.length - 1);
+
+      values.forEach((v, i) => {
+        const x = padding.left + i * stepX;
+        const y = padding.top + (1 - (v - min) / range) * (h - padding.top - padding.bottom);
+        if (i === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      });
+      ctx.stroke();
+
+      // Gradient fill
+      const lastX = padding.left + (values.length - 1) * stepX;
+      const gradient = ctx.createLinearGradient(0, padding.top, 0, h - padding.bottom);
+      gradient.addColorStop(0, 'rgba(39, 117, 202, 0.3)');
+      gradient.addColorStop(1, 'rgba(39, 117, 202, 0)');
+
+      ctx.lineTo(lastX, h - padding.bottom);
+      ctx.lineTo(padding.left, h - padding.bottom);
+      ctx.closePath();
+      ctx.fillStyle = gradient;
+      ctx.fill();
+    }
+
+    // Initial load
+    loadData().then(renderDashboard);
+
+    // Auto-refresh every 30 seconds
+    setInterval(async () => {
+      const data = await loadData();
+      if (data) renderDashboard(data);
+    }, 30000);
+  </script>
+</body>
+</html>
