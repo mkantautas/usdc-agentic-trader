@@ -450,9 +450,9 @@ function saveDashboardData(state, agentBalance, treasuryBalance, driftInfo) {
   const docsDir = path.join(__dirname, '..', 'docs');
   if (!fs.existsSync(docsDir)) fs.mkdirSync(docsDir, { recursive: true });
 
-  const totalNow = agentBalance + treasuryBalance + (driftInfo?.driftBalance || 0);
-  const initialBal = state.initialBalance || totalNow;
   const unrealizedPnL = driftInfo?.position?.unrealizedPnl || 0;
+  const totalNow = agentBalance + treasuryBalance + (driftInfo?.driftBalance || 0) + unrealizedPnL;
+  const initialBal = state.initialBalance || totalNow;
   const realizedPnL = state.realizedPnL || 0;
   const totalPnL = totalNow - initialBal;
 
@@ -675,7 +675,8 @@ async function tradingCycle(state) {
     getSOLBalance(wallet.publicKey)
   ]);
 
-  const totalBalance = agentBalance + treasuryBalance + (driftInfo.driftBalance || 0);
+  const driftUnrealizedPnL = driftInfo.position?.unrealizedPnl || 0;
+  const totalBalance = agentBalance + treasuryBalance + (driftInfo.driftBalance || 0) + driftUnrealizedPnL;
 
   // Track initial balance on first cycle
   if (state.initialBalance === null || state.initialBalance === undefined) {
@@ -685,7 +686,7 @@ async function tradingCycle(state) {
 
   // Track balance history (every cycle)
   state.balanceHistory = state.balanceHistory || [];
-  state.balanceHistory.push({ time: Date.now(), total: totalBalance, agent: agentBalance, treasury: treasuryBalance, drift: driftInfo.driftBalance || 0 });
+  state.balanceHistory.push({ time: Date.now(), total: totalBalance, agent: agentBalance, treasury: treasuryBalance, drift: (driftInfo.driftBalance || 0) + driftUnrealizedPnL });
   if (state.balanceHistory.length > 500) state.balanceHistory = state.balanceHistory.slice(-500);
 
   console.log(`  Agent:    ${agentBalance.toFixed(2)} USDC | ${agentSOL.toFixed(4)} SOL`);
@@ -761,9 +762,10 @@ async function tradingCycle(state) {
 
   // Track realized P&L from Drift position closes
   state.realizedPnL = state.realizedPnL || 0;
-  if (['CLOSE_SHORT', 'CLOSE_LONG'].includes(result.action) && driftInfo.position) {
-    state.realizedPnL += driftInfo.position.unrealizedPnl || 0;
-    console.log(`  Realized P&L updated: $${state.realizedPnL.toFixed(4)}`);
+  if (['CLOSE_SHORT', 'CLOSE_LONG'].includes(result.action) && result.txSig) {
+    const closePnl = driftInfo.position?.unrealizedPnl || 0;
+    state.realizedPnL += closePnl;
+    console.log(`  Realized P&L from close: $${closePnl.toFixed(4)} (cumulative: $${state.realizedPnL.toFixed(4)})`);
   }
 
   // 7. Save state and dashboard
