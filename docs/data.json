@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-02-06T09:54:40.390Z",
+  "lastUpdated": "2026-02-06T10:28:54.536Z",
   "wallet": "BGYMcHT1XkWP2a9b6YNAjw5cBKYPoJh3R1ujao7i3Mgq",
   "treasury": "GYqf6NVVhJqhv6ywyYy9d1cptjjSkiD8tWTdF5xswrZU",
   "balances": {
@@ -7,12 +7,18 @@
     "treasury": 5,
     "total": 20
   },
+  "drift": {
+    "balance": 0,
+    "freeCollateral": 0,
+    "position": null,
+    "hasAccount": false
+  },
   "stats": {
-    "totalCycles": 5,
+    "totalCycles": 8,
     "totalTransactions": 1,
     "totalVolumeUSDC": 5,
-    "uptime": 138048,
-    "avgCycleTime": 27609.6
+    "uptime": 2192194,
+    "avgCycleTime": 274024.25
   },
   "prices": [
     {
@@ -34,6 +40,18 @@
     {
       "time": 1770371677741,
       "price": 81.09
+    },
+    {
+      "time": 1770373663250,
+      "price": 81.38
+    },
+    {
+      "time": 1770373697666,
+      "price": 81.38
+    },
+    {
+      "time": 1770373731427,
+      "price": 81.41
     }
   ],
   "trades": [
@@ -101,6 +119,48 @@
       "solPrice": 81.09,
       "agentBalance": 15,
       "treasuryBalance": 5
+    },
+    {
+      "time": 1770373667439,
+      "cycle": 6,
+      "action": "HOLD",
+      "amount": 0,
+      "txSig": null,
+      "confidence": 65,
+      "reason": "SOL showing slow recovery (+$0.29 from $81.09 to $81.38) after 33min gap, but still down 11.80% in 24h. Need to see sustained momentum above $82 or clear breakdown below $80 before taking directional position. Current 75% treasury allocation provides good risk management.",
+      "market_outlook": "neutral",
+      "solPrice": 81.38,
+      "agentBalance": 15,
+      "treasuryBalance": 5,
+      "driftPosition": null
+    },
+    {
+      "time": 1770373701234,
+      "cycle": 7,
+      "action": "HOLD",
+      "amount": 0,
+      "txSig": null,
+      "confidence": 65,
+      "reason": "SOL showing gradual recovery (+$0.43 from lows) but still down 11.80% in 24h. Price action lacks conviction with small incremental moves. Need to see either sustained momentum above $82.50 or breakdown below $80 to justify directional position. Current 75% treasury allocation provides good risk management.",
+      "market_outlook": "neutral",
+      "solPrice": 81.38,
+      "agentBalance": 15,
+      "treasuryBalance": 5,
+      "driftPosition": null
+    },
+    {
+      "time": 1770373734512,
+      "cycle": 8,
+      "action": "HOLD",
+      "amount": 0,
+      "txSig": null,
+      "confidence": 65,
+      "reason": "SOL showing gradual recovery (+$0.03 to $81.41) but still down 11.77% in 24h. Price action remains indecisive with small incremental moves. Need to see either sustained momentum above $82.50 or clear breakdown below $80 to justify opening a directional position. Current 75% treasury allocation provides appropriate risk management.",
+      "market_outlook": "neutral",
+      "solPrice": 81.41,
+      "agentBalance": 15,
+      "treasuryBalance": 5,
+      "driftPosition": null
     }
   ],
   "network": "devnet",
