@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>USDC Agentic Trader | Live Dashboard</title>
+  <title>USDC Agentic Trader v2 | Live Dashboard</title>
   <style>
     :root {
       --bg: #0a0a0f;
@@ -16,6 +16,7 @@
       --red: #ff4466;
       --yellow: #ffd700;
       --purple: #8b5cf6;
+      --orange: #ff8c00;
     }
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
@@ -43,16 +44,24 @@
       margin-top: 8px;
       font-size: 14px;
     }
-    .header .network-badge {
+    .header .badges {
+      margin-top: 12px;
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .badge {
       display: inline-block;
-      background: var(--accent);
-      color: white;
       padding: 3px 12px;
       border-radius: 12px;
       font-size: 11px;
-      margin-top: 10px;
       text-transform: uppercase;
+      font-weight: bold;
     }
+    .badge-devnet { background: var(--accent); color: white; }
+    .badge-drift { background: var(--purple); color: white; }
+    .badge-ai { background: var(--green); color: #0a0a0f; }
     .grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -94,6 +103,7 @@
     .red { color: var(--red); }
     .yellow { color: var(--yellow); }
     .purple { color: var(--purple); }
+    .orange { color: var(--orange); }
 
     .progress-bar {
       width: 100%;
@@ -102,17 +112,18 @@
       border-radius: 4px;
       margin-top: 12px;
       overflow: hidden;
+      display: flex;
     }
     .progress-fill {
       height: 100%;
-      border-radius: 4px;
       transition: width 0.5s ease;
     }
     .progress-agent { background: var(--accent); }
     .progress-treasury { background: var(--green); }
+    .progress-drift { background: var(--purple); }
 
     .trade-list {
-      max-height: 300px;
+      max-height: 350px;
       overflow-y: auto;
     }
     .trade-item {
@@ -133,6 +144,12 @@
     .action-WITHDRAW_FROM_TREASURY { background: rgba(0, 212, 170, 0.2); color: var(--green); }
     .action-REBALANCE { background: rgba(139, 92, 246, 0.2); color: var(--purple); }
     .action-HOLD { background: rgba(102, 102, 128, 0.2); color: var(--dim); }
+    .action-OPEN_SHORT { background: rgba(255, 68, 102, 0.3); color: var(--red); }
+    .action-CLOSE_SHORT { background: rgba(255, 140, 0, 0.2); color: var(--orange); }
+    .action-OPEN_LONG { background: rgba(0, 212, 170, 0.3); color: var(--green); }
+    .action-CLOSE_LONG { background: rgba(255, 140, 0, 0.2); color: var(--orange); }
+    .action-DEPOSIT_TO_DRIFT { background: rgba(139, 92, 246, 0.3); color: var(--purple); }
+    .action-FAILED { background: rgba(255, 68, 102, 0.1); color: var(--red); }
     .trade-tx { font-size: 11px; color: var(--accent); text-decoration: none; }
     .trade-tx:hover { text-decoration: underline; }
 
@@ -167,6 +184,21 @@
 
     .full-width { grid-column: 1 / -1; }
 
+    .position-card {
+      border: 1px solid var(--purple);
+      background: rgba(139, 92, 246, 0.05);
+    }
+    .position-direction {
+      font-size: 24px;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .position-direction .arrow {
+      font-size: 20px;
+    }
+
     .footer {
       text-align: center;
       padding: 30px 0;
@@ -190,9 +222,13 @@
 </head>
 <body>
   <div class="header">
-    <h1>USDC AGENTIC TRADER</h1>
-    <div class="subtitle">Autonomous AI Agent Managing USDC on Solana</div>
-    <div class="network-badge">Solana Devnet</div>
+    <h1>USDC AGENTIC TRADER v2</h1>
+    <div class="subtitle">Autonomous AI Agent + USDC + Drift Perpetuals on Solana</div>
+    <div class="badges">
+      <span class="badge badge-devnet">Solana Devnet</span>
+      <span class="badge badge-drift">Drift Protocol</span>
+      <span class="badge badge-ai">Claude AI</span>
+    </div>
   </div>
 
   <div class="grid" id="dashboard">
@@ -204,7 +240,11 @@
   <div class="footer">
     <p>Built for the <a href="https://www.moltbook.com/m/usdc">USDC Hackathon</a> on Moltbook</p>
     <p style="margin-top:8px">Proving: AI agents + USDC &gt; humans + USDC</p>
-    <p style="margin-top:8px"><a href="https://github.com/mkantautas/usdc-agentic-trader">GitHub</a></p>
+    <p style="margin-top:8px">
+      <a href="https://github.com/mkantautas/usdc-agentic-trader">GitHub</a>
+      &nbsp;|&nbsp;
+      <a href="https://www.moltbook.com/m/usdc" id="moltbook-link">Hackathon Submission</a>
+    </p>
   </div>
 
   <script>
@@ -239,22 +279,88 @@
         return;
       }
 
-      const agentPct = data.balances.total > 0 ? (data.balances.agent / data.balances.total * 100) : 50;
+      const totalWithDrift = data.balances.total;
+      const driftBal = data.drift?.balance || 0;
+      const agentPct = totalWithDrift > 0 ? (data.balances.agent / totalWithDrift * 100) : 33;
+      const treasuryPct = totalWithDrift > 0 ? (data.balances.treasury / totalWithDrift * 100) : 33;
+      const driftPct = totalWithDrift > 0 ? (driftBal / totalWithDrift * 100) : 0;
       const lastPrice = data.prices.length > 0 ? data.prices[data.prices.length - 1].price : 0;
 
+      // Position card HTML
+      let positionHtml = '';
+      if (data.drift) {
+        const pos = data.drift.position;
+        if (pos) {
+          const isShort = pos.direction === 'SHORT';
+          const pnlColor = pos.unrealizedPnl >= 0 ? 'green' : 'red';
+          positionHtml = `
+            <div class="card position-card">
+              <h3>Drift Perpetual Position</h3>
+              <div class="position-direction">
+                <span class="arrow" style="color:${isShort ? 'var(--red)' : 'var(--green)'}">${isShort ? '↘' : '↗'}</span>
+                <span style="color:${isShort ? 'var(--red)' : 'var(--green)'}">${pos.direction}</span>
+                <span style="font-size:14px;color:var(--dim)">SOL-PERP</span>
+              </div>
+              <div class="stat-row">
+                <span class="label">Size</span>
+                <span>${Math.abs(pos.baseAmount).toFixed(4)} SOL</span>
+              </div>
+              <div class="stat-row">
+                <span class="label">Unrealized PnL</span>
+                <span class="${pnlColor}">$${pos.unrealizedPnl.toFixed(2)}</span>
+              </div>
+              <div class="stat-row">
+                <span class="label">Collateral</span>
+                <span class="purple">${data.drift.balance.toFixed(2)} USDC</span>
+              </div>
+              <div class="stat-row">
+                <span class="label">Free Collateral</span>
+                <span>${data.drift.freeCollateral.toFixed(2)} USDC</span>
+              </div>
+            </div>
+          `;
+        } else {
+          positionHtml = `
+            <div class="card position-card">
+              <h3>Drift Perpetual Position</h3>
+              <div style="color:var(--dim);padding:12px 0">No open position</div>
+              <div class="stat-row">
+                <span class="label">Collateral</span>
+                <span class="purple">${data.drift.balance.toFixed(2)} USDC</span>
+              </div>
+              <div class="stat-row">
+                <span class="label">Free Collateral</span>
+                <span>${data.drift.freeCollateral.toFixed(2)} USDC</span>
+              </div>
+              <div class="stat-row">
+                <span class="label">Account</span>
+                <span>${data.drift.hasAccount ? 'Active' : 'Not initialized'}</span>
+              </div>
+            </div>
+          `;
+        }
+      }
+
+      // Trade list
       let tradesHtml = '';
       if (data.trades && data.trades.length > 0) {
-        const recentTrades = [...data.trades].reverse().slice(0, 20);
+        const recentTrades = [...data.trades].reverse().slice(0, 25);
         tradesHtml = recentTrades.map(t => {
           const time = new Date(t.time).toLocaleTimeString();
           const txLink = t.txSig
-            ? `<a class="trade-tx" href="https://explorer.solana.com/tx/${t.txSig}?cluster=devnet" target="_blank">View TX →</a>`
+            ? `<a class="trade-tx" href="https://explorer.solana.com/tx/${t.txSig}?cluster=devnet" target="_blank">View TX &rarr;</a>`
+            : '';
+          const isDrift = ['OPEN_SHORT','CLOSE_SHORT','OPEN_LONG','CLOSE_LONG','DEPOSIT_TO_DRIFT'].includes(t.action);
+          const driftTag = isDrift ? '<span style="font-size:10px;color:var(--purple);margin-left:4px">[DRIFT]</span>' : '';
+          const posInfo = t.driftPosition
+            ? `<span style="font-size:10px;color:var(--dim);margin-left:8px">${t.driftPosition.direction} ${t.driftPosition.size?.toFixed(3) || '?'} SOL, PnL: $${t.driftPosition.pnl?.toFixed(2) || '?'}</span>`
             : '';
           return `
             <div class="trade-item">
-              <span class="trade-action action-${t.action}">${t.action}</span>
-              <span>${t.amount?.toFixed(2) || 0} USDC</span>
+              <span class="trade-action action-${t.action}">${t.action}</span>${driftTag}
+              <span>${(t.amount || 0).toFixed(2)} USDC</span>
               <span style="color:var(--dim);margin-left:8px">${time}</span>
+              ${posInfo}
               <div style="margin-top:4px;color:var(--dim);font-size:11px">${t.reason || ''}</div>
               ${txLink ? `<div style="margin-top:4px">${txLink}</div>` : ''}
             </div>
@@ -264,22 +370,19 @@
         tradesHtml = '<div class="trade-item" style="color:var(--dim)">No trades yet</div>';
       }
 
-      // Price chart data
-      const priceData = data.prices || [];
-
       document.getElementById('dashboard').innerHTML = `
         <!-- Total Balance -->
         <div class="card">
           <h3>Total USDC Balance</h3>
-          <div class="stat-big green">$${data.balances.total.toFixed(2)}</div>
-          <div class="stat-label">Across agent + treasury wallets</div>
+          <div class="stat-big green">$${totalWithDrift.toFixed(2)}</div>
+          <div class="stat-label">Across all wallets + Drift collateral</div>
         </div>
 
         <!-- SOL Price -->
         <div class="card">
           <h3>SOL Price (Live Feed)</h3>
           <div class="stat-big">$${lastPrice.toFixed(2)}</div>
-          <div class="stat-label">Used for market analysis</div>
+          <div class="stat-label">Used for market analysis &amp; perp trading</div>
         </div>
 
         <!-- Agent Status -->
@@ -301,6 +404,10 @@
             <span class="label">Uptime</span>
             <span>${formatTime(data.stats.uptime)}</span>
           </div>
+          <div class="stat-row">
+            <span class="label">Drift</span>
+            <span class="${data.drift ? 'green' : 'dim'}">${data.drift ? 'Connected' : 'Unavailable'}</span>
+          </div>
         </div>
 
         <!-- Balance Distribution -->
@@ -314,14 +421,26 @@
             <span class="label">Treasury Wallet</span>
             <span class="green">${data.balances.treasury.toFixed(2)} USDC</span>
           </div>
+          ${data.drift ? `
+          <div class="stat-row">
+            <span class="label">Drift Collateral</span>
+            <span class="purple">${driftBal.toFixed(2)} USDC</span>
+          </div>
+          ` : ''}
           <div class="progress-bar">
-            <div class="progress-fill progress-agent" style="width:${agentPct}%;display:inline-block"></div><div class="progress-fill progress-treasury" style="width:${100 - agentPct}%;display:inline-block"></div>
+            <div class="progress-fill progress-agent" style="width:${agentPct}%"></div>
+            <div class="progress-fill progress-treasury" style="width:${treasuryPct}%"></div>
+            ${driftPct > 0 ? `<div class="progress-fill progress-drift" style="width:${driftPct}%"></div>` : ''}
           </div>
           <div style="display:flex;justify-content:space-between;margin-top:6px;font-size:11px;color:var(--dim)">
             <span>Agent ${agentPct.toFixed(0)}%</span>
-            <span>Treasury ${(100 - agentPct).toFixed(0)}%</span>
+            <span>Treasury ${treasuryPct.toFixed(0)}%</span>
+            ${driftPct > 0 ? `<span>Drift ${driftPct.toFixed(0)}%</span>` : ''}
           </div>
         </div>
+
+        <!-- Drift Position -->
+        ${positionHtml}
 
         <!-- Wallets -->
         <div class="card">
@@ -357,30 +476,33 @@
           <h3>How It Works</h3>
           <div style="font-size:13px;line-height:1.8;color:var(--dim)">
             <pre style="overflow-x:auto;font-size:12px;color:var(--text)">
-┌─────────────┐    ┌──────────────┐    ┌──────────────┐    ┌──────────────┐
-│  Market Data │───→│  AI Analysis │───→│   Decision   │───→│ USDC Transfer│
-│  (CoinGecko) │    │   (Claude)   │    │   Engine     │    │  (Solana TX) │
-└─────────────┘    └──────────────┘    └──────────────┘    └──────────────┘
-                                                                    │
-                          ┌─────────────────────────────────────────┘
-                          ▼
-                   ┌──────────────┐    ┌──────────────┐
-                   │  Agent Wallet│◄──►│   Treasury   │
-                   │   (Active)   │    │   (Reserve)  │
-                   └──────────────┘    └──────────────┘
+┌─────────────┐    ┌──────────────┐    ┌──────────────┐    ┌──────────────────┐
+│  Market Data │───>│  AI Analysis │───>│   Decision   │───>│  Execute Trade   │
+│  (CoinGecko) │    │   (Claude)   │    │   Engine     │    │                  │
+└─────────────┘    └──────────────┘    └──────────────┘    │  USDC Transfers  │
+                                                            │  Drift SHORT/LONG│
+                                                            └────────┬─────────┘
+                          ┌──────────────────────────────────────────┘
+                          v
+                   ┌──────────────┐    ┌──────────────┐    ┌──────────────┐
+                   │  Agent Wallet│<──>│   Treasury   │    │  Drift Perps │
+                   │   (Active)   │    │   (Reserve)  │    │  (SHORT/LONG)│
+                   └──────────────┘    └──────────────┘    └──────────────┘
             </pre>
             <p style="margin-top:12px">
-              The agent autonomously manages USDC between two wallets based on market conditions.
-              It uses real market data from CoinGecko, AI analysis via Claude, and executes
-              real USDC transfers on Solana devnet. Every decision is logged with reasoning.
+              The agent autonomously manages USDC across three venues: a hot wallet, a treasury reserve,
+              and Drift Protocol perpetual futures. It analyzes real market data via CoinGecko, makes
+              AI-powered decisions with Claude, and executes real transactions on Solana devnet.
+              When bearish, it can <strong>SHORT SOL</strong> via Drift to profit from price declines.
+              When bullish, it can <strong>LONG SOL</strong> to amplify gains with leverage.
             </p>
           </div>
         </div>
       `;
 
       // Draw price chart
-      if (priceData.length > 1) {
-        drawPriceChart(priceData);
+      if (data.prices && data.prices.length > 1) {
+        drawPriceChart(data.prices);
       }
     }
 
