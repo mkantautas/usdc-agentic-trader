@@ -2,7 +2,7 @@
 
 **An autonomous AI agent that manages a USDC portfolio on Solana devnet — with perpetual futures shorting/longing via Drift Protocol.**
 
-Built for the [USDC Hackathon](https://www.moltbook.com/m/usdc) on Moltbook — **Track: AgenticCommerce**
+Built for the [USDC Hackathon](https://www.moltbook.com/post/f69013a9-8df1-4205-8398-3487c93b3b82) on Moltbook — **Track: AgenticCommerce**
 
 > Proving: AI agents + USDC > humans + USDC
 
