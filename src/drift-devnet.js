@@ -20,13 +20,16 @@ const {
   getMarketOrderParams,
   initialize,
   BN,
+  TokenFaucet,
 } = require(path.join(ROOT_MODULES, '@drift-labs', 'sdk'));
+const { getAssociatedTokenAddress } = require(path.join(ROOT_MODULES, '@solana', 'spl-token'));
 const bs58 = require('bs58').default;
 
 // Config
 const DEVNET_RPC = process.env.SOLANA_RPC || 'https://api.devnet.solana.com';
 const SOL_MARKET_INDEX = 0; // SOL-PERP
 const MAX_LEVERAGE = 5;     // Conservative for hackathon demo
+const TOKEN_FAUCET_PROGRAM_ID = 'V4v1mQiAdLz4qwckEb45WqHYceYizoib39cDBHSWfaB';
 
 let driftClient = null;
 let isInitialized = false;
@@ -81,7 +84,7 @@ async function getAccountInfo() {
     const user = client.getUser();
 
     const usdcBalance = convertToNumber(
-      user.getSpotMarketBalance(0),
+      user.getTokenAmount(0),
       QUOTE_PRECISION
     );
     const freeCollateral = convertToNumber(
@@ -132,8 +135,43 @@ async function initializeUserAccount() {
   return txSig;
 }
 
+async function ensureDriftUSDC(minAmount = 50) {
+  // Ensure we have Drift's devnet USDC (different from Circle USDC)
+  const sdkConfig = initialize({ env: 'devnet' });
+  const usdcMint = new PublicKey(sdkConfig.USDC_MINT_ADDRESS);
+  const keypair = getKeypair();
+  const connection = new Connection(DEVNET_RPC, 'confirmed');
+  const wallet = new Wallet(keypair);
+
+  const ata = await getAssociatedTokenAddress(usdcMint, keypair.publicKey);
+  const ataInfo = await connection.getAccountInfo(ata);
+
+  let currentBalance = 0;
+  if (ataInfo) {
+    const { AccountLayout } = require(path.join(ROOT_MODULES, '@solana', 'spl-token'));
+    const data = AccountLayout.decode(ataInfo.data);
+    currentBalance = Number(data.amount) / 1e6;
+  }
+
+  if (currentBalance < minAmount) {
+    console.log(`[Drift] Drift USDC balance: ${currentBalance}. Minting ${minAmount} more via faucet...`);
+    const faucetProgramId = new PublicKey(TOKEN_FAUCET_PROGRAM_ID);
+    const faucet = new TokenFaucet(connection, wallet, faucetProgramId, usdcMint);
+    const mintAmount = new BN(minAmount * 1e6);
+    await faucet.createAssociatedTokenAccountAndMintTo(wallet.publicKey, mintAmount);
+    console.log(`[Drift] Minted ${minAmount} Drift USDC`);
+  } else {
+    console.log(`[Drift] Drift USDC balance: ${currentBalance} (sufficient)`);
+  }
+
+  return ata;
+}
+
 async function depositUSDC(amount) {
   const client = await initializeDrift();
+
+  // Ensure we have Drift's USDC (mint from faucet if needed)
+  await ensureDriftUSDC(amount * 2);
 
   // Check if user exists
   try {
@@ -147,8 +185,12 @@ async function depositUSDC(amount) {
   }
 
   const marketIndex = 0; // USDC
+  const sdkConfig = initialize({ env: 'devnet' });
+  const usdcMint = new PublicKey(sdkConfig.USDC_MINT_ADDRESS);
+  const keypair = getKeypair();
+  const associatedTokenAccount = await getAssociatedTokenAddress(usdcMint, keypair.publicKey);
+
   const spotPrecision = client.convertToSpotPrecision(marketIndex, amount);
-  const associatedTokenAccount = await client.getAssociatedTokenAccount(marketIndex);
 
   console.log(`[Drift] Depositing $${amount} USDC as collateral...`);
   const txSig = await client.deposit(
