@@ -1,35 +1,21 @@
 {
-  "lastUpdated": "2026-02-07T20:59:14.759Z",
+  "lastUpdated": "2026-02-07T21:34:49.385Z",
   "wallet": "BGYMcHT1XkWP2a9b6YNAjw5cBKYPoJh3R1ujao7i3Mgq",
   "treasury": "GYqf6NVVhJqhv6ywyYy9d1cptjjSkiD8tWTdF5xswrZU",
   "balances": {
     "agent": 10,
     "treasury": 10,
-    "total": 36.860045
+    "total": 36.858897
   },
   "performance": {
     "initialBalance": 37.499999,
-    "currentBalance": 36.860045,
-    "totalPnL": -0.639954000000003,
-    "totalPnLPercent": -1.706544045507849,
+    "currentBalance": 36.858897,
+    "totalPnL": -0.6411020000000036,
+    "totalPnLPercent": -1.7096053789228196,
     "realizedPnL": -49.415095,
-    "unrealizedPnL": -0.639955
+    "unrealizedPnL": -0.641103
   },
   "balanceHistory": [
-    {
-      "time": 1770482837324,
-      "total": 36.955964,
-      "agent": 10,
-      "treasury": 10,
-      "drift": 16.955964
-    },
-    {
-      "time": 1770482869807,
-      "total": 36.954467,
-      "agent": 10,
-      "treasury": 10,
-      "drift": 16.954467
-    },
     {
       "time": 1770482902417,
       "total": 36.949967,
@@ -1415,35 +1401,41 @@
       "agent": 10,
       "treasury": 10,
       "drift": 16.861666
+    },
+    {
+      "time": 1770500053589,
+      "total": 36.858624,
+      "agent": 10,
+      "treasury": 10,
+      "drift": 16.858624
+    },
+    {
+      "time": 1770500087261,
+      "total": 36.858897,
+      "agent": 10,
+      "treasury": 10,
+      "drift": 16.858897
     }
   ],
   "drift": {
     "balance": 17.5,
-    "freeCollateral": 16.635688000000002,
+    "freeCollateral": 16.634735,
     "position": {
       "baseAmount": -0.05,
-      "quoteAmount": 3.800116,
+      "quoteAmount": 3.800246,
       "direction": "SHORT",
-      "unrealizedPnl": -0.639955
+      "unrealizedPnl": -0.641103
     },
     "hasAccount": true
   },
   "stats": {
-    "totalCycles": 3602,
+    "totalCycles": 3604,
     "totalTransactions": 300,
     "totalVolumeUSDC": 693.8664480000002,
-    "uptime": 126412419,
-    "avgCycleTime": 35095.063575791224
+    "uptime": 128547043,
+    "avgCycleTime": 35667.88096559379
   },
   "prices": [
-    {
-      "time": 1770496145324,
-      "price": 88.27
-    },
-    {
-      "time": 1770496177883,
-      "price": 88.27
-    },
     {
       "time": 1770496210656,
       "price": 88.28
@@ -1635,45 +1627,17 @@
     {
       "time": 1770497933168,
       "price": 88.83
+    },
+    {
+      "time": 1770498005010,
+      "price": 88.8
+    },
+    {
+      "time": 1770500087196,
+      "price": 88.76
     }
   ],
   "trades": [
-    {
-      "time": 1770496147688,
-      "cycle": 3553,
-      "action": "HOLD",
-      "amount": 0,
-      "txSig": null,
-      "confidence": 45,
-      "reason": "Extremely tight trading range for SOL with no clear directional signal. Minimal market volatility between $88.11-$88.27. Existing short position shows minimal loss. Insufficient market signals to justify a new trade.",
-      "market_outlook": "neutral",
-      "solPrice": 88.27,
-      "agentBalance": 10,
-      "treasuryBalance": 10,
-      "driftPosition": {
-        "direction": "SHORT",
-        "size": 0.05,
-        "pnl": -0.62279
-      }
-    },
-    {
-      "time": 1770496180449,
-      "cycle": 3554,
-      "action": "HOLD",
-      "amount": 0,
-      "txSig": null,
-      "confidence": 35,
-      "reason": "Extremely range-bound market with SOL trading tightly between $88.11-$88.27. No clear directional signal. Current short position shows minimal loss. Insufficient market volatility to justify a new trade. Waiting for more definitive market movement.",
-      "market_outlook": "neutral",
-      "solPrice": 88.27,
-      "agentBalance": 10,
-      "treasuryBalance": 10,
-      "driftPosition": {
-        "direction": "SHORT",
-        "size": 0.05,
-        "pnl": -0.623652
-      }
-    },
     {
       "time": 1770496213034,
       "cycle": 3555,
@@ -2536,6 +2500,42 @@
         "direction": "SHORT",
         "size": 0.05,
         "pnl": -0.638334
+      }
+    },
+    {
+      "time": 1770500056969,
+      "cycle": 3603,
+      "action": "HOLD",
+      "amount": 0,
+      "txSig": null,
+      "confidence": 50,
+      "reason": "Extremely tight trading range with minimal volatility. No clear market signals to justify a new trade or position adjustment. Existing short position shows minimal unrealized loss. Waiting for more definitive market movement.",
+      "market_outlook": "neutral",
+      "solPrice": 88.8,
+      "agentBalance": 10,
+      "treasuryBalance": 10,
+      "driftPosition": {
+        "direction": "SHORT",
+        "size": 0.05,
+        "pnl": -0.641376
+      }
+    },
+    {
+      "time": 1770500089359,
+      "cycle": 3604,
+      "action": "HOLD",
+      "amount": 0,
+      "txSig": null,
+      "confidence": 35,
+      "reason": "Extremely tight trading range with minimal volatility. No clear directional signal. Current short position shows minimal unrealized loss. Insufficient market momentum to justify new trade.",
+      "market_outlook": "neutral",
+      "solPrice": 88.76,
+      "agentBalance": 10,
+      "treasuryBalance": 10,
+      "driftPosition": {
+        "direction": "SHORT",
+        "size": 0.05,
+        "pnl": -0.641103
       }
     }
   ],
