@@ -28,6 +28,11 @@ const {
 const bs58 = require('bs58').default;
 const fs = require('fs');
 const path = require('path');
+
+// Format time in 24h Lithuania timezone (EET/EEST)
+function formatLT(date = new Date()) {
+  return date.toLocaleTimeString('lt-LT', { timeZone: 'Europe/Vilnius', hour12: false });
+}
 require('dotenv').config({ path: path.join(__dirname, '..', '.env'), override: true });
 
 // ─── Configuration ───────────────────────────────────────────────────────────
@@ -49,7 +54,7 @@ const DEFAULT_LEVERAGE = 2;
 // Anti-churn parameters
 const MIN_POSITION_HOLD_MS = 10 * 60 * 1000;   // Must hold a position for at least 10 minutes
 const TRADE_COOLDOWN_MS = 5 * 60 * 1000;        // 5 min cooldown after closing before opening new
-const SPREAD_TOLERANCE_USD = 0.75;               // Don't close if loss < $0.75 (that's just the spread)
+const SPREAD_TOLERANCE_PCT = 0.03;                 // Don't close if loss < 3% of position size (that's just the spread)
 
 // Paths
 const LOG_DIR = path.join(__dirname, '..', 'logs');
@@ -85,18 +90,32 @@ async function getDrift() {
 
 // ─── Market Data ─────────────────────────────────────────────────────────────
 
+let lastGoodPrice = null;
+
 async function getSOLPrice() {
   try {
     const res = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=solana&vs_currencies=usd&include_24hr_change=true');
     const data = await res.json();
-    return {
-      price: data.solana.usd,
-      change24h: data.solana.usd_24h_change
-    };
+    const price = data.solana.usd;
+    const change24h = data.solana.usd_24h_change;
+
+    // Sanity check: reject prices that jump more than 30% from last known good price
+    if (lastGoodPrice && Math.abs(price - lastGoodPrice) / lastGoodPrice > 0.30) {
+      console.log(`⚠️ Price sanity check failed: got $${price}, last good was $${lastGoodPrice}. Using last good price.`);
+      return { price: lastGoodPrice, change24h: change24h || 0 };
+    }
+
+    lastGoodPrice = price;
+    return { price, change24h };
   } catch {
-    const basePrice = 200;
-    const variance = (Math.random() - 0.5) * 20;
-    return { price: basePrice + variance, change24h: variance / basePrice * 100 };
+    // Use last known good price instead of random values
+    if (lastGoodPrice) {
+      console.log(`⚠️ CoinGecko fetch failed, using last known price: $${lastGoodPrice}`);
+      return { price: lastGoodPrice, change24h: 0 };
+    }
+    // Only if we've NEVER had a good price (first cycle + API down), use a safe fallback
+    console.log('⚠️ CoinGecko fetch failed and no price history. Using $0 to skip trading.');
+    return { price: 0, change24h: 0 };
   }
 }
 
@@ -250,11 +269,11 @@ Market Data:
 - BTC Dominance: ${context.btcDominance.toFixed(1)}%
 
 Recent Price History (last ${context.priceHistory.length} readings):
-${context.priceHistory.map(p => `  $${p.price.toFixed(2)} @ ${new Date(p.time).toLocaleTimeString()}`).join('\n')}
+${context.priceHistory.map(p => `  $${p.price.toFixed(2)} @ ${formatLT(new Date(p.time))}`).join('\n')}
 
 Recent Trades:
 ${context.recentTrades.length > 0 ? context.recentTrades.map(t =>
-  `  ${t.action} ${(t.amount || 0).toFixed(2)} USDC | ${t.reason} @ ${new Date(t.time).toLocaleTimeString()}`
+  `  ${t.action} ${(t.amount || 0).toFixed(2)} USDC | ${t.reason} @ ${formatLT(new Date(t.time))}`
 ).join('\n') : '  No trades yet'}
 
 Trading Cycle: ${context.cycle}/${MAX_CYCLES}
@@ -349,22 +368,24 @@ function makeRuleBasedDecision(context) {
           market_outlook: 'bullish'
         };
       }
-      // Take profit only if PnL > $1.50 (well above spread) and position held long enough
-      if (driftPosition.unrealizedPnl > 1.50) {
+      // Take profit at 8% of collateral (scales with portfolio)
+      const takeProfitUsd = (freeCollateral || 10) * 0.08;
+      if (driftPosition.unrealizedPnl > takeProfitUsd) {
         const closeAction = driftPosition.direction === 'LONG' ? 'CLOSE_LONG' : 'CLOSE_SHORT';
         return {
           action: closeAction, amount: 0, size_usd: 0, leverage: 2, confidence: 70,
-          reason: `Taking profit: $${driftPosition.unrealizedPnl.toFixed(2)} PnL (above $1.50 threshold)`,
+          reason: `Taking profit: $${driftPosition.unrealizedPnl.toFixed(2)} PnL (above ${(takeProfitUsd).toFixed(2)} = 8% of collateral)`,
           market_outlook: 'neutral'
         };
       }
 
-      // Cut losses only if PnL is significantly negative (beyond spread) AND trend clearly against us
-      if (driftPosition.unrealizedPnl < -2.00) {
+      // Cut losses at 10% of collateral (scales with portfolio)
+      const stopLossUsd = (freeCollateral || 10) * 0.10;
+      if (driftPosition.unrealizedPnl < -stopLossUsd) {
         const closeAction = driftPosition.direction === 'LONG' ? 'CLOSE_LONG' : 'CLOSE_SHORT';
         return {
           action: closeAction, amount: 0, size_usd: 0, leverage: 2, confidence: 65,
-          reason: `Cutting loss: $${driftPosition.unrealizedPnl.toFixed(2)} PnL exceeds -$2.00 stop-loss`,
+          reason: `Cutting loss: $${driftPosition.unrealizedPnl.toFixed(2)} PnL exceeds -$${stopLossUsd.toFixed(2)} stop-loss (10% of collateral)`,
           market_outlook: driftPosition.direction === 'LONG' ? 'bearish' : 'bullish'
         };
       }
@@ -545,11 +566,13 @@ async function executeTrade(decision, agentBalance, treasuryBalance, driftInfo, 
       }
     }
 
-    // Guard 2: Don't close if loss is just the spread
+    // Guard 2: Don't close if loss is just the spread (percentage-based)
     if (driftInfo?.position) {
       const pnl = driftInfo.position.unrealizedPnl;
-      if (pnl < 0 && Math.abs(pnl) <= SPREAD_TOLERANCE_USD) {
-        console.log(`  [Anti-churn] PnL $${pnl.toFixed(2)} is within spread tolerance ($${SPREAD_TOLERANCE_USD}). Holding.`);
+      const positionValue = driftInfo.collateral || driftInfo.position.sizeUsd || 10;
+      const spreadToleranceUsd = positionValue * SPREAD_TOLERANCE_PCT;
+      if (pnl < 0 && Math.abs(pnl) <= spreadToleranceUsd) {
+        console.log(`  [Anti-churn] PnL $${pnl.toFixed(2)} is within spread tolerance (${(SPREAD_TOLERANCE_PCT * 100).toFixed(1)}% of $${positionValue.toFixed(2)} = $${spreadToleranceUsd.toFixed(2)}). Holding.`);
         return { txSig: null, action: 'HOLD', amount: 0 };
       }
     }
@@ -725,7 +748,7 @@ async function tradingCycle(state) {
   const cycleStart = Date.now();
 
   console.log(`\n${'='.repeat(60)}`);
-  console.log(`  Cycle ${state.cycle}/${MAX_CYCLES} | ${new Date().toLocaleTimeString()}`);
+  console.log(`  Cycle ${state.cycle}/${MAX_CYCLES} | ${formatLT()}`);
   console.log(`${'='.repeat(60)}`);
 
   // 1. Gather market data + Drift info

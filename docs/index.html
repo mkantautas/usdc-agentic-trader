@@ -355,7 +355,7 @@
       if (data.trades && data.trades.length > 0) {
         const recentTrades = [...data.trades].reverse().slice(0, 25);
         tradesHtml = recentTrades.map(t => {
-          const time = new Date(t.time).toLocaleTimeString();
+          const time = new Date(t.time).toLocaleTimeString('lt-LT', { timeZone: 'Europe/Vilnius', hour12: false });
           const txLink = t.txSig
             ? `<a class="trade-tx" href="https://explorer.solana.com/tx/${t.txSig}?cluster=devnet" target="_blank">View TX &rarr;</a>`
             : '';

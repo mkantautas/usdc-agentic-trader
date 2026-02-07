@@ -49,7 +49,7 @@ function main() {
     console.log('');
     console.log('Recent Trades:');
     data.trades.slice(-5).forEach(t => {
-      const time = new Date(t.time).toLocaleTimeString();
+      const time = new Date(t.time).toLocaleTimeString('lt-LT', { timeZone: 'Europe/Vilnius', hour12: false });
       console.log(`  [${time}] ${t.action} ${t.amount?.toFixed(2) || 0} USDC | ${t.reason || ''}`);
       if (t.txSig) console.log(`    TX: https://explorer.solana.com/tx/${t.txSig}?cluster=devnet`);
     });
