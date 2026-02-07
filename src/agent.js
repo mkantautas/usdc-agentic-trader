@@ -35,7 +35,7 @@ require('dotenv').config({ path: path.join(__dirname, '..', '.env'), override: t
 const DEVNET_RPC = process.env.SOLANA_RPC || 'https://api.devnet.solana.com';
 const USDC_DEVNET_MINT = new PublicKey('4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU');
 const CLAUDE_API = process.env.CLAUDE_API_URL || 'http://localhost:8317/v1/chat/completions';
-const CLAUDE_MODEL = 'claude-sonnet-4-20250514';
+const CLAUDE_MODEL = 'claude-3-5-haiku-20241022';
 
 // Trading parameters
 const TRADE_INTERVAL_MS = 30_000;
@@ -45,6 +45,11 @@ const MAX_USDC_TRADE_PCT = 0.25;
 const MIN_PERP_SIZE_USD = 1;       // Min $1 for perp positions
 const MAX_PERP_SIZE_USD = 10;      // Max $10 per perp trade (conservative for devnet)
 const DEFAULT_LEVERAGE = 2;
+
+// Anti-churn parameters
+const MIN_POSITION_HOLD_MS = 10 * 60 * 1000;   // Must hold a position for at least 10 minutes
+const TRADE_COOLDOWN_MS = 5 * 60 * 1000;        // 5 min cooldown after closing before opening new
+const SPREAD_TOLERANCE_USD = 0.75;               // Don't close if loss < $0.75 (that's just the spread)
 
 // Paths
 const LOG_DIR = path.join(__dirname, '..', 'logs');
@@ -209,12 +214,16 @@ async function transferUSDC(from, toPubkey, amountUSDC) {
 // ─── AI Decision Engine ──────────────────────────────────────────────────────
 
 async function askClaude(context) {
+  const positionHoldTime = context.positionOpenTime ? ((Date.now() - context.positionOpenTime) / 60000).toFixed(1) : null;
+  const cooldownRemaining = context.lastCloseTime ? Math.max(0, (TRADE_COOLDOWN_MS - (Date.now() - context.lastCloseTime)) / 60000).toFixed(1) : null;
+
   const driftSection = context.driftAvailable ? `
 Drift Protocol (Perpetual Futures):
 - Drift Account: ${context.driftHasAccount ? 'Active' : 'Not initialized'}
 - Drift USDC Balance: ${context.driftBalance.toFixed(2)} USDC (collateral)
 - Free Collateral: ${context.freeCollateral.toFixed(2)} USDC
-- Current Position: ${context.driftPosition ? `${context.driftPosition.direction} ${Math.abs(context.driftPosition.baseAmount).toFixed(4)} SOL (PnL: $${context.driftPosition.unrealizedPnl.toFixed(2)})` : 'None'}
+- Current Position: ${context.driftPosition ? `${context.driftPosition.direction} ${Math.abs(context.driftPosition.baseAmount).toFixed(4)} SOL (PnL: $${context.driftPosition.unrealizedPnl.toFixed(2)}, held for ${positionHoldTime || '?'}min)` : 'None'}
+${cooldownRemaining && cooldownRemaining > 0 ? `- COOLDOWN ACTIVE: ${cooldownRemaining}min remaining — do NOT open new positions yet` : ''}
 ` : '';
 
   const driftActions = context.driftAvailable ? `
@@ -258,9 +267,15 @@ USDC Treasury Management:
 - REBALANCE: Move USDC to equalize agent/treasury (neutral - reduce risk)
 - HOLD: Do nothing (wait for better opportunity)
 ${driftActions}
-IMPORTANT: If market is bearish, OPEN_SHORT is very powerful - you profit from the decline.
-If market is bullish, OPEN_LONG amplifies gains. Use leverage wisely (2x recommended).
-If you already have an open position in the WRONG direction, close it first.
+IMPORTANT TRADING RULES:
+- If market is bearish, OPEN_SHORT profits from the decline. If bullish, OPEN_LONG amplifies gains.
+- Use leverage wisely (2x recommended).
+- If you have a position in the WRONG direction, close it first.
+- CRITICAL: When you open a position, it will immediately show -$0.50 to -$0.70 PnL. THIS IS THE BID-ASK SPREAD, NOT A REAL LOSS. Do NOT close a position just because it shows a small negative PnL right after opening. Wait for the trade to play out.
+- MINIMUM HOLD TIME: You must hold positions for at least 10 minutes before closing. Short-term noise is meaningless.
+- COOLDOWN: After closing a position, wait at least 5 minutes before opening a new one. Don't churn.
+- Only close a position if: (1) PnL is significantly negative AND the trend has clearly reversed, OR (2) PnL is positive and you want to take profit, OR (3) the position has been open for a reasonable time and the thesis is wrong.
+- A loss of $0.50-$0.75 on a freshly opened position is JUST THE SPREAD. Ignore it.
 
 Respond ONLY with this JSON (no other text):
 {
@@ -334,13 +349,23 @@ function makeRuleBasedDecision(context) {
           market_outlook: 'bullish'
         };
       }
-      // Take profit if PnL > 10%
-      if (driftPosition.unrealizedPnl > 0 && Math.abs(driftPosition.unrealizedPnl) > 0.5) {
+      // Take profit only if PnL > $1.50 (well above spread) and position held long enough
+      if (driftPosition.unrealizedPnl > 1.50) {
         const closeAction = driftPosition.direction === 'LONG' ? 'CLOSE_LONG' : 'CLOSE_SHORT';
         return {
           action: closeAction, amount: 0, size_usd: 0, leverage: 2, confidence: 70,
-          reason: `Taking profit: $${driftPosition.unrealizedPnl.toFixed(2)} PnL`,
+          reason: `Taking profit: $${driftPosition.unrealizedPnl.toFixed(2)} PnL (above $1.50 threshold)`,
           market_outlook: 'neutral'
+        };
+      }
+
+      // Cut losses only if PnL is significantly negative (beyond spread) AND trend clearly against us
+      if (driftPosition.unrealizedPnl < -2.00) {
+        const closeAction = driftPosition.direction === 'LONG' ? 'CLOSE_LONG' : 'CLOSE_SHORT';
+        return {
+          action: closeAction, amount: 0, size_usd: 0, leverage: 2, confidence: 65,
+          reason: `Cutting loss: $${driftPosition.unrealizedPnl.toFixed(2)} PnL exceeds -$2.00 stop-loss`,
+          market_outlook: driftPosition.direction === 'LONG' ? 'bearish' : 'bullish'
         };
       }
     }
@@ -438,6 +463,8 @@ function loadState() {
     initialBalance: null,        // Set on first cycle
     balanceHistory: [],          // Track total balance over time
     realizedPnL: 0,             // Accumulated realized P&L from Drift trades
+    lastPositionOpenTime: null,  // When the current position was opened
+    lastPositionCloseTime: null, // When the last position was closed (for cooldown)
   };
 }
 
@@ -498,12 +525,57 @@ function saveDashboardData(state, agentBalance, treasuryBalance, driftInfo) {
 
 // ─── Trade Execution ─────────────────────────────────────────────────────────
 
-async function executeTrade(decision, agentBalance, treasuryBalance, driftInfo) {
+async function executeTrade(decision, agentBalance, treasuryBalance, driftInfo, state) {
   let txSig = null;
   let executedAction = decision.action;
   let executedAmount = decision.amount || 0;
 
   const action = decision.action;
+  const now = Date.now();
+
+  // ── Anti-churn guards for Drift trades ──
+  if (['CLOSE_SHORT', 'CLOSE_LONG'].includes(action)) {
+    // Guard 1: Minimum hold time
+    if (state.lastPositionOpenTime) {
+      const holdDuration = now - state.lastPositionOpenTime;
+      if (holdDuration < MIN_POSITION_HOLD_MS) {
+        const remainMin = ((MIN_POSITION_HOLD_MS - holdDuration) / 60000).toFixed(1);
+        console.log(`  [Anti-churn] Position held for ${(holdDuration / 60000).toFixed(1)}min — need ${remainMin}min more before closing`);
+        return { txSig: null, action: 'HOLD', amount: 0 };
+      }
+    }
+
+    // Guard 2: Don't close if loss is just the spread
+    if (driftInfo?.position) {
+      const pnl = driftInfo.position.unrealizedPnl;
+      if (pnl < 0 && Math.abs(pnl) <= SPREAD_TOLERANCE_USD) {
+        console.log(`  [Anti-churn] PnL $${pnl.toFixed(2)} is within spread tolerance ($${SPREAD_TOLERANCE_USD}). Holding.`);
+        return { txSig: null, action: 'HOLD', amount: 0 };
+      }
+    }
+  }
+
+  if (['OPEN_SHORT', 'OPEN_LONG'].includes(action)) {
+    // Guard 3: Cooldown after closing
+    if (state.lastPositionCloseTime) {
+      const timeSinceClose = now - state.lastPositionCloseTime;
+      if (timeSinceClose < TRADE_COOLDOWN_MS) {
+        const remainMin = ((TRADE_COOLDOWN_MS - timeSinceClose) / 60000).toFixed(1);
+        console.log(`  [Anti-churn] Cooldown: ${remainMin}min remaining before opening new position`);
+        return { txSig: null, action: 'HOLD', amount: 0 };
+      }
+    }
+
+    // Guard 4: Don't stack positions — if we already have a position in the same direction, HOLD
+    if (driftInfo?.position) {
+      const existingDir = driftInfo.position.direction;
+      const requestedDir = action === 'OPEN_LONG' ? 'LONG' : 'SHORT';
+      if (existingDir === requestedDir) {
+        console.log(`  [Anti-churn] Already have a ${existingDir} position. Not stacking.`);
+        return { txSig: null, action: 'HOLD', amount: 0 };
+      }
+    }
+  }
 
   // ── Drift Perpetual Actions ──
   if (['OPEN_SHORT', 'OPEN_LONG', 'CLOSE_SHORT', 'CLOSE_LONG', 'DEPOSIT_TO_DRIFT'].includes(action)) {
@@ -716,6 +788,8 @@ async function tradingCycle(state) {
     driftPosition: driftInfo.position,
     driftBalance: driftInfo.driftBalance || 0,
     freeCollateral: driftInfo.freeCollateral || 0,
+    positionOpenTime: state.lastPositionOpenTime,
+    lastCloseTime: state.lastPositionCloseTime,
   };
 
   // 4. Get AI decision
@@ -729,8 +803,8 @@ async function tradingCycle(state) {
   console.log(`  Confidence: ${decision.confidence}%`);
   console.log(`  Reason:   ${decision.reason}`);
 
-  // 5. Execute trade
-  const result = await executeTrade(decision, agentBalance, treasuryBalance, driftInfo);
+  // 5. Execute trade (pass state for anti-churn guards)
+  const result = await executeTrade(decision, agentBalance, treasuryBalance, driftInfo, state);
 
   // 6. Record trade
   const trade = {
@@ -758,6 +832,17 @@ async function tradingCycle(state) {
   if (result.txSig) {
     state.totalTransactions++;
     state.totalVolumeUSDC += result.amount;
+  }
+
+  // Track position open/close times for anti-churn
+  if (['OPEN_SHORT', 'OPEN_LONG'].includes(result.action) && result.txSig) {
+    state.lastPositionOpenTime = Date.now();
+    console.log(`  Position opened — hold timer started (min ${MIN_POSITION_HOLD_MS / 60000}min)`);
+  }
+  if (['CLOSE_SHORT', 'CLOSE_LONG'].includes(result.action) && result.txSig) {
+    state.lastPositionCloseTime = Date.now();
+    state.lastPositionOpenTime = null;
+    console.log(`  Position closed — cooldown started (${TRADE_COOLDOWN_MS / 60000}min before next open)`);
   }
 
   // Track realized P&L from Drift position closes
