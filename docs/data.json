@@ -1,28 +1,21 @@
 {
-  "lastUpdated": "2026-02-07T16:34:22.456Z",
+  "lastUpdated": "2026-02-07T16:39:42.034Z",
   "wallet": "BGYMcHT1XkWP2a9b6YNAjw5cBKYPoJh3R1ujao7i3Mgq",
   "treasury": "GYqf6NVVhJqhv6ywyYy9d1cptjjSkiD8tWTdF5xswrZU",
   "balances": {
     "agent": 10,
     "treasury": 10,
-    "total": 36.95746
+    "total": 36.944391
   },
   "performance": {
     "initialBalance": 37.499999,
-    "currentBalance": 36.95746,
-    "totalPnL": -0.542539000000005,
-    "totalPnLPercent": -1.446770705247232,
+    "currentBalance": 36.944391,
+    "totalPnL": -0.5556079999999994,
+    "totalPnLPercent": -1.481621372843235,
     "realizedPnL": -49.415095,
-    "unrealizedPnL": -0.54254
+    "unrealizedPnL": -0.555609
   },
   "balanceHistory": [
-    {
-      "time": 1770475473646,
-      "total": 36.823161,
-      "agent": 18.42,
-      "treasury": 1.58,
-      "drift": 16.823161
-    },
     {
       "time": 1770475505880,
       "total": 36.83894,
@@ -1415,31 +1408,34 @@
       "agent": 10,
       "treasury": 10,
       "drift": 16.956223
+    },
+    {
+      "time": 1770482379497,
+      "total": 36.954809,
+      "agent": 10,
+      "treasury": 10,
+      "drift": 16.954809
     }
   ],
   "drift": {
     "balance": 17.5,
-    "freeCollateral": 16.736782,
+    "freeCollateral": 16.722914,
     "position": {
       "baseAmount": -0.05,
       "quoteAmount": 3.7995989999999997,
       "direction": "SHORT",
-      "unrealizedPnl": -0.54254
+      "unrealizedPnl": -0.555609
     },
     "hasAccount": true
   },
   "stats": {
-    "totalCycles": 3385,
+    "totalCycles": 3386,
     "totalTransactions": 300,
     "totalVolumeUSDC": 693.8664480000002,
-    "uptime": 110520114,
-    "avgCycleTime": 32649.959822747416
+    "uptime": 110839692,
+    "avgCycleTime": 32734.6993502658
   },
   "prices": [
-    {
-      "time": 1770480347897,
-      "price": 86.45
-    },
     {
       "time": 1770480380323,
       "price": 86.46
@@ -1635,27 +1631,13 @@
     {
       "time": 1770482059553,
       "price": 86.92
+    },
+    {
+      "time": 1770482379408,
+      "price": 86.85
     }
   ],
   "trades": [
-    {
-      "time": 1770480350129,
-      "cycle": 3336,
-      "action": "HOLD",
-      "amount": 0,
-      "txSig": null,
-      "confidence": 35,
-      "reason": "SOL price is extremely range-bound with minimal volatility between $86.30-$86.45. Insufficient clear market signals to take new action. Continuing to observe existing small short position and waiting for more definitive trend indication.",
-      "market_outlook": "neutral",
-      "solPrice": 86.45,
-      "agentBalance": 10,
-      "treasuryBalance": 10,
-      "driftPosition": {
-        "direction": "SHORT",
-        "size": 0.02,
-        "pnl": -0.586268
-      }
-    },
     {
       "time": 1770480382939,
       "cycle": 3337,
@@ -2496,6 +2478,24 @@
         "direction": "SHORT",
         "size": 0.05,
         "pnl": -0.543777
+      }
+    },
+    {
+      "time": 1770482382003,
+      "cycle": 3386,
+      "action": "HOLD",
+      "amount": 0,
+      "txSig": null,
+      "confidence": 45,
+      "reason": "SOL price range-bound, insufficient market signals. Current short position only 23.4 minutes old. BTC dominance suggests market uncertainty. Waiting for clearer trend before making a move.",
+      "market_outlook": "neutral",
+      "solPrice": 86.85,
+      "agentBalance": 10,
+      "treasuryBalance": 10,
+      "driftPosition": {
+        "direction": "SHORT",
+        "size": 0.05,
+        "pnl": -0.545191
       }
     }
   ],
