@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-02-08T09:23:53.232Z",
+  "lastUpdated": "2026-02-08T09:28:00.220Z",
   "wallet": "BGYMcHT1XkWP2a9b6YNAjw5cBKYPoJh3R1ujao7i3Mgq",
   "treasury": "GYqf6NVVhJqhv6ywyYy9d1cptjjSkiD8tWTdF5xswrZU",
   "balances": {
@@ -16,20 +16,6 @@
     "unrealizedPnL": 0
   },
   "balanceHistory": [
-    {
-      "time": 1770533513364,
-      "total": 37.5,
-      "agent": 10,
-      "treasury": 10,
-      "drift": 17.5
-    },
-    {
-      "time": 1770533546364,
-      "total": 37.5,
-      "agent": 10,
-      "treasury": 10,
-      "drift": 17.5
-    },
     {
       "time": 1770533578515,
       "total": 37.5,
@@ -1415,6 +1401,20 @@
       "agent": 10,
       "treasury": 10,
       "drift": 17.5
+    },
+    {
+      "time": 1770542753464,
+      "total": 37.5,
+      "agent": 10,
+      "treasury": 10,
+      "drift": 17.5
+    },
+    {
+      "time": 1770542876647,
+      "total": 37.5,
+      "agent": 10,
+      "treasury": 10,
+      "drift": 17.5
     }
   ],
   "drift": {
@@ -1424,21 +1424,13 @@
     "hasAccount": true
   },
   "stats": {
-    "totalCycles": 4836,
+    "totalCycles": 4838,
     "totalTransactions": 315,
     "totalVolumeUSDC": 726.4111010000004,
-    "uptime": 171090891,
-    "avgCycleTime": 35378.596153846156
+    "uptime": 171337878,
+    "avgCycleTime": 35415.02232327408
   },
   "prices": [
-    {
-      "time": 1770538470912,
-      "price": 87.26
-    },
-    {
-      "time": 1770538503274,
-      "price": 87.26
-    },
     {
       "time": 1770538535559,
       "price": 87.26
@@ -1630,45 +1622,17 @@
     {
       "time": 1770542630922,
       "price": 88.38
+    },
+    {
+      "time": 1770542753404,
+      "price": 88.42
+    },
+    {
+      "time": 1770542876587,
+      "price": 88.42
     }
   ],
   "trades": [
-    {
-      "time": 1770538473079,
-      "cycle": 4787,
-      "action": "HOLD",
-      "amount": 0,
-      "txSig": null,
-      "confidence": 40,
-      "reason": "SOL price extremely range-bound with minimal volatility. Existing short position only 47 minutes old. Insufficient market movement to justify closing or opening new positions.",
-      "market_outlook": "neutral",
-      "solPrice": 87.26,
-      "agentBalance": 10,
-      "treasuryBalance": 10,
-      "driftPosition": {
-        "direction": "SHORT",
-        "size": 0.05,
-        "pnl": -0.572229
-      }
-    },
-    {
-      "time": 1770538505370,
-      "cycle": 4788,
-      "action": "HOLD",
-      "amount": 0,
-      "txSig": null,
-      "confidence": 40,
-      "reason": "SOL price is extremely range-bound with minimal volatility. Current short position only 47 minutes old. Insufficient market movement to justify closing or opening new positions. Waiting for clearer trend signals.",
-      "market_outlook": "neutral",
-      "solPrice": 87.26,
-      "agentBalance": 10,
-      "treasuryBalance": 10,
-      "driftPosition": {
-        "direction": "SHORT",
-        "size": 0.05,
-        "pnl": -0.570459
-      }
-    },
     {
       "time": 1770538537752,
       "cycle": 4789,
@@ -2481,6 +2445,34 @@
       "reason": "Market showing very weak neutral trend (11/100 strength) with price consolidating at resistance. Recent price action shows indecision and lack of clear directional bias. Following trading discipline to wait for stronger trend signals before deploying capital.",
       "market_outlook": "neutral",
       "solPrice": 88.38,
+      "agentBalance": 10,
+      "treasuryBalance": 10,
+      "driftPosition": null
+    },
+    {
+      "time": 1770542756390,
+      "cycle": 4837,
+      "action": "HOLD",
+      "amount": 0,
+      "txSig": null,
+      "confidence": 85,
+      "reason": "Market showing very weak neutral trend (11/100 strength) with price consolidating at resistance. Recent price action shows indecision with minimal momentum (-0.07%). Following trading discipline to wait for stronger trend signals before deploying capital. No clear directional bias justifies risking spread costs.",
+      "market_outlook": "neutral",
+      "solPrice": 88.42,
+      "agentBalance": 10,
+      "treasuryBalance": 10,
+      "driftPosition": null
+    },
+    {
+      "time": 1770542880180,
+      "cycle": 4838,
+      "action": "HOLD",
+      "amount": 0,
+      "txSig": null,
+      "confidence": 15,
+      "reason": "Market continues showing very weak neutral trend (1/100 strength) with price consolidating around $88.42. Recent price action shows minimal momentum (-0.14%) and indecision. Price is only 19% through resistance range with no clear directional bias. Following trading discipline to wait for stronger trend signals (70%+ confidence) before deploying capital. Current conditions don't justify risking spread costs.",
+      "market_outlook": "neutral",
+      "solPrice": 88.42,
       "agentBalance": 10,
       "treasuryBalance": 10,
       "driftPosition": null
