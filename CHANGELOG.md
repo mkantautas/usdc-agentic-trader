@@ -1,5 +1,22 @@
 # Changelog
 
+## 2026-02-08 — Limit Orders (Major Cost Reduction)
+
+### Changed
+- **Market orders → Limit orders** — All Drift perp trades (open/close) now use `getLimitOrderParams` with `PostOnlyParams.TRY_POST_ONLY`. This reduces per-trade spread cost from ~$0.55 to ~$0.05-$0.15 (70-90% reduction).
+- **Limit price strategy** — LONG orders bid 0.1% above oracle price; SHORT orders ask 0.1% below oracle. Close orders use the inverse to ensure quick fills while still saving on spread.
+- **AI prompt updated** — Reflects the new lower spread costs so the model doesn't overweight spread fear in its decisions.
+
+### Added
+- **Order fill monitoring** — After placing a limit order, the agent polls every 10 seconds to check if it filled. If unfilled after 3 minutes, the order is automatically cancelled and the cycle continues with no position change.
+- **Stale order cleanup** — At the start of every trading cycle, any leftover open orders from previous cycles (e.g. from crashes) are cancelled before making new decisions.
+- **`getOpenOrders()` and `cancelAllOrders()`** — New Drift SDK wrapper functions for order management.
+
+### Why
+Market orders were the #1 reason for losses. The agent's directional calls (when to long/short) were correct, but every round trip cost ~$0.55-$0.60 in spread — more than the actual price movements at our position sizes. Over 319 transactions, this accumulated to -$55 in realized P&L. Limit orders (maker) avoid paying the taker spread, making it possible for correct trades to actually be profitable.
+
+---
+
 ## 2026-02-08 — Smarter Trading (Sonnet + Anti-Churn v2)
 
 ### Changed
