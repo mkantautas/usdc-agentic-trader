@@ -1,35 +1,21 @@
 {
-  "lastUpdated": "2026-02-08T10:19:39.876Z",
+  "lastUpdated": "2026-02-08T10:23:48.646Z",
   "wallet": "BGYMcHT1XkWP2a9b6YNAjw5cBKYPoJh3R1ujao7i3Mgq",
   "treasury": "GYqf6NVVhJqhv6ywyYy9d1cptjjSkiD8tWTdF5xswrZU",
   "balances": {
     "agent": 10,
     "treasury": 10,
-    "total": 36.905758
+    "total": 36.93275
   },
   "performance": {
     "initialBalance": 37.499999,
-    "currentBalance": 36.905758,
-    "totalPnL": -0.5942410000000038,
-    "totalPnLPercent": -1.5846427089238155,
+    "currentBalance": 36.93275,
+    "totalPnL": -0.5672490000000039,
+    "totalPnLPercent": -1.512664040337718,
     "realizedPnL": -53.961948,
-    "unrealizedPnL": -0.594242
+    "unrealizedPnL": -0.56725
   },
   "balanceHistory": [
-    {
-      "time": 1770534397866,
-      "total": 37.5,
-      "agent": 10,
-      "treasury": 10,
-      "drift": 17.5
-    },
-    {
-      "time": 1770534430204,
-      "total": 37.5,
-      "agent": 10,
-      "treasury": 10,
-      "drift": 17.5
-    },
     {
       "time": 1770534462446,
       "total": 37.5,
@@ -1415,35 +1401,41 @@
       "agent": 10,
       "treasury": 10,
       "drift": 16.906009
+    },
+    {
+      "time": 1770546100115,
+      "total": 36.910516,
+      "agent": 10,
+      "treasury": 10,
+      "drift": 16.910516
+    },
+    {
+      "time": 1770546225291,
+      "total": 36.93155,
+      "agent": 10,
+      "treasury": 10,
+      "drift": 16.93155
     }
   ],
   "drift": {
     "balance": 17.5,
-    "freeCollateral": 16.772471,
+    "freeCollateral": 16.800676,
     "position": {
       "baseAmount": -0.03,
       "quoteAmount": 2.039085,
       "direction": "SHORT",
-      "unrealizedPnl": -0.594242
+      "unrealizedPnl": -0.56725
     },
     "hasAccount": true
   },
   "stats": {
-    "totalCycles": 4863,
+    "totalCycles": 4865,
     "totalTransactions": 316,
     "totalVolumeUSDC": 729.4111010000004,
-    "uptime": 174437534,
-    "avgCycleTime": 35870.35451367468
+    "uptime": 174686304,
+    "avgCycleTime": 35906.74285714285
   },
   "prices": [
-    {
-      "time": 1770539903952,
-      "price": 88.15
-    },
-    {
-      "time": 1770540029357,
-      "price": 88.18
-    },
     {
       "time": 1770540153202,
       "price": 88.31
@@ -1635,41 +1627,17 @@
     {
       "time": 1770545975333,
       "price": 87.84
+    },
+    {
+      "time": 1770546100040,
+      "price": 87.8
+    },
+    {
+      "time": 1770546225216,
+      "price": 87.71
     }
   ],
   "trades": [
-    {
-      "time": 1770539909144,
-      "cycle": 4814,
-      "action": "OPEN_LONG",
-      "amount": 8,
-      "txSig": "4ivFySfZ7zbqyeUS2vW4uEwPVZkXuxmtLLwdE59mP3RWHCfCzuZpeBabetLY9KCgqcjK8VQvbQkC8zprHAJiHWzL",
-      "confidence": 78,
-      "reason": "Strong bullish breakout confirmed: 7 consecutive up candles, price broke resistance at $87.40 and now at $88.15 (new high). Trend strength 76/100 with positive momentum. Clear uptrend from $87.11 to $88.15 (+1.2%). Cooldown expired, good entry point.",
-      "market_outlook": "bullish",
-      "solPrice": 88.15,
-      "agentBalance": 10,
-      "treasuryBalance": 10,
-      "driftPosition": null
-    },
-    {
-      "time": 1770540033013,
-      "cycle": 4815,
-      "action": "HOLD",
-      "amount": 0,
-      "txSig": null,
-      "confidence": 75,
-      "reason": "Long position just opened 2 minutes ago at $88.15. Position needs time to develop - price at resistance with strong bullish momentum (8 consecutive up candles). Current -$0.62 PnL is just spread cost. Thesis remains valid with 87/100 trend strength.",
-      "market_outlook": "bullish",
-      "solPrice": 88.18,
-      "agentBalance": 10,
-      "treasuryBalance": 10,
-      "driftPosition": {
-        "direction": "LONG",
-        "size": 0.09,
-        "pnl": -0.624176
-      }
-    },
     {
       "time": 1770540157124,
       "cycle": 4816,
@@ -2464,6 +2432,42 @@
         "direction": "SHORT",
         "size": 0.03,
         "pnl": -0.593991
+      }
+    },
+    {
+      "time": 1770546104460,
+      "cycle": 4864,
+      "action": "HOLD",
+      "amount": 0,
+      "txSig": null,
+      "confidence": 75,
+      "reason": "SHORT position only 37min old, still within normal holding period. Original bearish thesis from ~$88.59 to current $87.80 (-0.89%) remains valid. Current -$0.59 PnL is mostly spread cost. Market showing neutral trend (11/100) with choppy action in tight range. Position needs more time to develop.",
+      "market_outlook": "neutral",
+      "solPrice": 87.8,
+      "agentBalance": 10,
+      "treasuryBalance": 10,
+      "driftPosition": {
+        "direction": "SHORT",
+        "size": 0.03,
+        "pnl": -0.589484
+      }
+    },
+    {
+      "time": 1770546228617,
+      "cycle": 4865,
+      "action": "HOLD",
+      "amount": 0,
+      "txSig": null,
+      "confidence": 85,
+      "reason": "SHORT position only 39.2min old, still developing. Original bearish thesis from ~$88.59 to $87.71 (-1.02%) remains valid. Current -$0.57 PnL is mostly spread cost. Neutral trend (20/100) with choppy action suggests patience needed. Position needs more time to develop meaningful profit.",
+      "market_outlook": "neutral",
+      "solPrice": 87.71,
+      "agentBalance": 10,
+      "treasuryBalance": 10,
+      "driftPosition": {
+        "direction": "SHORT",
+        "size": 0.03,
+        "pnl": -0.56845
       }
     }
   ],
