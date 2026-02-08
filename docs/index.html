@@ -442,33 +442,55 @@
           </div>
         </div>
 
-        <!-- Balance Distribution -->
-        <div class="card">
-          <h3>Balance Distribution</h3>
-          <div class="stat-row">
-            <span class="label">Agent Wallet</span>
-            <span style="color:var(--accent)">${data.balances.agent.toFixed(2)} USDC</span>
-          </div>
-          <div class="stat-row">
-            <span class="label">Treasury Wallet</span>
-            <span class="green">${data.balances.treasury.toFixed(2)} USDC</span>
-          </div>
-          ${data.drift ? `
-          <div class="stat-row">
-            <span class="label">Drift Collateral</span>
-            <span class="purple">${driftBal.toFixed(2)} USDC</span>
-          </div>
-          ` : ''}
-          <div class="progress-bar">
-            <div class="progress-fill progress-agent" style="width:${agentPct}%"></div>
-            <div class="progress-fill progress-treasury" style="width:${treasuryPct}%"></div>
-            ${driftPct > 0 ? `<div class="progress-fill progress-drift" style="width:${driftPct}%"></div>` : ''}
-          </div>
-          <div style="display:flex;justify-content:space-between;margin-top:6px;font-size:11px;color:var(--dim)">
-            <span>Agent ${agentPct.toFixed(0)}%</span>
-            <span>Treasury ${treasuryPct.toFixed(0)}%</span>
-            ${driftPct > 0 ? `<span>Drift ${driftPct.toFixed(0)}%</span>` : ''}
-          </div>
+        <!-- Portfolio Composition -->
+        <div class="card full-width">
+          <h3>Portfolio Composition</h3>
+          ${(() => {
+            const pos = data.drift?.position;
+            const solExposure = pos ? Math.abs(pos.baseAmount) : 0;
+            const solValue = pos ? Math.abs(pos.baseAmount) * lastPrice : 0;
+            const solPnl = pos ? pos.unrealizedPnl : 0;
+            const usdcHeld = data.balances.agent + data.balances.treasury + (driftBal - solValue);
+            const usdcPct = totalWithDrift > 0 ? (Math.max(0, totalWithDrift - solValue) / totalWithDrift * 100) : 100;
+            const solPct = totalWithDrift > 0 ? (solValue / totalWithDrift * 100) : 0;
+            const posDir = pos ? pos.direction : 'NONE';
+            const posColor = posDir === 'LONG' ? 'var(--green)' : posDir === 'SHORT' ? 'var(--red)' : 'var(--dim)';
+            return `
+            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:16px">
+              <div style="text-align:center;padding:16px;background:rgba(39,117,202,0.1);border-radius:8px;border:1px solid rgba(39,117,202,0.2)">
+                <div style="font-size:11px;color:var(--dim);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">USDC (Stablecoins)</div>
+                <div style="font-size:28px;font-weight:bold;color:var(--accent)">$${totalWithDrift.toFixed(2)}</div>
+                <div style="font-size:12px;color:var(--dim);margin-top:4px">Agent: $${data.balances.agent.toFixed(2)} | Treasury: $${data.balances.treasury.toFixed(2)} | Drift: $${driftBal.toFixed(2)}</div>
+              </div>
+              <div style="text-align:center;padding:16px;background:${pos ? (posDir === 'LONG' ? 'rgba(0,212,170,0.1)' : 'rgba(255,68,102,0.1)') : 'rgba(102,102,128,0.05)'};border-radius:8px;border:1px solid ${pos ? (posDir === 'LONG' ? 'rgba(0,212,170,0.2)' : 'rgba(255,68,102,0.2)') : 'rgba(102,102,128,0.1)'}">
+                <div style="font-size:11px;color:var(--dim);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">SOL Exposure</div>
+                <div style="font-size:28px;font-weight:bold;color:${posColor}">${pos ? (posDir === 'SHORT' ? '-' : '+') + solExposure.toFixed(4) + ' SOL' : 'None'}</div>
+                <div style="font-size:12px;color:var(--dim);margin-top:4px">${pos ? 'Worth $' + solValue.toFixed(2) + ' @ $' + lastPrice.toFixed(2) + '/SOL' : 'No open position'}</div>
+              </div>
+              <div style="text-align:center;padding:16px;background:rgba(139,92,246,0.1);border-radius:8px;border:1px solid rgba(139,92,246,0.2)">
+                <div style="font-size:11px;color:var(--dim);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Position Status</div>
+                <div style="font-size:28px;font-weight:bold;color:${posColor}">${pos ? posDir : 'FLAT'}</div>
+                <div style="font-size:12px;color:${solPnl >= 0 ? 'var(--green)' : 'var(--red)'};margin-top:4px">${pos ? 'PnL: ' + (solPnl >= 0 ? '+' : '') + '$' + solPnl.toFixed(2) : 'Waiting for signal'}</div>
+              </div>
+            </div>
+            <div style="margin-top:8px">
+              <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+                <span style="font-size:11px;color:var(--dim);min-width:40px">${usdcPct.toFixed(0)}%</span>
+                <div style="flex:1;height:20px;background:var(--border);border-radius:4px;overflow:hidden;display:flex">
+                  <div style="width:${agentPct}%;background:var(--accent);height:100%"></div>
+                  <div style="width:${treasuryPct}%;background:var(--green);height:100%"></div>
+                  <div style="width:${driftPct > 0 ? driftPct - solPct : 0}%;background:var(--purple);height:100%"></div>
+                  ${solPct > 0 ? '<div style="width:' + solPct + '%;background:' + (posDir === 'LONG' ? 'var(--green)' : 'var(--red)') + ';height:100%;opacity:0.6"></div>' : ''}
+                </div>
+              </div>
+              <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--dim)">
+                <span style="display:flex;align-items:center;gap:4px"><span style="width:8px;height:8px;border-radius:2px;background:var(--accent);display:inline-block"></span>Agent ${agentPct.toFixed(0)}%</span>
+                <span style="display:flex;align-items:center;gap:4px"><span style="width:8px;height:8px;border-radius:2px;background:var(--green);display:inline-block"></span>Treasury ${treasuryPct.toFixed(0)}%</span>
+                <span style="display:flex;align-items:center;gap:4px"><span style="width:8px;height:8px;border-radius:2px;background:var(--purple);display:inline-block"></span>Drift ${driftPct.toFixed(0)}%</span>
+                ${solPct > 0 ? '<span style="display:flex;align-items:center;gap:4px"><span style="width:8px;height:8px;border-radius:2px;background:' + (posDir === 'LONG' ? 'var(--green)' : 'var(--red)') + ';opacity:0.6;display:inline-block"></span>SOL ' + solPct.toFixed(0) + '%</span>' : ''}
+              </div>
+            </div>`;
+          })()}
         </div>
 
         <!-- Drift Position -->
