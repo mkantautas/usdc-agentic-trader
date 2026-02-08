@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-02-08T10:58:58.221Z",
+  "lastUpdated": "2026-02-08T11:03:05.569Z",
   "wallet": "BGYMcHT1XkWP2a9b6YNAjw5cBKYPoJh3R1ujao7i3Mgq",
   "treasury": "GYqf6NVVhJqhv6ywyYy9d1cptjjSkiD8tWTdF5xswrZU",
   "balances": {
@@ -16,20 +16,6 @@
     "unrealizedPnL": 0
   },
   "balanceHistory": [
-    {
-      "time": 1770535017161,
-      "total": 36.935003,
-      "agent": 10,
-      "treasury": 10,
-      "drift": 16.935003000000002
-    },
-    {
-      "time": 1770535050263,
-      "total": 36.93494,
-      "agent": 10,
-      "treasury": 10,
-      "drift": 16.93494
-    },
     {
       "time": 1770535082946,
       "total": 36.934573,
@@ -1415,30 +1401,36 @@
       "agent": 10,
       "treasury": 10,
       "drift": 17.5
+    },
+    {
+      "time": 1770548458462,
+      "total": 37.5,
+      "agent": 10,
+      "treasury": 10,
+      "drift": 17.5
+    },
+    {
+      "time": 1770548582099,
+      "total": 37.5,
+      "agent": 10,
+      "treasury": 10,
+      "drift": 17.5
     }
   ],
   "drift": {
     "balance": 17.5,
-    "freeCollateral": 16.923382,
+    "freeCollateral": 16.923635,
     "position": null,
     "hasAccount": true
   },
   "stats": {
-    "totalCycles": 4882,
+    "totalCycles": 4884,
     "totalTransactions": 317,
     "totalVolumeUSDC": 729.9828850000004,
-    "uptime": 176795879,
-    "avgCycleTime": 36213.82199918066
+    "uptime": 177043227,
+    "avgCycleTime": 36249.63697788698
   },
   "prices": [
-    {
-      "time": 1770542257057,
-      "price": 88.43
-    },
-    {
-      "time": 1770542379930,
-      "price": 88.41
-    },
     {
       "time": 1770542506283,
       "price": 88.42
@@ -1630,37 +1622,17 @@
     {
       "time": 1770548335331,
       "price": 86.9
+    },
+    {
+      "time": 1770548458389,
+      "price": 86.92
+    },
+    {
+      "time": 1770548582017,
+      "price": 86.9
     }
   ],
   "trades": [
-    {
-      "time": 1770542259730,
-      "cycle": 4833,
-      "action": "HOLD",
-      "amount": 0,
-      "txSig": null,
-      "confidence": 85,
-      "reason": "COOLDOWN ACTIVE: 1.8min remaining - cannot open new positions. Market showing neutral trend (31/100) with price consolidating at resistance after recent breakout. Must wait for cooldown to end.",
-      "market_outlook": "neutral",
-      "solPrice": 88.43,
-      "agentBalance": 10,
-      "treasuryBalance": 10,
-      "driftPosition": null
-    },
-    {
-      "time": 1770542386045,
-      "cycle": 4834,
-      "action": "HOLD",
-      "amount": 0,
-      "txSig": null,
-      "confidence": 95,
-      "reason": "COOLDOWN ACTIVE: Only 0.2min remaining after closing long position. Price consolidating at resistance with weak neutral trend (40/100). Must respect cooldown discipline and wait for clearer market signals before next trade.",
-      "market_outlook": "neutral",
-      "solPrice": 88.41,
-      "agentBalance": 10,
-      "treasuryBalance": 10,
-      "driftPosition": null
-    },
     {
       "time": 1770542510688,
       "cycle": 4835,
@@ -2455,6 +2427,34 @@
       "txSig": null,
       "confidence": 85,
       "reason": "COOLDOWN ACTIVE (1.8min remaining). Market showing weak neutral trend (11/100) with minimal momentum (0.18%). Price at resistance $86.90 in choppy range-bound action between $86.68-$86.93. Wait for cooldown to expire and clearer directional signal before making next move.",
+      "market_outlook": "neutral",
+      "solPrice": 86.9,
+      "agentBalance": 10,
+      "treasuryBalance": 10,
+      "driftPosition": null
+    },
+    {
+      "time": 1770548461796,
+      "cycle": 4883,
+      "action": "HOLD",
+      "amount": 0,
+      "txSig": null,
+      "confidence": 15,
+      "reason": "Market showing weak neutral trend (11/100) with minimal momentum (0.2%). Price choppy between $86.75-$86.93 resistance. No clear directional conviction. Recently closed SHORT position - need to wait for clearer signal rather than force trades in range-bound action.",
+      "market_outlook": "neutral",
+      "solPrice": 86.92,
+      "agentBalance": 10,
+      "treasuryBalance": 10,
+      "driftPosition": null
+    },
+    {
+      "time": 1770548585530,
+      "cycle": 4884,
+      "action": "HOLD",
+      "amount": 0,
+      "txSig": null,
+      "confidence": 15,
+      "reason": "Extremely weak neutral trend (11/100) with minimal momentum (0.14%). Price choppy in $86.78-$86.93 range with no clear direction. Recently closed SHORT position - need strong conviction signal before re-entering. Current market conditions don't warrant forcing a trade.",
       "market_outlook": "neutral",
       "solPrice": 86.9,
       "agentBalance": 10,
