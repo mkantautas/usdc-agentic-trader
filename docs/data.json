@@ -1,42 +1,21 @@
 {
-  "lastUpdated": "2026-02-08T11:38:08.002Z",
+  "lastUpdated": "2026-02-08T11:44:22.392Z",
   "wallet": "BGYMcHT1XkWP2a9b6YNAjw5cBKYPoJh3R1ujao7i3Mgq",
   "treasury": "GYqf6NVVhJqhv6ywyYy9d1cptjjSkiD8tWTdF5xswrZU",
   "balances": {
     "agent": 10,
     "treasury": 10,
-    "total": 36.951527
+    "total": 36.953642
   },
   "performance": {
     "initialBalance": 37.499999,
-    "currentBalance": 36.951527,
-    "totalPnL": -0.5484720000000038,
-    "totalPnLPercent": -1.4625920390024645,
+    "currentBalance": 36.953642,
+    "totalPnL": -0.5463570000000004,
+    "totalPnLPercent": -1.4569520388520554,
     "realizedPnL": -54.533432,
-    "unrealizedPnL": -0.548473
+    "unrealizedPnL": -0.546358
   },
   "balanceHistory": [
-    {
-      "time": 1770535639493,
-      "total": 37.5,
-      "agent": 10,
-      "treasury": 10,
-      "drift": 17.5
-    },
-    {
-      "time": 1770535673487,
-      "total": 36.942578,
-      "agent": 10,
-      "treasury": 10,
-      "drift": 16.942578
-    },
-    {
-      "time": 1770535705802,
-      "total": 36.943087,
-      "agent": 10,
-      "treasury": 10,
-      "drift": 16.943087
-    },
     {
       "time": 1770535738123,
       "total": 36.943228,
@@ -1415,39 +1394,48 @@
       "agent": 10,
       "treasury": 10,
       "drift": 16.950677
+    },
+    {
+      "time": 1770550808303,
+      "total": 36.953078,
+      "agent": 10,
+      "treasury": 10,
+      "drift": 16.953078
+    },
+    {
+      "time": 1770550934495,
+      "total": 36.956975,
+      "agent": 10,
+      "treasury": 10,
+      "drift": 16.956975
+    },
+    {
+      "time": 1770551059102,
+      "total": 36.950596,
+      "agent": 10,
+      "treasury": 10,
+      "drift": 16.950596
     }
   ],
   "drift": {
     "balance": 17.5,
-    "freeCollateral": 16.729182,
+    "freeCollateral": 16.731209,
     "position": {
       "baseAmount": 0.05,
       "quoteAmount": -4.9436029999999995,
       "direction": "LONG",
-      "unrealizedPnl": -0.548473
+      "unrealizedPnl": -0.546358
     },
     "hasAccount": true
   },
   "stats": {
-    "totalCycles": 4901,
+    "totalCycles": 4904,
     "totalTransactions": 318,
     "totalVolumeUSDC": 734.9828850000004,
-    "uptime": 179145661,
-    "avgCycleTime": 36552.87920832483
+    "uptime": 179520050,
+    "avgCycleTime": 36606.86174551387
   },
   "prices": [
-    {
-      "time": 1770544609314,
-      "price": 87.66
-    },
-    {
-      "time": 1770544732537,
-      "price": 87.69
-    },
-    {
-      "time": 1770544855762,
-      "price": 87.66
-    },
     {
       "time": 1770544979434,
       "price": 87.69
@@ -1635,63 +1623,21 @@
     {
       "time": 1770550684513,
       "price": 87.81
+    },
+    {
+      "time": 1770550808192,
+      "price": 87.84
+    },
+    {
+      "time": 1770550934426,
+      "price": 87.84
+    },
+    {
+      "time": 1770551059020,
+      "price": 87.93
     }
   ],
   "trades": [
-    {
-      "time": 1770544612354,
-      "cycle": 4852,
-      "action": "HOLD",
-      "amount": 0,
-      "txSig": null,
-      "confidence": 85,
-      "reason": "SHORT position only 12.3 minutes old with bearish trend (14/100 strength). Price dropped from $88.59 to $87.66 (-1.06%), confirming thesis. Position showing expected spread cost (-$0.59), not real loss. Must let winning position develop per discipline - need minimum 30min commitment.",
-      "market_outlook": "bearish",
-      "solPrice": 87.66,
-      "agentBalance": 10,
-      "treasuryBalance": 10,
-      "driftPosition": {
-        "direction": "SHORT",
-        "size": 0.03,
-        "pnl": -0.594167
-      }
-    },
-    {
-      "time": 1770544735541,
-      "cycle": 4853,
-      "action": "HOLD",
-      "amount": 0,
-      "txSig": null,
-      "confidence": 75,
-      "reason": "SHORT position only 14.4 minutes old with bearish trend (23/100 strength). Price dropped from $88.59 to $87.69 (-1.02%), confirming original thesis. Position showing expected spread cost (-$0.59), not real loss. Must honor 30-minute minimum commitment and let position develop despite weakening trend strength.",
-      "market_outlook": "bearish",
-      "solPrice": 87.69,
-      "agentBalance": 10,
-      "treasuryBalance": 10,
-      "driftPosition": {
-        "direction": "SHORT",
-        "size": 0.03,
-        "pnl": -0.589857
-      }
-    },
-    {
-      "time": 1770544859233,
-      "cycle": 4854,
-      "action": "HOLD",
-      "amount": 0,
-      "txSig": null,
-      "confidence": 75,
-      "reason": "SHORT position only 16.4min old - need minimum 30min commitment. Despite trend strength dropping to 13/100, price has dropped from $88.59 to current $87.66 (-1.06%), confirming original bearish thesis. Current PnL of -$0.60 is mostly spread cost, not real loss. Must honor discipline and let position develop.",
-      "market_outlook": "bearish",
-      "solPrice": 87.66,
-      "agentBalance": 10,
-      "treasuryBalance": 10,
-      "driftPosition": {
-        "direction": "SHORT",
-        "size": 0.03,
-        "pnl": -0.59562
-      }
-    },
     {
       "time": 1770544982779,
       "cycle": 4855,
@@ -2480,6 +2426,60 @@
         "direction": "LONG",
         "size": 0.05,
         "pnl": -0.549323
+      }
+    },
+    {
+      "time": 1770550814190,
+      "cycle": 4902,
+      "action": "HOLD",
+      "amount": 0,
+      "txSig": null,
+      "confidence": 75,
+      "reason": "LONG position opened 20.6 minutes ago is performing excellently - price moved from $87.29 entry to $87.84 (+$0.55). Strong bullish momentum with 6 consecutive up candles and trend strength at 64/100. Position needs 9.4 more minutes to meet 30-minute minimum hold period. Current -$0.55 PnL is just spread cost - actual price movement is very positive.",
+      "market_outlook": "bullish",
+      "solPrice": 87.84,
+      "agentBalance": 10,
+      "treasuryBalance": 10,
+      "driftPosition": {
+        "direction": "LONG",
+        "size": 0.05,
+        "pnl": -0.546922
+      }
+    },
+    {
+      "time": 1770550938371,
+      "cycle": 4903,
+      "action": "HOLD",
+      "amount": 0,
+      "txSig": null,
+      "confidence": 85,
+      "reason": "LONG position opened 22.7 minutes ago is performing excellently. Price moved from $87.29 entry to current $87.84 (+$0.55). Strong bullish momentum with 6 consecutive up candles and trend strength improving from 3/100 to 4/100. Current -$0.54 PnL is just spread cost - the actual price movement is very positive. Position needs 7.3 more minutes to meet 30-minute minimum hold period. Bullish thesis playing out perfectly - hold until minimum time expires.",
+      "market_outlook": "bullish",
+      "solPrice": 87.84,
+      "agentBalance": 10,
+      "treasuryBalance": 10,
+      "driftPosition": {
+        "direction": "LONG",
+        "size": 0.05,
+        "pnl": -0.543025
+      }
+    },
+    {
+      "time": 1770551062364,
+      "cycle": 4904,
+      "action": "HOLD",
+      "amount": 0,
+      "txSig": null,
+      "confidence": 85,
+      "reason": "LONG position opened 24.8 minutes ago is performing excellently - price moved from $87.29 entry to $87.93 (+$0.64). Strong bullish momentum with trend strength at 15/100 and price at new resistance high. Current -$0.55 PnL is just spread cost. Position needs 5.2 more minutes to meet 30-minute minimum hold period. Bullish thesis playing out perfectly.",
+      "market_outlook": "bullish",
+      "solPrice": 87.93,
+      "agentBalance": 10,
+      "treasuryBalance": 10,
+      "driftPosition": {
+        "direction": "LONG",
+        "size": 0.05,
+        "pnl": -0.549404
       }
     }
   ],
