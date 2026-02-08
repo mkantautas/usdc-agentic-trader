@@ -40,10 +40,10 @@ require('dotenv').config({ path: path.join(__dirname, '..', '.env'), override: t
 const DEVNET_RPC = process.env.SOLANA_RPC || 'https://api.devnet.solana.com';
 const USDC_DEVNET_MINT = new PublicKey('4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU');
 const CLAUDE_API = process.env.CLAUDE_API_URL || 'http://localhost:8317/v1/chat/completions';
-const CLAUDE_MODEL = 'claude-3-5-haiku-20241022';
+const CLAUDE_MODEL = 'claude-sonnet-4-20250514';
 
 // Trading parameters
-const TRADE_INTERVAL_MS = 30_000;
+const TRADE_INTERVAL_MS = 120_000;  // 2 minutes between cycles
 const MAX_CYCLES = 200;
 const MIN_USDC_TRADE = 0.5;
 const MAX_USDC_TRADE_PCT = 0.25;
@@ -52,9 +52,9 @@ const MAX_PERP_SIZE_USD = 10;      // Max $10 per perp trade (conservative for d
 const DEFAULT_LEVERAGE = 2;
 
 // Anti-churn parameters
-const MIN_POSITION_HOLD_MS = 10 * 60 * 1000;   // Must hold a position for at least 10 minutes
-const TRADE_COOLDOWN_MS = 5 * 60 * 1000;        // 5 min cooldown after closing before opening new
-const SPREAD_TOLERANCE_PCT = 0.03;                 // Don't close if loss < 3% of position size (that's just the spread)
+const MIN_POSITION_HOLD_MS = 30 * 60 * 1000;   // Must hold a position for at least 30 minutes
+const TRADE_COOLDOWN_MS = 10 * 60 * 1000;       // 10 min cooldown after closing before opening new
+const SPREAD_TOLERANCE_PCT = 0.03;               // Don't close if loss < 3% of position size (that's just the spread)
 
 // Paths
 const LOG_DIR = path.join(__dirname, '..', 'logs');
@@ -230,6 +230,56 @@ async function transferUSDC(from, toPubkey, amountUSDC) {
   return txSig;
 }
 
+// ─── Trend Analysis & Conviction Scoring ─────────────────────────────────────
+
+function analyzeTrend(priceHistory) {
+  if (priceHistory.length < 5) return { trend: 'neutral', strength: 0, momentum: 0, support: null, resistance: null };
+
+  const prices = priceHistory.map(p => p.price);
+  const recent = prices.slice(-10);
+  const oldest = prices.slice(0, Math.min(5, prices.length));
+
+  // Simple moving averages
+  const smaShort = recent.slice(-5).reduce((a, b) => a + b, 0) / Math.min(5, recent.length);
+  const smaLong = recent.reduce((a, b) => a + b, 0) / recent.length;
+
+  // Momentum: % change over observation window
+  const momentum = (recent[recent.length - 1] - recent[0]) / recent[0] * 100;
+
+  // Trend direction based on SMA crossover
+  const smaDiff = ((smaShort - smaLong) / smaLong) * 100;
+
+  // Support/resistance from recent highs/lows
+  const support = Math.min(...recent);
+  const resistance = Math.max(...recent);
+  const currentPrice = recent[recent.length - 1];
+  const range = resistance - support;
+
+  // Trend strength: how far from mean, how consistent the direction
+  let consecutiveUp = 0, consecutiveDown = 0;
+  for (let i = recent.length - 1; i > 0; i--) {
+    if (recent[i] > recent[i - 1]) { if (consecutiveDown > 0) break; consecutiveUp++; }
+    else if (recent[i] < recent[i - 1]) { if (consecutiveUp > 0) break; consecutiveDown++; }
+    else break;
+  }
+
+  const trend = smaDiff > 0.1 ? 'bullish' : smaDiff < -0.1 ? 'bearish' : 'neutral';
+  const strength = Math.min(100, Math.abs(smaDiff) * 20 + Math.max(consecutiveUp, consecutiveDown) * 10);
+
+  return {
+    trend,
+    strength: Math.round(strength),
+    momentum: Math.round(momentum * 100) / 100,
+    support: Math.round(support * 100) / 100,
+    resistance: Math.round(resistance * 100) / 100,
+    smaShort: Math.round(smaShort * 100) / 100,
+    smaLong: Math.round(smaLong * 100) / 100,
+    consecutiveUp,
+    consecutiveDown,
+    priceVsRange: range > 0 ? Math.round(((currentPrice - support) / range) * 100) : 50,
+  };
+}
+
 // ─── AI Decision Engine ──────────────────────────────────────────────────────
 
 async function askClaude(context) {
@@ -254,6 +304,18 @@ Perpetual Futures Actions (via Drift Protocol):
 - DEPOSIT_TO_DRIFT: Deposit USDC from wallet into Drift as collateral. Specify amount.
 ` : '';
 
+  // Trend analysis
+  const trendData = context.trendAnalysis;
+  const trendSection = trendData ? `
+Trend Analysis:
+- Trend: ${trendData.trend} (strength: ${trendData.strength}/100)
+- Short-term momentum: ${trendData.momentum}%
+- SMA(5): $${trendData.smaShort} | SMA(10): $${trendData.smaLong}
+- Support: $${trendData.support} | Resistance: $${trendData.resistance}
+- Price in range: ${trendData.priceVsRange}% (0%=at support, 100%=at resistance)
+- Consecutive candles: ${trendData.consecutiveUp > 0 ? `${trendData.consecutiveUp} up` : trendData.consecutiveDown > 0 ? `${trendData.consecutiveDown} down` : 'mixed'}
+` : '';
+
   const prompt = `You are an autonomous AI trading agent managing a USDC portfolio on Solana devnet.
 Your goal: maximize returns through smart allocation and derivatives trading.
 
@@ -267,8 +329,8 @@ Market Data:
 - SOL 24h Change: ${context.solChange24h.toFixed(2)}%
 - Market Cap Change: ${context.marketCapChange.toFixed(2)}%
 - BTC Dominance: ${context.btcDominance.toFixed(1)}%
-
-Recent Price History (last ${context.priceHistory.length} readings):
+${trendSection}
+Recent Price History (last ${context.priceHistory.length} readings, 2min intervals):
 ${context.priceHistory.map(p => `  $${p.price.toFixed(2)} @ ${formatLT(new Date(p.time))}`).join('\n')}
 
 Recent Trades:
@@ -286,15 +348,17 @@ USDC Treasury Management:
 - REBALANCE: Move USDC to equalize agent/treasury (neutral - reduce risk)
 - HOLD: Do nothing (wait for better opportunity)
 ${driftActions}
-IMPORTANT TRADING RULES:
-- If market is bearish, OPEN_SHORT profits from the decline. If bullish, OPEN_LONG amplifies gains.
-- Use leverage wisely (2x recommended).
-- If you have a position in the WRONG direction, close it first.
-- CRITICAL: When you open a position, it will immediately show -$0.50 to -$0.70 PnL. THIS IS THE BID-ASK SPREAD, NOT A REAL LOSS. Do NOT close a position just because it shows a small negative PnL right after opening. Wait for the trade to play out.
-- MINIMUM HOLD TIME: You must hold positions for at least 10 minutes before closing. Short-term noise is meaningless.
-- COOLDOWN: After closing a position, wait at least 5 minutes before opening a new one. Don't churn.
-- Only close a position if: (1) PnL is significantly negative AND the trend has clearly reversed, OR (2) PnL is positive and you want to take profit, OR (3) the position has been open for a reasonable time and the thesis is wrong.
-- A loss of $0.50-$0.75 on a freshly opened position is JUST THE SPREAD. Ignore it.
+CRITICAL TRADING DISCIPLINE:
+1. HOLD is almost always the right answer. Only trade when you have HIGH conviction (70%+) and a clear trend.
+2. Positions need TIME to play out. When you open a position, commit to it for AT LEAST 30 minutes.
+3. The bid-ask spread on devnet costs ~$0.50-$0.70 per round trip. Every open+close costs money. STOP CHURNING.
+4. A position showing -$0.50 to -$0.70 PnL immediately after opening is THE SPREAD, not a loss. IGNORE IT.
+5. Do NOT close a position and reopen in the same direction — that just pays the spread twice for nothing.
+6. Only close a position when: (a) your original thesis is CLEARLY wrong (trend reversed), OR (b) you hit take-profit target (8%+ of collateral), OR (c) you hit stop-loss (-10% of collateral).
+7. Small fluctuations within a larger trend are NOISE. A $0.30 bounce in a $5 downtrend is not a reversal.
+8. Use the trend analysis data: if trend strength is low and momentum is near 0, HOLD. Don't force trades in choppy markets.
+9. If you closed a position recently, WAIT. Don't immediately reopen. The 10-minute cooldown exists for a reason.
+10. Think like a swing trader, not a scalper. We check every 2 minutes — that's NOT fast enough for scalping.
 
 Respond ONLY with this JSON (no other text):
 {
@@ -796,6 +860,7 @@ async function tradingCycle(state) {
   }
 
   // 3. Build context for AI
+  const trendAnalysis = analyzeTrend(state.prices.slice(-20));
   const context = {
     agentBalance,
     treasuryBalance,
@@ -813,7 +878,12 @@ async function tradingCycle(state) {
     freeCollateral: driftInfo.freeCollateral || 0,
     positionOpenTime: state.lastPositionOpenTime,
     lastCloseTime: state.lastPositionCloseTime,
+    trendAnalysis,
   };
+
+  if (trendAnalysis.trend !== 'neutral') {
+    console.log(`  Trend:    ${trendAnalysis.trend} (strength: ${trendAnalysis.strength}, momentum: ${trendAnalysis.momentum}%)`);
+  }
 
   // 4. Get AI decision
   console.log(`\n  Analyzing...`);

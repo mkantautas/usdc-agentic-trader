@@ -20,7 +20,7 @@ This is a fully autonomous trading agent that:
 4. **Manages three venues** — Agent wallet (active), Treasury wallet (reserve), Drift Protocol (derivatives)
 5. **Opens SHORT/LONG positions** — Via Drift Protocol perpetual futures with configurable leverage
 6. **Logs everything** — Every decision with reasoning, confidence scores, and tx hashes
-7. **Repeats autonomously** — 30-second cycles, up to 200 cycles per session
+7. **Repeats autonomously** — 2-minute cycles, up to 200 cycles per session
 
 ### Trading Actions
 
@@ -55,7 +55,7 @@ This is a fully autonomous trading agent that:
 ```
 
 **Data Flow:**
-1. Every 30 seconds, the agent fetches live SOL price and global market data
+1. Every 2 minutes, the agent fetches live SOL price and global market data
 2. Price history (last 200 readings) and recent trades are compiled into context
 3. Drift Protocol position info (direction, PnL, collateral) is included
 4. Claude analyzes the full picture: price trends, momentum, portfolio balance, open positions
@@ -75,7 +75,7 @@ This is a fully autonomous trading agent that:
 | **Derivatives** | Complex manual management | Automatic position sizing, entry/exit |
 | **Risk Management** | Panic sells, FOMO buys | Systematic profit-taking & stop losses |
 
-The agent doesn't sleep, doesn't panic sell, doesn't FOMO buy. It analyzes, decides, executes, and logs — every 30 seconds, with full transparency. When it's bearish, it can **short SOL** to profit from the decline. When bullish, it **goes long with leverage**.
+The agent doesn't sleep, doesn't panic sell, doesn't FOMO buy. It analyzes, decides, executes, and logs — every 2 minutes, with full transparency. It includes trend analysis (SMA crossover, momentum scoring, support/resistance), anti-churn guards (30min hold time, 10min cooldowns), and percentage-based risk management. When it's bearish, it can **short SOL** to profit from the decline. When bullish, it **goes long with leverage**.
 
 ## Tech Stack
 
