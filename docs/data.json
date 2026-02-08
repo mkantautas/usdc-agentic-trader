@@ -1,35 +1,21 @@
 {
-  "lastUpdated": "2026-02-08T08:59:05.980Z",
+  "lastUpdated": "2026-02-08T09:03:15.037Z",
   "wallet": "BGYMcHT1XkWP2a9b6YNAjw5cBKYPoJh3R1ujao7i3Mgq",
   "treasury": "GYqf6NVVhJqhv6ywyYy9d1cptjjSkiD8tWTdF5xswrZU",
   "balances": {
     "agent": 10,
     "treasury": 10,
-    "total": 36.901683
+    "total": 36.876645
   },
   "performance": {
     "initialBalance": 37.499999,
-    "currentBalance": 36.901683,
-    "totalPnL": -0.5983160000000041,
-    "totalPnLPercent": -1.5955093758802608,
+    "currentBalance": 36.876645,
+    "totalPnL": -0.6233539999999991,
+    "totalPnLPercent": -1.6622773776607276,
     "realizedPnL": -53.367899,
-    "unrealizedPnL": -0.598317
+    "unrealizedPnL": -0.623355
   },
   "balanceHistory": [
-    {
-      "time": 1770533123029,
-      "total": 36.941659,
-      "agent": 10,
-      "treasury": 10,
-      "drift": 16.941659
-    },
-    {
-      "time": 1770533155451,
-      "total": 36.939928,
-      "agent": 10,
-      "treasury": 10,
-      "drift": 16.939928
-    },
     {
       "time": 1770533187909,
       "total": 36.939027,
@@ -1415,35 +1401,41 @@
       "agent": 10,
       "treasury": 10,
       "drift": 16.901816
+    },
+    {
+      "time": 1770541266295,
+      "total": 36.888135,
+      "agent": 10,
+      "treasury": 10,
+      "drift": 16.888135
+    },
+    {
+      "time": 1770541390642,
+      "total": 36.875542,
+      "agent": 10,
+      "treasury": 10,
+      "drift": 16.875542
     }
   ],
   "drift": {
     "balance": 17.5,
-    "freeCollateral": 16.502864,
+    "freeCollateral": 16.47907,
     "position": {
       "baseAmount": 0.09,
-      "quoteAmount": -8.574712,
+      "quoteAmount": -8.574945,
       "direction": "LONG",
-      "unrealizedPnl": -0.598317
+      "unrealizedPnl": -0.623355
     },
     "hasAccount": true
   },
   "stats": {
-    "totalCycles": 4824,
+    "totalCycles": 4826,
     "totalTransactions": 314,
     "totalVolumeUSDC": 725.8179520000003,
-    "uptime": 169603638,
-    "avgCycleTime": 35158.29975124378
+    "uptime": 169852695,
+    "avgCycleTime": 35195.3367177787
   },
   "prices": [
-    {
-      "time": 1770538086744,
-      "price": 87.31
-    },
-    {
-      "time": 1770538119063,
-      "price": 87.32
-    },
     {
       "time": 1770538149242,
       "price": 87.32
@@ -1635,45 +1627,17 @@
     {
       "time": 1770541142509,
       "price": 88.42
+    },
+    {
+      "time": 1770541266172,
+      "price": 88.46
+    },
+    {
+      "time": 1770541390579,
+      "price": 88.44
     }
   ],
   "trades": [
-    {
-      "time": 1770538024181,
-      "cycle": 4773,
-      "action": "HOLD",
-      "amount": 0,
-      "txSig": null,
-      "confidence": 40,
-      "reason": "SOL price is extremely range-bound between $86.82-$87.30 with minimal volatility. Existing short position only 39 minutes old. Insufficient market movement to justify closing or opening new positions.",
-      "market_outlook": "neutral",
-      "solPrice": 87.3,
-      "agentBalance": 10,
-      "treasuryBalance": 10,
-      "driftPosition": {
-        "direction": "SHORT",
-        "size": 0.05,
-        "pnl": -0.583634
-      }
-    },
-    {
-      "time": 1770538056556,
-      "cycle": 4774,
-      "action": "HOLD",
-      "amount": 0,
-      "txSig": null,
-      "confidence": 40,
-      "reason": "SOL price is extremely range-bound with minimal volatility. Current short position is only 40 minutes old. Insufficient market movement to justify closing or opening new positions. Waiting for clearer trend signals.",
-      "market_outlook": "neutral",
-      "solPrice": 87.31,
-      "agentBalance": 10,
-      "treasuryBalance": 10,
-      "driftPosition": {
-        "direction": "SHORT",
-        "size": 0.05,
-        "pnl": -0.582641
-      }
-    },
     {
       "time": 1770538088877,
       "cycle": 4775,
@@ -2516,6 +2480,42 @@
         "direction": "LONG",
         "size": 0.09,
         "pnl": -0.598184
+      }
+    },
+    {
+      "time": 1770541270341,
+      "cycle": 4825,
+      "action": "HOLD",
+      "amount": 0,
+      "txSig": null,
+      "confidence": 85,
+      "reason": "Long position opened 22.6min ago still needs 7.4min to reach minimum 30min hold discipline. Current -$0.61 PnL is just spread cost. Price at resistance ($88.46) with 3 consecutive up candles shows consolidation after breakout from $87.21. Must honor position discipline - premature closing would just pay spread twice for no gain.",
+      "market_outlook": "neutral",
+      "solPrice": 88.46,
+      "agentBalance": 10,
+      "treasuryBalance": 10,
+      "driftPosition": {
+        "direction": "LONG",
+        "size": 0.09,
+        "pnl": -0.611865
+      }
+    },
+    {
+      "time": 1770541394973,
+      "cycle": 4826,
+      "action": "HOLD",
+      "amount": 0,
+      "txSig": null,
+      "confidence": 85,
+      "reason": "Long position opened only 24.7min ago needs 5.3min more to reach 30min minimum hold discipline. Current -$0.62 PnL is just spread cost. Price consolidated at resistance ($88.44) after strong breakout from $87.21. Must honor position discipline - premature closing would just pay spread twice for no gain.",
+      "market_outlook": "neutral",
+      "solPrice": 88.44,
+      "agentBalance": 10,
+      "treasuryBalance": 10,
+      "driftPosition": {
+        "direction": "LONG",
+        "size": 0.09,
+        "pnl": -0.624458
       }
     }
   ],
