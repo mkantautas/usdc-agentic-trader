@@ -1,35 +1,21 @@
 {
-  "lastUpdated": "2026-02-08T18:23:56.033Z",
+  "lastUpdated": "2026-02-08T18:28:02.652Z",
   "wallet": "BGYMcHT1XkWP2a9b6YNAjw5cBKYPoJh3R1ujao7i3Mgq",
   "treasury": "GYqf6NVVhJqhv6ywyYy9d1cptjjSkiD8tWTdF5xswrZU",
   "balances": {
     "agent": 10,
     "treasury": 10,
-    "total": 36.88926
+    "total": 36.911418
   },
   "performance": {
     "initialBalance": 37.499999,
-    "currentBalance": 36.88926,
-    "totalPnL": -0.6107390000000024,
-    "totalPnLPercent": -1.6286373767636697,
+    "currentBalance": 36.911418,
+    "totalPnL": -0.5885810000000049,
+    "totalPnLPercent": -1.5695493751879963,
     "realizedPnL": -60.146637999999996,
-    "unrealizedPnL": -0.61074
+    "unrealizedPnL": -0.588582
   },
   "balanceHistory": [
-    {
-      "time": 1770550312876,
-      "total": 36.941642,
-      "agent": 10,
-      "treasury": 10,
-      "drift": 16.941642
-    },
-    {
-      "time": 1770550436419,
-      "total": 36.957467,
-      "agent": 10,
-      "treasury": 10,
-      "drift": 16.957467
-    },
     {
       "time": 1770550560582,
       "total": 36.958085,
@@ -1415,35 +1401,41 @@
       "agent": 10,
       "treasury": 10,
       "drift": 16.892
+    },
+    {
+      "time": 1770575156280,
+      "total": 36.899216,
+      "agent": 10,
+      "treasury": 10,
+      "drift": 16.899216
+    },
+    {
+      "time": 1770575279586,
+      "total": 36.90953,
+      "agent": 10,
+      "treasury": 10,
+      "drift": 16.90953
     }
   ],
   "drift": {
     "balance": 17.5,
-    "freeCollateral": 16.494903,
+    "freeCollateral": 16.515484,
     "position": {
       "baseAmount": 0.09,
       "quoteAmount": -8.459254,
       "direction": "LONG",
-      "unrealizedPnl": -0.61074
+      "unrealizedPnl": -0.588582
     },
     "hasAccount": true
   },
   "stats": {
-    "totalCycles": 5098,
+    "totalCycles": 5100,
     "totalTransactions": 330,
     "totalVolumeUSDC": 751.5994160000002,
-    "uptime": 203493691,
-    "avgCycleTime": 39916.37720674775
+    "uptime": 203740311,
+    "avgCycleTime": 39949.080588235294
   },
   "prices": [
-    {
-      "time": 1770568954663,
-      "price": 87.14
-    },
-    {
-      "time": 1770569078211,
-      "price": 87.08
-    },
     {
       "time": 1770569201214,
       "price": 87
@@ -1635,45 +1627,17 @@
     {
       "time": 1770575031801,
       "price": 87.28
+    },
+    {
+      "time": 1770575156212,
+      "price": 87.28
+    },
+    {
+      "time": 1770575279520,
+      "price": 87.33
     }
   ],
   "trades": [
-    {
-      "time": 1770568834401,
-      "cycle": 5048,
-      "action": "HOLD",
-      "amount": 0,
-      "txSig": null,
-      "confidence": 85,
-      "reason": "COOLDOWN ACTIVE: 8.0min remaining. Just closed long position at $87.37 after support breakdown. Price now at $87.25 showing further weakness with 4 consecutive down candles. Must respect cooldown period and wait for clearer market direction before re-entering.",
-      "market_outlook": "bearish",
-      "solPrice": 87.25,
-      "agentBalance": 10,
-      "treasuryBalance": 10,
-      "driftPosition": {
-        "direction": "LONG",
-        "size": 0.09,
-        "pnl": -0.648654
-      }
-    },
-    {
-      "time": 1770568957875,
-      "cycle": 5049,
-      "action": "HOLD",
-      "amount": 0,
-      "txSig": null,
-      "confidence": 85,
-      "reason": "COOLDOWN ACTIVE: 5.8min remaining. Price at $87.14 showing continued weakness after breaking support at $87.37. 5 consecutive down candles confirm bearish momentum. Must wait for cooldown to expire and clearer market direction before considering new position.",
-      "market_outlook": "bearish",
-      "solPrice": 87.14,
-      "agentBalance": 10,
-      "treasuryBalance": 10,
-      "driftPosition": {
-        "direction": "LONG",
-        "size": 0.09,
-        "pnl": -0.658641
-      }
-    },
     {
       "time": 1770569081027,
       "cycle": 5050,
@@ -2536,6 +2500,42 @@
         "direction": "LONG",
         "size": 0.09,
         "pnl": -0.608
+      }
+    },
+    {
+      "time": 1770575159326,
+      "cycle": 5099,
+      "action": "HOLD",
+      "amount": 0,
+      "txSig": null,
+      "confidence": 95,
+      "reason": "COOLDOWN ACTIVE: 5.9min remaining - cannot open new positions. Just closed profitable LONG at resistance for +0.61 USDC. Price at $87.28 near resistance with neutral trend (1/100). Market in consolidation phase after hitting resistance. Must wait for cooldown to expire.",
+      "market_outlook": "neutral",
+      "solPrice": 87.28,
+      "agentBalance": 10,
+      "treasuryBalance": 10,
+      "driftPosition": {
+        "direction": "LONG",
+        "size": 0.09,
+        "pnl": -0.600784
+      }
+    },
+    {
+      "time": 1770575282628,
+      "cycle": 5100,
+      "action": "HOLD",
+      "amount": 0,
+      "txSig": null,
+      "confidence": 85,
+      "reason": "COOLDOWN ACTIVE: 3.9min remaining - cannot open new positions. Market showing neutral consolidation (trend strength 11/100) after hitting resistance. Price at $87.33 near resistance level with minimal momentum. Must wait for cooldown to expire before considering any new positions.",
+      "market_outlook": "neutral",
+      "solPrice": 87.33,
+      "agentBalance": 10,
+      "treasuryBalance": 10,
+      "driftPosition": {
+        "direction": "LONG",
+        "size": 0.09,
+        "pnl": -0.59047
       }
     }
   ],
