@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-02-08T08:34:19.957Z",
+  "lastUpdated": "2026-02-08T08:38:29.200Z",
   "wallet": "BGYMcHT1XkWP2a9b6YNAjw5cBKYPoJh3R1ujao7i3Mgq",
   "treasury": "GYqf6NVVhJqhv6ywyYy9d1cptjjSkiD8tWTdF5xswrZU",
   "balances": {
@@ -16,20 +16,6 @@
     "unrealizedPnL": 0
   },
   "balanceHistory": [
-    {
-      "time": 1770532743371,
-      "total": 36.937459,
-      "agent": 10,
-      "treasury": 10,
-      "drift": 16.937459
-    },
-    {
-      "time": 1770532775591,
-      "total": 36.938054,
-      "agent": 10,
-      "treasury": 10,
-      "drift": 16.938054
-    },
     {
       "time": 1770532808131,
       "total": 36.93758,
@@ -1415,30 +1401,36 @@
       "agent": 10,
       "treasury": 10,
       "drift": 17.5
+    },
+    {
+      "time": 1770539780203,
+      "total": 37.5,
+      "agent": 10,
+      "treasury": 10,
+      "drift": 17.5
+    },
+    {
+      "time": 1770539904021,
+      "total": 37.5,
+      "agent": 10,
+      "treasury": 10,
+      "drift": 17.5
     }
   ],
   "drift": {
     "balance": 17.5,
-    "freeCollateral": 16.885185,
+    "freeCollateral": 16.477277,
     "position": null,
     "hasAccount": true
   },
   "stats": {
-    "totalCycles": 4812,
-    "totalTransactions": 313,
-    "totalVolumeUSDC": 717.8179520000003,
-    "uptime": 168117615,
-    "avgCycleTime": 34937.1602244389
+    "totalCycles": 4814,
+    "totalTransactions": 314,
+    "totalVolumeUSDC": 725.8179520000003,
+    "uptime": 168366858,
+    "avgCycleTime": 34974.4200249273
   },
   "prices": [
-    {
-      "time": 1770537696135,
-      "price": 87.22
-    },
-    {
-      "time": 1770537728642,
-      "price": 87.22
-    },
     {
       "time": 1770537761199,
       "price": 87.21
@@ -1630,45 +1622,17 @@
     {
       "time": 1770539657197,
       "price": 87.78
+    },
+    {
+      "time": 1770539780134,
+      "price": 88.01
+    },
+    {
+      "time": 1770539903952,
+      "price": 88.15
     }
   ],
   "trades": [
-    {
-      "time": 1770537633342,
-      "cycle": 4761,
-      "action": "HOLD",
-      "amount": 0,
-      "txSig": null,
-      "confidence": 40,
-      "reason": "SOL price is extremely range-bound between $86.82-$87.20 with minimal volatility. Existing short position is only 33 minutes old. Insufficient market movement to justify closing or opening new positions. Waiting for clearer trend signals.",
-      "market_outlook": "neutral",
-      "solPrice": 87.2,
-      "agentBalance": 10,
-      "treasuryBalance": 10,
-      "driftPosition": {
-        "direction": "SHORT",
-        "size": 0.05,
-        "pnl": -0.577949
-      }
-    },
-    {
-      "time": 1770537665924,
-      "cycle": 4762,
-      "action": "HOLD",
-      "amount": 0,
-      "txSig": null,
-      "confidence": 40,
-      "reason": "SOL price is extremely range-bound between $86.82-$87.20 with minimal volatility. Existing short position only 33 minutes old. Insufficient market movement to justify closing or opening new positions. Waiting for clearer trend signals.",
-      "market_outlook": "neutral",
-      "solPrice": 87.2,
-      "agentBalance": 10,
-      "treasuryBalance": 10,
-      "driftPosition": {
-        "direction": "SHORT",
-        "size": 0.05,
-        "pnl": -0.576926
-      }
-    },
     {
       "time": 1770537698439,
       "cycle": 4763,
@@ -2517,6 +2481,34 @@
       "reason": "COOLDOWN ACTIVE: 3.8min remaining. Cannot open new positions yet. Price at resistance ($87.78) showing bullish momentum but need to wait for cooldown to expire and observe if this breakout above $87.40 sustains.",
       "market_outlook": "bullish",
       "solPrice": 87.78,
+      "agentBalance": 10,
+      "treasuryBalance": 10,
+      "driftPosition": null
+    },
+    {
+      "time": 1770539783740,
+      "cycle": 4813,
+      "action": "HOLD",
+      "amount": 0,
+      "txSig": null,
+      "confidence": 85,
+      "reason": "COOLDOWN ACTIVE: 1.8min remaining. Cannot open new positions yet. Price broke above $87.40 resistance and showing bullish momentum (6 consecutive up candles, +3.42% daily). Need to wait for cooldown to expire before considering long position on this breakout.",
+      "market_outlook": "bullish",
+      "solPrice": 88.01,
+      "agentBalance": 10,
+      "treasuryBalance": 10,
+      "driftPosition": null
+    },
+    {
+      "time": 1770539909144,
+      "cycle": 4814,
+      "action": "OPEN_LONG",
+      "amount": 8,
+      "txSig": "4ivFySfZ7zbqyeUS2vW4uEwPVZkXuxmtLLwdE59mP3RWHCfCzuZpeBabetLY9KCgqcjK8VQvbQkC8zprHAJiHWzL",
+      "confidence": 78,
+      "reason": "Strong bullish breakout confirmed: 7 consecutive up candles, price broke resistance at $87.40 and now at $88.15 (new high). Trend strength 76/100 with positive momentum. Clear uptrend from $87.11 to $88.15 (+1.2%). Cooldown expired, good entry point.",
+      "market_outlook": "bullish",
+      "solPrice": 88.15,
       "agentBalance": 10,
       "treasuryBalance": 10,
       "driftPosition": null
