@@ -16,8 +16,11 @@ const {
   MarketType,
   BASE_PRECISION,
   QUOTE_PRECISION,
+  PRICE_PRECISION,
   convertToNumber,
   getMarketOrderParams,
+  getLimitOrderParams,
+  PostOnlyParams,
   initialize,
   BN,
   TokenFaucet,
@@ -219,14 +222,22 @@ async function openPosition(direction, sizeUsd, leverage = 2) {
   // Calculate base amount
   const baseAmount = (sizeUsd / oraclePrice) * BASE_PRECISION.toNumber();
 
-  const orderParams = getMarketOrderParams({
+  // Use limit order at oracle price with slight offset to improve fill
+  // LONG: bid slightly above oracle to get filled quickly (0.1% above)
+  // SHORT: ask slightly below oracle to get filled quickly (0.1% below)
+  const priceOffset = direction === 'LONG' ? 1.001 : 0.999;
+  const limitPrice = new BN(Math.floor(oraclePrice * priceOffset * PRICE_PRECISION.toNumber()));
+
+  const orderParams = getLimitOrderParams({
     marketIndex: SOL_MARKET_INDEX,
     direction: direction === 'LONG' ? PositionDirection.LONG : PositionDirection.SHORT,
     baseAssetAmount: new BN(Math.floor(baseAmount)),
     marketType: MarketType.PERP,
+    price: limitPrice,
+    postOnly: PostOnlyParams.TRY_POST_ONLY,
   });
 
-  console.log(`[Drift] Opening ${direction}: $${sizeUsd} (${(sizeUsd / oraclePrice).toFixed(4)} SOL) @ ${leverage}x`);
+  console.log(`[Drift] Opening ${direction} (LIMIT): $${sizeUsd} (${(sizeUsd / oraclePrice).toFixed(4)} SOL) @ $${(oraclePrice * priceOffset).toFixed(2)} limit`);
   const txSig = await client.placePerpOrder(orderParams);
   console.log(`[Drift] TX: https://explorer.solana.com/tx/${txSig}?cluster=devnet`);
 
@@ -237,6 +248,7 @@ async function openPosition(direction, sizeUsd, leverage = 2) {
     baseAmount: sizeUsd / oraclePrice,
     price: oraclePrice,
     leverage,
+    orderType: 'limit',
   };
 }
 
@@ -253,15 +265,29 @@ async function closePosition() {
   const closeDirection = pos.direction === 'LONG' ? PositionDirection.SHORT : PositionDirection.LONG;
   const baseAmount = Math.abs(pos.baseAmount * BASE_PRECISION.toNumber());
 
-  const orderParams = getMarketOrderParams({
+  // Get oracle price for limit order
+  const solMarket = client.getPerpMarketAccount(SOL_MARKET_INDEX);
+  const oraclePrice = convertToNumber(
+    solMarket.amm.historicalOracleData.lastOraclePrice,
+    QUOTE_PRECISION
+  );
+
+  // Closing LONG = selling, so set limit slightly below oracle (0.1% below) to fill
+  // Closing SHORT = buying back, so set limit slightly above oracle (0.1% above) to fill
+  const priceOffset = pos.direction === 'LONG' ? 0.999 : 1.001;
+  const limitPrice = new BN(Math.floor(oraclePrice * priceOffset * PRICE_PRECISION.toNumber()));
+
+  const orderParams = getLimitOrderParams({
     marketIndex: SOL_MARKET_INDEX,
     direction: closeDirection,
     baseAssetAmount: new BN(Math.floor(baseAmount)),
     marketType: MarketType.PERP,
     reduceOnly: true,
+    price: limitPrice,
+    postOnly: PostOnlyParams.TRY_POST_ONLY,
   });
 
-  console.log(`[Drift] Closing ${pos.direction}: ${Math.abs(pos.baseAmount).toFixed(4)} SOL (PnL: $${pos.unrealizedPnl.toFixed(2)})`);
+  console.log(`[Drift] Closing ${pos.direction} (LIMIT): ${Math.abs(pos.baseAmount).toFixed(4)} SOL @ $${(oraclePrice * priceOffset).toFixed(2)} limit (PnL: $${pos.unrealizedPnl.toFixed(2)})`);
   const txSig = await client.placePerpOrder(orderParams);
   console.log(`[Drift] TX: https://explorer.solana.com/tx/${txSig}?cluster=devnet`);
 
@@ -270,6 +296,7 @@ async function closePosition() {
     closedDirection: pos.direction,
     closedAmount: Math.abs(pos.baseAmount),
     pnl: pos.unrealizedPnl,
+    orderType: 'limit',
   };
 }
 
@@ -296,6 +323,39 @@ async function getMarketInfo() {
   };
 }
 
+async function getOpenOrders() {
+  const client = await initializeDrift();
+  try {
+    const user = client.getUser();
+    const orders = user.getOpenOrders();
+    return orders.map(o => ({
+      orderId: o.orderId,
+      marketIndex: o.marketIndex,
+      direction: o.direction.long ? 'LONG' : 'SHORT',
+      baseAssetAmount: convertToNumber(o.baseAssetAmount, BASE_PRECISION),
+      price: convertToNumber(o.price, PRICE_PRECISION),
+      status: o.status,
+      orderType: o.orderType,
+      reduceOnly: o.reduceOnly,
+      slot: o.slot?.toNumber() || 0,
+    }));
+  } catch {
+    return [];
+  }
+}
+
+async function cancelAllOrders() {
+  const client = await initializeDrift();
+  try {
+    const txSig = await client.cancelOrders(MarketType.PERP, SOL_MARKET_INDEX, null);
+    console.log(`[Drift] Cancelled all SOL-PERP orders: https://explorer.solana.com/tx/${txSig}?cluster=devnet`);
+    return txSig;
+  } catch (err) {
+    console.log(`[Drift] Cancel orders failed: ${err.message}`);
+    return null;
+  }
+}
+
 async function shutdown() {
   if (driftClient) {
     try {
@@ -314,6 +374,8 @@ module.exports = {
   depositUSDC,
   openPosition,
   closePosition,
+  getOpenOrders,
+  cancelAllOrders,
   getMarketInfo,
   shutdown,
 };

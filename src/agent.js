@@ -56,6 +56,10 @@ const MIN_POSITION_HOLD_MS = 30 * 60 * 1000;   // Must hold a position for at le
 const TRADE_COOLDOWN_MS = 10 * 60 * 1000;       // 10 min cooldown after closing before opening new
 const SPREAD_TOLERANCE_PCT = 0.03;               // Don't close if loss < 3% of position size (that's just the spread)
 
+// Limit order parameters
+const ORDER_FILL_TIMEOUT_MS = 3 * 60 * 1000;    // Cancel unfilled limit orders after 3 minutes
+const ORDER_CHECK_INTERVAL_MS = 10_000;          // Check order fill status every 10 seconds
+
 // Paths
 const LOG_DIR = path.join(__dirname, '..', 'logs');
 const STATE_FILE = path.join(LOG_DIR, 'agent-state.json');
@@ -175,21 +179,58 @@ async function getSOLBalance(pubkey) {
 
 async function getDriftInfo() {
   const d = await getDrift();
-  if (!d) return { available: false, position: null, driftBalance: 0, freeCollateral: 0 };
+  if (!d) return { available: false, position: null, driftBalance: 0, freeCollateral: 0, openOrders: [] };
 
   try {
     const info = await d.getAccountInfo();
+    const openOrders = await d.getOpenOrders();
     return {
       available: true,
       hasAccount: info.hasAccount,
       position: info.position,
       driftBalance: info.usdcBalance,
       freeCollateral: info.freeCollateral,
+      openOrders,
     };
   } catch (err) {
     console.log(`[Drift] Info error: ${err.message}`);
-    return { available: true, position: null, driftBalance: 0, freeCollateral: 0 };
+    return { available: true, position: null, driftBalance: 0, freeCollateral: 0, openOrders: [] };
   }
+}
+
+// ─── Limit Order Fill Monitoring ─────────────────────────────────────────────
+
+async function waitForOrderFill(orderTimeoutMs = ORDER_FILL_TIMEOUT_MS) {
+  const d = await getDrift();
+  if (!d) return { filled: false, reason: 'drift unavailable' };
+
+  const startTime = Date.now();
+  let lastOrderCount = -1;
+
+  while (Date.now() - startTime < orderTimeoutMs) {
+    const openOrders = await d.getOpenOrders();
+
+    if (openOrders.length === 0) {
+      // No open orders = either filled or never placed
+      console.log(`  [Limit] Order filled! (took ${((Date.now() - startTime) / 1000).toFixed(1)}s)`);
+      return { filled: true, timeMs: Date.now() - startTime };
+    }
+
+    if (lastOrderCount !== openOrders.length) {
+      console.log(`  [Limit] Waiting for fill... ${openOrders.length} open order(s), ${((orderTimeoutMs - (Date.now() - startTime)) / 1000).toFixed(0)}s remaining`);
+      lastOrderCount = openOrders.length;
+    }
+
+    await new Promise(r => setTimeout(r, ORDER_CHECK_INTERVAL_MS));
+  }
+
+  // Timeout — cancel unfilled orders
+  console.log(`  [Limit] Order not filled after ${(orderTimeoutMs / 1000).toFixed(0)}s — cancelling...`);
+  const cancelTx = await d.cancelAllOrders();
+  if (cancelTx) {
+    console.log(`  [Limit] Stale orders cancelled`);
+  }
+  return { filled: false, reason: 'timeout', timeMs: Date.now() - startTime };
 }
 
 // ─── USDC Transfer Functions ─────────────────────────────────────────────────
@@ -351,9 +392,9 @@ ${driftActions}
 CRITICAL TRADING DISCIPLINE:
 1. HOLD is almost always the right answer. Only trade when you have HIGH conviction (70%+) and a clear trend.
 2. Positions need TIME to play out. When you open a position, commit to it for AT LEAST 30 minutes.
-3. The bid-ask spread on devnet costs ~$0.50-$0.70 per round trip. Every open+close costs money. STOP CHURNING.
-4. A position showing -$0.50 to -$0.70 PnL immediately after opening is THE SPREAD, not a loss. IGNORE IT.
-5. Do NOT close a position and reopen in the same direction — that just pays the spread twice for nothing.
+3. We now use LIMIT ORDERS (not market orders). This drastically reduces spread costs (~$0.05-$0.15 vs old $0.50-$0.70). But still avoid unnecessary churn.
+4. A position showing -$0.05 to -$0.15 PnL immediately after opening is the residual limit order fee, not a real loss. IGNORE IT.
+5. Do NOT close a position and reopen in the same direction — that still pays fees twice for nothing.
 6. Only close a position when: (a) your original thesis is CLEARLY wrong (trend reversed), OR (b) you hit take-profit target (8%+ of collateral), OR (c) you hit stop-loss (-10% of collateral).
 7. Small fluctuations within a larger trend are NOISE. A $0.30 bounce in a $5 downtrend is not a reversal.
 8. Use the trend analysis data: if trend strength is low and momentum is near 0, HOLD. Don't force trades in choppy markets.
@@ -710,13 +751,20 @@ async function executeTrade(decision, agentBalance, treasuryBalance, driftInfo, 
         }
       }
 
-      console.log(`\n  [Drift] Opening ${direction}: $${sizeUsd.toFixed(2)} @ ${leverage}x leverage`);
+      console.log(`\n  [Drift] Opening ${direction} (LIMIT ORDER): $${sizeUsd.toFixed(2)} @ ${leverage}x leverage`);
       try {
         const result = await d.openPosition(direction, sizeUsd, leverage);
         txSig = result.txSig;
+        console.log(`  [Drift] Limit order placed: https://explorer.solana.com/tx/${txSig}?cluster=devnet`);
+        console.log(`  [Drift] Limit price: $${result.price.toFixed(2)}, Size: ${result.baseAmount.toFixed(4)} SOL`);
+
+        // Wait for limit order to fill
+        const fillResult = await waitForOrderFill();
+        if (!fillResult.filled) {
+          console.log(`  [Drift] Order not filled — no position opened`);
+          return { txSig, action: 'HOLD', amount: 0 };
+        }
         executedAmount = sizeUsd;
-        console.log(`  [Drift] Position TX: https://explorer.solana.com/tx/${txSig}?cluster=devnet`);
-        console.log(`  [Drift] Entry price: $${result.price.toFixed(2)}, Size: ${result.baseAmount.toFixed(4)} SOL`);
       } catch (err) {
         console.log(`  [Drift] Open position failed: ${err.message}`);
         return { txSig: null, action: 'FAILED', amount: 0 };
@@ -726,13 +774,20 @@ async function executeTrade(decision, agentBalance, treasuryBalance, driftInfo, 
         console.log('  [Drift] No position to close');
         return { txSig: null, action: 'HOLD', amount: 0 };
       }
-      console.log(`\n  [Drift] Closing ${driftInfo.position.direction} position (PnL: $${driftInfo.position.unrealizedPnl.toFixed(2)})`);
+      console.log(`\n  [Drift] Closing ${driftInfo.position.direction} (LIMIT ORDER) (PnL: $${driftInfo.position.unrealizedPnl.toFixed(2)})`);
       try {
         const result = await d.closePosition();
         if (result) {
           txSig = result.txSig;
+          console.log(`  [Drift] Close limit order placed: https://explorer.solana.com/tx/${txSig}?cluster=devnet`);
+
+          // Wait for limit order to fill
+          const fillResult = await waitForOrderFill();
+          if (!fillResult.filled) {
+            console.log(`  [Drift] Close order not filled — position still open`);
+            return { txSig, action: 'HOLD', amount: 0 };
+          }
           executedAmount = Math.abs(result.pnl);
-          console.log(`  [Drift] Close TX: https://explorer.solana.com/tx/${txSig}?cluster=devnet`);
           console.log(`  [Drift] Realized PnL: $${result.pnl.toFixed(2)}`);
         }
       } catch (err) {
@@ -814,6 +869,16 @@ async function tradingCycle(state) {
   console.log(`\n${'='.repeat(60)}`);
   console.log(`  Cycle ${state.cycle}/${MAX_CYCLES} | ${formatLT()}`);
   console.log(`${'='.repeat(60)}`);
+
+  // 0. Cancel any stale/unfilled limit orders from previous cycles
+  const dPre = await getDrift();
+  if (dPre) {
+    const staleOrders = await dPre.getOpenOrders();
+    if (staleOrders.length > 0) {
+      console.log(`  [Limit] Found ${staleOrders.length} stale open order(s) — cancelling...`);
+      await dPre.cancelAllOrders();
+    }
+  }
 
   // 1. Gather market data + Drift info
   const [solData, sentiment, driftInfo] = await Promise.all([
