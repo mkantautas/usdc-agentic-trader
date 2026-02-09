@@ -33,6 +33,12 @@ const path = require('path');
 function formatLT(date = new Date()) {
   return date.toLocaleTimeString('lt-LT', { timeZone: 'Europe/Vilnius', hour12: false });
 }
+
+// Safe toFixed — prevents crashes from undefined/null values
+function safe(val, decimals = 2) {
+  if (val === undefined || val === null || isNaN(val)) return '0.00';
+  return Number(val).toFixed(decimals);
+}
 require('dotenv').config({ path: path.join(__dirname, '..', '.env'), override: true });
 
 // ─── Configuration ───────────────────────────────────────────────────────────
@@ -200,7 +206,7 @@ async function getDriftInfo() {
 
 // ─── Limit Order Fill Monitoring ─────────────────────────────────────────────
 
-async function waitForOrderFill(orderTimeoutMs = ORDER_FILL_TIMEOUT_MS) {
+async function waitForOrderFill(oraclePrice, limitPrice, direction, orderTimeoutMs = ORDER_FILL_TIMEOUT_MS) {
   const d = await getDrift();
   if (!d) return { filled: false, reason: 'drift unavailable' };
 
@@ -211,9 +217,34 @@ async function waitForOrderFill(orderTimeoutMs = ORDER_FILL_TIMEOUT_MS) {
     const openOrders = await d.getOpenOrders();
 
     if (openOrders.length === 0) {
-      // No open orders = either filled or never placed
-      console.log(`  [Limit] Order filled! (took ${((Date.now() - startTime) / 1000).toFixed(1)}s)`);
-      return { filled: true, timeMs: Date.now() - startTime };
+      const fillTimeMs = Date.now() - startTime;
+      const fillTimeSec = (fillTimeMs / 1000).toFixed(1);
+
+      // Determine likely fill type based on how fast it filled
+      // Instant fills (< 2s) are almost certainly taker fills (crossed the book)
+      // Delayed fills (> 5s) are more likely maker fills
+      let fillType = 'unknown';
+      if (fillTimeMs < 2000) fillType = 'TAKER (instant fill - likely crossed the book)';
+      else if (fillTimeMs < 5000) fillType = 'LIKELY_TAKER (fast fill)';
+      else fillType = 'LIKELY_MAKER (delayed fill)';
+
+      console.log(`  [Limit] Order filled! (took ${fillTimeSec}s)`);
+      console.log(`  [Limit] Fill analysis: ${fillType}`);
+      console.log(`  [Limit]   Oracle: $${safe(oraclePrice)} | Our limit: $${safe(limitPrice)} | Direction: ${direction || '?'}`);
+
+      // Get position info after fill to see actual entry price
+      try {
+        const info = await d.getAccountInfo();
+        if (info.position) {
+          const entryPrice = Math.abs(info.position.quoteAmount / info.position.baseAmount);
+          const spreadPaid = Math.abs(entryPrice - (oraclePrice || entryPrice));
+          console.log(`  [Limit]   Entry price: $${safe(entryPrice)} | Spread from oracle: $${safe(spreadPaid, 4)} (${safe(spreadPaid / (oraclePrice || 1) * 100, 3)}%)`);
+        }
+      } catch (e) {
+        // Non-critical, just skip
+      }
+
+      return { filled: true, timeMs: fillTimeMs, fillType };
     }
 
     if (lastOrderCount !== openOrders.length) {
@@ -330,9 +361,9 @@ async function askClaude(context) {
   const driftSection = context.driftAvailable ? `
 Drift Protocol (Perpetual Futures):
 - Drift Account: ${context.driftHasAccount ? 'Active' : 'Not initialized'}
-- Drift USDC Balance: ${context.driftBalance.toFixed(2)} USDC (collateral)
-- Free Collateral: ${context.freeCollateral.toFixed(2)} USDC
-- Current Position: ${context.driftPosition ? `${context.driftPosition.direction} ${Math.abs(context.driftPosition.baseAmount).toFixed(4)} SOL (PnL: $${context.driftPosition.unrealizedPnl.toFixed(2)}, held for ${positionHoldTime || '?'}min)` : 'None'}
+- Drift USDC Balance: ${safe(context.driftBalance)} USDC (collateral)
+- Free Collateral: ${safe(context.freeCollateral)} USDC
+- Current Position: ${context.driftPosition ? `${context.driftPosition.direction} ${safe(Math.abs(context.driftPosition.baseAmount), 4)} SOL (PnL: $${safe(context.driftPosition.unrealizedPnl)}, held for ${positionHoldTime || '?'}min)` : 'None'}
 ${cooldownRemaining && cooldownRemaining > 0 ? `- COOLDOWN ACTIVE: ${cooldownRemaining}min remaining — do NOT open new positions yet` : ''}
 ` : '';
 
@@ -361,22 +392,22 @@ Trend Analysis:
 Your goal: maximize returns through smart allocation and derivatives trading.
 
 Current State:
-- Agent USDC Balance: ${context.agentBalance.toFixed(2)} USDC (wallet)
-- Treasury USDC Balance: ${context.treasuryBalance.toFixed(2)} USDC
-- Total USDC: ${(context.agentBalance + context.treasuryBalance + context.driftBalance).toFixed(2)} USDC
+- Agent USDC Balance: ${safe(context.agentBalance)} USDC (wallet)
+- Treasury USDC Balance: ${safe(context.treasuryBalance)} USDC
+- Total USDC: ${safe((context.agentBalance || 0) + (context.treasuryBalance || 0) + (context.driftBalance || 0))} USDC
 ${driftSection}
 Market Data:
-- SOL Price: $${context.solPrice.toFixed(2)}
-- SOL 24h Change: ${context.solChange24h.toFixed(2)}%
-- Market Cap Change: ${context.marketCapChange.toFixed(2)}%
-- BTC Dominance: ${context.btcDominance.toFixed(1)}%
+- SOL Price: $${safe(context.solPrice)}
+- SOL 24h Change: ${safe(context.solChange24h)}%
+- Market Cap Change: ${safe(context.marketCapChange)}%
+- BTC Dominance: ${safe(context.btcDominance, 1)}%
 ${trendSection}
 Recent Price History (last ${context.priceHistory.length} readings, 2min intervals):
-${context.priceHistory.map(p => `  $${p.price.toFixed(2)} @ ${formatLT(new Date(p.time))}`).join('\n')}
+${context.priceHistory.map(p => `  $${safe(p.price)} @ ${formatLT(new Date(p.time))}`).join('\n')}
 
 Recent Trades:
 ${context.recentTrades.length > 0 ? context.recentTrades.map(t =>
-  `  ${t.action} ${(t.amount || 0).toFixed(2)} USDC | ${t.reason} @ ${formatLT(new Date(t.time))}`
+  `  ${t.action} ${safe(t.amount)} USDC | ${t.reason || 'N/A'} @ ${formatLT(new Date(t.time))}`
 ).join('\n') : '  No trades yet'}
 
 Trading Cycle: ${context.cycle}/${MAX_CYCLES}
@@ -462,14 +493,14 @@ function makeRuleBasedDecision(context) {
       if (driftPosition.direction === 'LONG' && (solChange24h < -3 || momentum < -2)) {
         return {
           action: 'CLOSE_LONG', amount: 0, size_usd: 0, leverage: 2, confidence: 75,
-          reason: `Closing LONG - market turning bearish (SOL ${solChange24h.toFixed(1)}%, momentum ${momentum.toFixed(1)}%)`,
+          reason: `Closing LONG - market turning bearish (SOL ${safe(solChange24h, 1)}%, momentum ${safe(momentum, 1)}%)`,
           market_outlook: 'bearish'
         };
       }
       if (driftPosition.direction === 'SHORT' && (solChange24h > 3 || momentum > 2)) {
         return {
           action: 'CLOSE_SHORT', amount: 0, size_usd: 0, leverage: 2, confidence: 75,
-          reason: `Closing SHORT - market turning bullish (SOL ${solChange24h.toFixed(1)}%, momentum ${momentum.toFixed(1)}%)`,
+          reason: `Closing SHORT - market turning bullish (SOL ${safe(solChange24h, 1)}%, momentum ${safe(momentum, 1)}%)`,
           market_outlook: 'bullish'
         };
       }
@@ -479,7 +510,7 @@ function makeRuleBasedDecision(context) {
         const closeAction = driftPosition.direction === 'LONG' ? 'CLOSE_LONG' : 'CLOSE_SHORT';
         return {
           action: closeAction, amount: 0, size_usd: 0, leverage: 2, confidence: 70,
-          reason: `Taking profit: $${driftPosition.unrealizedPnl.toFixed(2)} PnL (above ${(takeProfitUsd).toFixed(2)} = 8% of collateral)`,
+          reason: `Taking profit: $${safe(driftPosition.unrealizedPnl)} PnL (above ${safe(takeProfitUsd)} = 8% of collateral)`,
           market_outlook: 'neutral'
         };
       }
@@ -490,7 +521,7 @@ function makeRuleBasedDecision(context) {
         const closeAction = driftPosition.direction === 'LONG' ? 'CLOSE_LONG' : 'CLOSE_SHORT';
         return {
           action: closeAction, amount: 0, size_usd: 0, leverage: 2, confidence: 65,
-          reason: `Cutting loss: $${driftPosition.unrealizedPnl.toFixed(2)} PnL exceeds -$${stopLossUsd.toFixed(2)} stop-loss (10% of collateral)`,
+          reason: `Cutting loss: $${safe(driftPosition.unrealizedPnl)} PnL exceeds -$${safe(stopLossUsd)} stop-loss (10% of collateral)`,
           market_outlook: driftPosition.direction === 'LONG' ? 'bearish' : 'bullish'
         };
       }
@@ -502,7 +533,7 @@ function makeRuleBasedDecision(context) {
         const size = Math.min(freeCollateral * 0.5, MAX_PERP_SIZE_USD);
         return {
           action: 'OPEN_SHORT', amount: 0, size_usd: size, leverage: 2, confidence: 70,
-          reason: `Bearish signal (SOL ${solChange24h.toFixed(1)}%, momentum ${momentum.toFixed(1)}%) - shorting SOL`,
+          reason: `Bearish signal (SOL ${safe(solChange24h, 1)}%, momentum ${safe(momentum, 1)}%) - shorting SOL`,
           market_outlook: 'bearish'
         };
       }
@@ -510,7 +541,7 @@ function makeRuleBasedDecision(context) {
         const size = Math.min(freeCollateral * 0.5, MAX_PERP_SIZE_USD);
         return {
           action: 'OPEN_LONG', amount: 0, size_usd: size, leverage: 2, confidence: 70,
-          reason: `Bullish signal (SOL ${solChange24h.toFixed(1)}%, momentum ${momentum.toFixed(1)}%) - longing SOL`,
+          reason: `Bullish signal (SOL ${safe(solChange24h, 1)}%, momentum ${safe(momentum, 1)}%) - longing SOL`,
           market_outlook: 'bullish'
         };
       }
@@ -539,7 +570,7 @@ function makeRuleBasedDecision(context) {
       const amount = Math.min(agentBalance * 0.3, agentBalance - MIN_USDC_TRADE);
       return {
         action: 'ALLOCATE_TO_TREASURY', amount: Math.max(MIN_USDC_TRADE, amount), size_usd: 0, leverage: 2,
-        confidence: 70, reason: `Bearish signal (SOL ${solChange24h.toFixed(1)}%, momentum ${momentum.toFixed(1)}%) - protecting capital`,
+        confidence: 70, reason: `Bearish signal (SOL ${safe(solChange24h, 1)}%, momentum ${safe(momentum, 1)}%) - protecting capital`,
         market_outlook: 'bearish'
       };
     }
@@ -550,7 +581,7 @@ function makeRuleBasedDecision(context) {
       const amount = Math.min(treasuryBalance * 0.3, treasuryBalance - MIN_USDC_TRADE);
       return {
         action: 'WITHDRAW_FROM_TREASURY', amount: Math.max(MIN_USDC_TRADE, amount), size_usd: 0, leverage: 2,
-        confidence: 65, reason: `Bullish signal (SOL ${solChange24h.toFixed(1)}%, momentum ${momentum.toFixed(1)}%) - deploying capital`,
+        confidence: 65, reason: `Bullish signal (SOL ${safe(solChange24h, 1)}%, momentum ${safe(momentum, 1)}%) - deploying capital`,
         market_outlook: 'bullish'
       };
     }
@@ -562,7 +593,7 @@ function makeRuleBasedDecision(context) {
     if (Math.abs(diff) > MIN_USDC_TRADE) {
       return {
         action: 'REBALANCE', amount: Math.abs(diff), size_usd: 0, leverage: 2,
-        confidence: 60, reason: `Portfolio skewed (agent: ${(agentRatio * 100).toFixed(0)}%) - rebalancing to 50/50`,
+        confidence: 60, reason: `Portfolio skewed (agent: ${safe(agentRatio * 100, 0)}%) - rebalancing to 50/50`,
         market_outlook: 'neutral'
       };
     }
@@ -589,6 +620,11 @@ function loadState() {
     initialBalance: null,        // Set on first cycle
     balanceHistory: [],          // Track total balance over time
     realizedPnL: 0,             // Accumulated realized P&L from Drift trades
+    strategyPnL: 0,             // Strategy P&L: what we'd have made at oracle prices (no spread)
+    strategyTrades: [],         // History of strategy-level trade records {direction, oracleOpen, oracleClose, size, pnl}
+    currentOpenOracle: null,    // Oracle price when current position was opened
+    currentOpenDirection: null, // Direction of current position ('LONG' or 'SHORT')
+    currentOpenSize: null,      // Size of current position in SOL
     lastPositionOpenTime: null,  // When the current position was opened
     lastPositionCloseTime: null, // When the last position was closed (for cooldown)
   };
@@ -609,6 +645,16 @@ function saveDashboardData(state, agentBalance, treasuryBalance, driftInfo) {
   const realizedPnL = state.realizedPnL || 0;
   const totalPnL = totalNow - initialBal;
 
+  // Calculate unrealized strategy P&L for current open position
+  let unrealizedStrategyPnL = 0;
+  if (state.currentOpenOracle && state.currentOpenDirection && state.currentOpenSize) {
+    const currentPrice = (state.prices && state.prices.length > 0) ? state.prices[state.prices.length - 1].price : 0;
+    if (currentPrice > 0) {
+      const priceDiff = currentPrice - state.currentOpenOracle;
+      unrealizedStrategyPnL = state.currentOpenDirection === 'LONG' ? priceDiff * state.currentOpenSize : -priceDiff * state.currentOpenSize;
+    }
+  }
+
   const dashData = {
     lastUpdated: new Date().toISOString(),
     wallet: wallet.publicKey.toString(),
@@ -625,6 +671,11 @@ function saveDashboardData(state, agentBalance, treasuryBalance, driftInfo) {
       totalPnLPercent: initialBal > 0 ? (totalPnL / initialBal * 100) : 0,
       realizedPnL: realizedPnL,
       unrealizedPnL: unrealizedPnL,
+      strategyPnL: (state.strategyPnL || 0) + unrealizedStrategyPnL,
+      strategyRealizedPnL: state.strategyPnL || 0,
+      strategyUnrealizedPnL: unrealizedStrategyPnL,
+      strategyTrades: (state.strategyTrades || []).slice(-20),
+      spreadCost: (state.realizedPnL || 0) - (state.strategyPnL || 0),
     },
     balanceHistory: (state.balanceHistory || []).slice(-200),
     drift: driftInfo?.available ? {
@@ -677,7 +728,7 @@ async function executeTrade(decision, agentBalance, treasuryBalance, driftInfo, 
       const positionValue = driftInfo.collateral || driftInfo.position.sizeUsd || 10;
       const spreadToleranceUsd = positionValue * SPREAD_TOLERANCE_PCT;
       if (pnl < 0 && Math.abs(pnl) <= spreadToleranceUsd) {
-        console.log(`  [Anti-churn] PnL $${pnl.toFixed(2)} is within spread tolerance (${(SPREAD_TOLERANCE_PCT * 100).toFixed(1)}% of $${positionValue.toFixed(2)} = $${spreadToleranceUsd.toFixed(2)}). Holding.`);
+        console.log(`  [Anti-churn] PnL $${safe(pnl)} is within spread tolerance (${safe(SPREAD_TOLERANCE_PCT * 100, 1)}% of $${safe(positionValue)} = $${safe(spreadToleranceUsd)}). Holding.`);
         return { txSig: null, action: 'HOLD', amount: 0 };
       }
     }
@@ -719,7 +770,7 @@ async function executeTrade(decision, agentBalance, treasuryBalance, driftInfo, 
         console.log('  [Drift] Insufficient USDC for deposit');
         return { txSig: null, action: 'HOLD', amount: 0 };
       }
-      console.log(`\n  [Drift] Depositing ${depositAmt.toFixed(2)} USDC as collateral...`);
+      console.log(`\n  [Drift] Depositing ${safe(depositAmt)} USDC as collateral...`);
       try {
         txSig = await d.depositUSDC(depositAmt);
         console.log(`  [Drift] Deposit TX: https://explorer.solana.com/tx/${txSig}?cluster=devnet`);
@@ -751,15 +802,16 @@ async function executeTrade(decision, agentBalance, treasuryBalance, driftInfo, 
         }
       }
 
-      console.log(`\n  [Drift] Opening ${direction} (LIMIT ORDER): $${sizeUsd.toFixed(2)} @ ${leverage}x leverage`);
+      console.log(`\n  [Drift] Opening ${direction} (LIMIT ORDER): $${safe(sizeUsd)} @ ${leverage}x leverage`);
       try {
         const result = await d.openPosition(direction, sizeUsd, leverage);
         txSig = result.txSig;
+        const limitPriceUsd = result.price * (direction === 'LONG' ? 1.001 : 0.999);
         console.log(`  [Drift] Limit order placed: https://explorer.solana.com/tx/${txSig}?cluster=devnet`);
-        console.log(`  [Drift] Limit price: $${result.price.toFixed(2)}, Size: ${result.baseAmount.toFixed(4)} SOL`);
+        console.log(`  [Drift] Oracle: $${safe(result.price)}, Limit: $${safe(limitPriceUsd)}, Size: ${safe(result.baseAmount, 4)} SOL`);
 
         // Wait for limit order to fill
-        const fillResult = await waitForOrderFill();
+        const fillResult = await waitForOrderFill(result.price, limitPriceUsd, direction);
         if (!fillResult.filled) {
           console.log(`  [Drift] Order not filled — no position opened`);
           return { txSig, action: 'HOLD', amount: 0 };
@@ -774,21 +826,23 @@ async function executeTrade(decision, agentBalance, treasuryBalance, driftInfo, 
         console.log('  [Drift] No position to close');
         return { txSig: null, action: 'HOLD', amount: 0 };
       }
-      console.log(`\n  [Drift] Closing ${driftInfo.position.direction} (LIMIT ORDER) (PnL: $${driftInfo.position.unrealizedPnl.toFixed(2)})`);
+      console.log(`\n  [Drift] Closing ${driftInfo.position.direction} (LIMIT ORDER) (PnL: $${safe(driftInfo.position.unrealizedPnl)})`);
       try {
         const result = await d.closePosition();
         if (result) {
           txSig = result.txSig;
+          const closeDir = driftInfo.position.direction === 'LONG' ? 'SELL' : 'BUY_BACK';
           console.log(`  [Drift] Close limit order placed: https://explorer.solana.com/tx/${txSig}?cluster=devnet`);
+          console.log(`  [Drift] Oracle: $${safe(result.oraclePrice)}, Limit: $${safe(result.limitPrice)}, Dir: ${closeDir}`);
 
           // Wait for limit order to fill
-          const fillResult = await waitForOrderFill();
+          const fillResult = await waitForOrderFill(result.oraclePrice, result.limitPrice, closeDir);
           if (!fillResult.filled) {
             console.log(`  [Drift] Close order not filled — position still open`);
             return { txSig, action: 'HOLD', amount: 0 };
           }
-          executedAmount = Math.abs(result.pnl);
-          console.log(`  [Drift] Realized PnL: $${result.pnl.toFixed(2)}`);
+          executedAmount = Math.abs(result.pnl || 0);
+          console.log(`  [Drift] Realized PnL: $${safe(result.pnl)}`);
         }
       } catch (err) {
         console.log(`  [Drift] Close position failed: ${err.message}`);
@@ -890,7 +944,7 @@ async function tradingCycle(state) {
   state.prices.push({ time: Date.now(), price: solData.price });
   if (state.prices.length > 200) state.prices = state.prices.slice(-200);
 
-  console.log(`  SOL: $${solData.price.toFixed(2)} (${solData.change24h >= 0 ? '+' : ''}${solData.change24h.toFixed(2)}%)`);
+  console.log(`  SOL: $${safe(solData.price)} (${solData.change24h >= 0 ? '+' : ''}${safe(solData.change24h)}%)`);
 
   // 2. Get balances
   const [agentBalance, treasuryBalance, agentSOL] = await Promise.all([
@@ -905,7 +959,7 @@ async function tradingCycle(state) {
   // Track initial balance on first cycle
   if (state.initialBalance === null || state.initialBalance === undefined) {
     state.initialBalance = totalBalance;
-    console.log(`  Initial balance recorded: ${totalBalance.toFixed(2)} USDC`);
+    console.log(`  Initial balance recorded: ${safe(totalBalance)} USDC`);
   }
 
   // Track balance history (every cycle)
@@ -913,14 +967,14 @@ async function tradingCycle(state) {
   state.balanceHistory.push({ time: Date.now(), total: totalBalance, agent: agentBalance, treasury: treasuryBalance, drift: (driftInfo.driftBalance || 0) + driftUnrealizedPnL });
   if (state.balanceHistory.length > 500) state.balanceHistory = state.balanceHistory.slice(-500);
 
-  console.log(`  Agent:    ${agentBalance.toFixed(2)} USDC | ${agentSOL.toFixed(4)} SOL`);
-  console.log(`  Treasury: ${treasuryBalance.toFixed(2)} USDC`);
-  console.log(`  Total:    ${totalBalance.toFixed(2)} USDC`);
+  console.log(`  Agent:    ${safe(agentBalance)} USDC | ${safe(agentSOL, 4)} SOL`);
+  console.log(`  Treasury: ${safe(treasuryBalance)} USDC`);
+  console.log(`  Total:    ${safe(totalBalance)} USDC`);
 
   if (driftInfo.available) {
-    console.log(`  [Drift]   ${driftInfo.driftBalance.toFixed(2)} USDC collateral | Free: ${driftInfo.freeCollateral.toFixed(2)}`);
+    console.log(`  [Drift]   ${safe(driftInfo.driftBalance)} USDC collateral | Free: ${safe(driftInfo.freeCollateral)}`);
     if (driftInfo.position) {
-      console.log(`  [Drift]   Position: ${driftInfo.position.direction} ${Math.abs(driftInfo.position.baseAmount).toFixed(4)} SOL | PnL: $${driftInfo.position.unrealizedPnl.toFixed(2)}`);
+      console.log(`  [Drift]   Position: ${driftInfo.position.direction} ${safe(Math.abs(driftInfo.position.baseAmount), 4)} SOL | PnL: $${safe(driftInfo.position.unrealizedPnl)}`);
     }
   }
 
@@ -955,7 +1009,7 @@ async function tradingCycle(state) {
   const decision = await askClaude(context);
 
   console.log(`  Decision: ${decision.action}`);
-  if (decision.amount > 0) console.log(`  Amount:   ${decision.amount.toFixed(2)} USDC`);
+  if (decision.amount > 0) console.log(`  Amount:   ${safe(decision.amount)} USDC`);
   if (decision.size_usd > 0) console.log(`  Size:     $${decision.size_usd} @ ${decision.leverage || 2}x`);
   console.log(`  Outlook:  ${decision.market_outlook}`);
   console.log(`  Confidence: ${decision.confidence}%`);
@@ -995,20 +1049,60 @@ async function tradingCycle(state) {
   // Track position open/close times for anti-churn
   if (['OPEN_SHORT', 'OPEN_LONG'].includes(result.action) && result.txSig) {
     state.lastPositionOpenTime = Date.now();
+    // Record oracle price at open for strategy P&L tracking
+    state.currentOpenOracle = solData.price;
+    state.currentOpenDirection = result.action === 'OPEN_LONG' ? 'LONG' : 'SHORT';
+    state.currentOpenSize = driftInfo.position ? Math.abs(driftInfo.position.baseAmount) : (decision.size_usd / solData.price);
     console.log(`  Position opened — hold timer started (min ${MIN_POSITION_HOLD_MS / 60000}min)`);
+    console.log(`  [Strategy] Recorded oracle open: $${safe(solData.price)} ${state.currentOpenDirection} ${safe(state.currentOpenSize, 4)} SOL`);
   }
   if (['CLOSE_SHORT', 'CLOSE_LONG'].includes(result.action) && result.txSig) {
     state.lastPositionCloseTime = Date.now();
     state.lastPositionOpenTime = null;
+
+    // ── Strategy P&L: calculate what we'd have made at oracle prices (no spread) ──
+    state.strategyPnL = state.strategyPnL || 0;
+    state.strategyTrades = state.strategyTrades || [];
+    const oracleClose = solData.price;
+    const oracleOpen = state.currentOpenOracle;
+    const dir = state.currentOpenDirection;
+    const size = state.currentOpenSize || (driftInfo.position ? Math.abs(driftInfo.position.baseAmount) : 0);
+
+    if (oracleOpen && dir && size > 0) {
+      const priceDiff = oracleClose - oracleOpen;
+      const stratPnl = dir === 'LONG' ? priceDiff * size : -priceDiff * size;
+      state.strategyPnL += stratPnl;
+
+      state.strategyTrades.push({
+        time: Date.now(),
+        direction: dir,
+        oracleOpen,
+        oracleClose,
+        size,
+        pnl: stratPnl,
+      });
+      if (state.strategyTrades.length > 100) state.strategyTrades = state.strategyTrades.slice(-100);
+
+      console.log(`  [Strategy] Oracle open: $${safe(oracleOpen)} → close: $${safe(oracleClose)} | ${dir} ${safe(size, 4)} SOL`);
+      console.log(`  [Strategy] Strategy P&L this trade: $${safe(stratPnl, 4)} | Cumulative: $${safe(state.strategyPnL, 4)}`);
+    } else {
+      console.log(`  [Strategy] No oracle open price recorded — skipping strategy P&L for this close`);
+    }
+
+    // Clear the open position tracking
+    state.currentOpenOracle = null;
+    state.currentOpenDirection = null;
+    state.currentOpenSize = null;
+
     console.log(`  Position closed — cooldown started (${TRADE_COOLDOWN_MS / 60000}min before next open)`);
   }
 
-  // Track realized P&L from Drift position closes
+  // Track realized P&L from Drift position closes (execution P&L — includes spread)
   state.realizedPnL = state.realizedPnL || 0;
   if (['CLOSE_SHORT', 'CLOSE_LONG'].includes(result.action) && result.txSig) {
     const closePnl = driftInfo.position?.unrealizedPnl || 0;
     state.realizedPnL += closePnl;
-    console.log(`  Realized P&L from close: $${closePnl.toFixed(4)} (cumulative: $${state.realizedPnL.toFixed(4)})`);
+    console.log(`  Realized (execution) P&L from close: $${safe(closePnl, 4)} (cumulative: $${safe(state.realizedPnL, 4)})`);
   }
 
   // 7. Save state and dashboard
@@ -1057,8 +1151,8 @@ async function main() {
   ]);
 
   console.log(`\nInitial Balances:`);
-  console.log(`  Agent:    ${agentUSDC.toFixed(2)} USDC | ${agentSOL.toFixed(4)} SOL`);
-  console.log(`  Treasury: ${treasuryUSDC.toFixed(2)} USDC`);
+  console.log(`  Agent:    ${safe(agentUSDC)} USDC | ${safe(agentSOL, 4)} SOL`);
+  console.log(`  Treasury: ${safe(treasuryUSDC)} USDC`);
 
   if (agentUSDC < MIN_USDC_TRADE && treasuryUSDC < MIN_USDC_TRADE) {
     console.log(`\nLow USDC balance. Get devnet USDC from https://faucet.circle.com/`);
@@ -1114,9 +1208,9 @@ async function main() {
     const driftInfo = await getDriftInfo();
     console.log(`  Drift: Connected`);
     if (driftInfo.hasAccount) {
-      console.log(`  Drift USDC: ${driftInfo.driftBalance.toFixed(2)} | Free Collateral: ${driftInfo.freeCollateral.toFixed(2)}`);
+      console.log(`  Drift USDC: ${safe(driftInfo.driftBalance)} | Free Collateral: ${safe(driftInfo.freeCollateral)}`);
       if (driftInfo.position) {
-        console.log(`  Position: ${driftInfo.position.direction} ${Math.abs(driftInfo.position.baseAmount).toFixed(4)} SOL`);
+        console.log(`  Position: ${driftInfo.position.direction} ${safe(Math.abs(driftInfo.position.baseAmount), 4)} SOL`);
       }
     } else {
       console.log(`  Drift account not yet initialized (will init on first deposit)`);
@@ -1155,7 +1249,7 @@ async function main() {
   console.log(`  Trading session complete.`);
   console.log(`  Total cycles: ${state.cycle}`);
   console.log(`  Total transactions: ${state.totalTransactions}`);
-  console.log(`  Total volume: ${state.totalVolumeUSDC.toFixed(2)} USDC`);
+  console.log(`  Total volume: ${safe(state.totalVolumeUSDC)} USDC`);
   console.log(`${'='.repeat(60)}`);
 }
 
