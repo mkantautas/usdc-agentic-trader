@@ -1,35 +1,21 @@
 {
-  "lastUpdated": "2026-02-09T01:54:21.571Z",
+  "lastUpdated": "2026-02-09T01:58:28.410Z",
   "wallet": "BGYMcHT1XkWP2a9b6YNAjw5cBKYPoJh3R1ujao7i3Mgq",
   "treasury": "GYqf6NVVhJqhv6ywyYy9d1cptjjSkiD8tWTdF5xswrZU",
   "balances": {
     "agent": 10,
     "treasury": 10,
-    "total": 36.811483
+    "total": 36.813685
   },
   "performance": {
     "initialBalance": 37.499999,
-    "currentBalance": 36.811483,
-    "totalPnL": -0.6885159999999999,
-    "totalPnLPercent": -1.8360427156278054,
+    "currentBalance": 36.813685,
+    "totalPnL": -0.686314000000003,
+    "totalPnLPercent": -1.8301707154712268,
     "realizedPnL": -66.556127,
-    "unrealizedPnL": -0.688517
+    "unrealizedPnL": -0.686315
   },
   "balanceHistory": [
-    {
-      "time": 1770577394475,
-      "total": 36.953274,
-      "agent": 10,
-      "treasury": 10,
-      "drift": 16.953274
-    },
-    {
-      "time": 1770577517605,
-      "total": 36.942583,
-      "agent": 10,
-      "treasury": 10,
-      "drift": 16.942583
-    },
     {
       "time": 1770577640583,
       "total": 36.948123,
@@ -1415,35 +1401,41 @@
       "agent": 10,
       "treasury": 10,
       "drift": 16.811353
+    },
+    {
+      "time": 1770602181804,
+      "total": 36.816395,
+      "agent": 10,
+      "treasury": 10,
+      "drift": 16.816395
+    },
+    {
+      "time": 1770602305626,
+      "total": 36.813429,
+      "agent": 10,
+      "treasury": 10,
+      "drift": 16.813429
     }
   ],
   "drift": {
     "balance": 17.5,
-    "freeCollateral": 16.421124,
+    "freeCollateral": 16.423147,
     "position": {
       "baseAmount": 0.09,
       "quoteAmount": -8.460875,
       "direction": "LONG",
-      "unrealizedPnl": -0.688517
+      "unrealizedPnl": -0.686315
     },
     "hasAccount": true
   },
   "stats": {
-    "totalCycles": 5317,
+    "totalCycles": 5319,
     "totalTransactions": 342,
     "totalVolumeUSDC": 767.0032330000001,
-    "uptime": 230519229,
-    "avgCycleTime": 43355.13052473199
+    "uptime": 230766068,
+    "avgCycleTime": 43385.23557059598
   },
   "prices": [
-    {
-      "time": 1770596006030,
-      "price": 86.86
-    },
-    {
-      "time": 1770596129984,
-      "price": 86.87
-    },
     {
       "time": 1770596253451,
       "price": 86.92
@@ -1635,45 +1627,17 @@
     {
       "time": 1770602057707,
       "price": 86.24
+    },
+    {
+      "time": 1770602181734,
+      "price": 86.27
+    },
+    {
+      "time": 1770602305548,
+      "price": 86.28
     }
   ],
   "trades": [
-    {
-      "time": 1770596009794,
-      "cycle": 5268,
-      "action": "HOLD",
-      "amount": 0,
-      "txSig": null,
-      "confidence": 85,
-      "reason": "Cooldown active for 8 more minutes. Just closed position at $86.86 after failed resistance test at $87.13. Market is choppy with neutral trend (2/100 strength) and price back at support. Wait for cooldown to end and clearer directional signals before re-entering.",
-      "market_outlook": "neutral",
-      "solPrice": 86.86,
-      "agentBalance": 10,
-      "treasuryBalance": 10,
-      "driftPosition": {
-        "direction": "LONG",
-        "size": 0.09,
-        "pnl": -0.635976
-      }
-    },
-    {
-      "time": 1770596133262,
-      "cycle": 5269,
-      "action": "HOLD",
-      "amount": 0,
-      "txSig": null,
-      "confidence": 85,
-      "reason": "Cooldown active for 5.9min. Just closed failed position at support $86.86. Market is choppy with weak bearish trend (12/100), price at support level, and only 1 up candle. Need to wait for cooldown to end and clearer directional signals before re-entering.",
-      "market_outlook": "neutral",
-      "solPrice": 86.87,
-      "agentBalance": 10,
-      "treasuryBalance": 10,
-      "driftPosition": {
-        "direction": "LONG",
-        "size": 0.09,
-        "pnl": -0.619807
-      }
-    },
     {
       "time": 1770596256370,
       "cycle": 5270,
@@ -2536,6 +2500,42 @@
         "direction": "LONG",
         "size": 0.09,
         "pnl": -0.688647
+      }
+    },
+    {
+      "time": 1770602185358,
+      "cycle": 5318,
+      "action": "HOLD",
+      "amount": 0,
+      "txSig": null,
+      "confidence": 75,
+      "reason": "Strong reversal signal confirmed: bearish trend collapsed from 100/100 to 28/100, price found solid support at $86.19 and bounced with 2 consecutive up candles after 9 down candles. Price now at 7% through range with good risk/reward at support level.",
+      "market_outlook": "bullish",
+      "solPrice": 86.27,
+      "agentBalance": 10,
+      "treasuryBalance": 10,
+      "driftPosition": {
+        "direction": "LONG",
+        "size": 0.09,
+        "pnl": -0.683605
+      }
+    },
+    {
+      "time": 1770602308386,
+      "cycle": 5319,
+      "action": "HOLD",
+      "amount": 0,
+      "txSig": null,
+      "confidence": 75,
+      "reason": "Strong reversal signal confirmed: trend collapsed from 100/100 bearish to 36/100, price found solid support at $86.19 and now showing 3 consecutive up candles after 9 down. Price at only 9% through range with excellent risk/reward at support level.",
+      "market_outlook": "bullish",
+      "solPrice": 86.28,
+      "agentBalance": 10,
+      "treasuryBalance": 10,
+      "driftPosition": {
+        "direction": "LONG",
+        "size": 0.09,
+        "pnl": -0.686571
       }
     }
   ],
