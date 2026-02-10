@@ -1,22 +1,22 @@
 {
-  "lastUpdated": "2026-02-10T09:59:58.753Z",
+  "lastUpdated": "2026-02-10T10:04:17.557Z",
   "wallet": "BGYMcHT1XkWP2a9b6YNAjw5cBKYPoJh3R1ujao7i3Mgq",
   "treasury": "GYqf6NVVhJqhv6ywyYy9d1cptjjSkiD8tWTdF5xswrZU",
   "balances": {
     "agent": 10,
     "treasury": 10,
-    "total": 36.636351
+    "total": 36.631868
   },
   "performance": {
     "initialBalance": 37.499999,
-    "currentBalance": 36.636351,
-    "totalPnL": -0.8636480000000049,
-    "totalPnLPercent": -2.3030613947483167,
+    "currentBalance": 36.631868,
+    "totalPnL": -0.8681310000000053,
+    "totalPnLPercent": -2.315016061733776,
     "realizedPnL": -99.91845799999996,
-    "unrealizedPnL": -0.863649,
-    "strategyPnL": 0.08817174000000008,
+    "unrealizedPnL": -0.868132,
+    "strategyPnL": 0.09087174000000019,
     "strategyRealizedPnL": 0.0927000000000001,
-    "strategyUnrealizedPnL": -0.0045282600000000174,
+    "strategyUnrealizedPnL": -0.001828259999999915,
     "strategyTrades": [
       {
         "time": 1770675526480,
@@ -46,20 +46,6 @@
     "spreadCost": -100.01115799999995
   },
   "balanceHistory": [
-    {
-      "time": 1770693036503,
-      "total": 36.801798,
-      "agent": 10,
-      "treasury": 10,
-      "drift": 16.801798
-    },
-    {
-      "time": 1770693161294,
-      "total": 36.797232,
-      "agent": 10,
-      "treasury": 10,
-      "drift": 16.797232
-    },
     {
       "time": 1770693285398,
       "total": 36.796532,
@@ -1445,35 +1431,41 @@
       "agent": 10,
       "treasury": 10,
       "drift": 16.63636
+    },
+    {
+      "time": 1770717718991,
+      "total": 36.645695,
+      "agent": 10,
+      "treasury": 10,
+      "drift": 16.645695
+    },
+    {
+      "time": 1770717853638,
+      "total": 36.630616,
+      "agent": 10,
+      "treasury": 10,
+      "drift": 16.630616
     }
   ],
   "drift": {
     "balance": 17.5,
-    "freeCollateral": 16.256108,
+    "freeCollateral": 16.250484,
     "position": {
       "baseAmount": 0.09,
-      "quoteAmount": -8.468152,
+      "quoteAmount": -8.468376,
       "direction": "LONG",
-      "unrealizedPnl": -0.863649
+      "unrealizedPnl": -0.868132
     },
     "hasAccount": true
   },
   "stats": {
-    "totalCycles": 6253,
+    "totalCycles": 6255,
     "totalTransactions": 394,
     "totalVolumeUSDC": 826.3441120000003,
-    "uptime": 346056411,
-    "avgCycleTime": 55342.461378538304
+    "uptime": 346315216,
+    "avgCycleTime": 55366.141646682656
   },
   "prices": [
-    {
-      "time": 1770711544685,
-      "price": 84.48
-    },
-    {
-      "time": 1770711669759,
-      "price": 84.4
-    },
     {
       "time": 1770711794088,
       "price": 84.29
@@ -1665,45 +1657,17 @@
     {
       "time": 1770717595155,
       "price": 84.48
+    },
+    {
+      "time": 1770717718918,
+      "price": 84.5
+    },
+    {
+      "time": 1770717853569,
+      "price": 84.51
     }
   ],
   "trades": [
-    {
-      "time": 1770711549524,
-      "cycle": 6204,
-      "action": "HOLD",
-      "amount": 0,
-      "txSig": null,
-      "confidence": 75,
-      "reason": "LONG position showing -$0.89 PnL but price just hit support at $84.48 after rejection from resistance. 3 consecutive down candles suggest potential reversal from resistance test. Position needs more time to develop - respecting 30min minimum hold rule. Support level critical - if it holds, could see bounce back toward resistance.",
-      "market_outlook": "neutral",
-      "solPrice": 84.48,
-      "agentBalance": 10,
-      "treasuryBalance": 10,
-      "driftPosition": {
-        "direction": "LONG",
-        "size": 0.09,
-        "pnl": -0.887977
-      }
-    },
-    {
-      "time": 1770711673850,
-      "cycle": 6205,
-      "action": "HOLD",
-      "amount": 0,
-      "txSig": null,
-      "confidence": 75,
-      "reason": "Current LONG position at critical support $84.40 after rejection from resistance $84.61. Position only held briefly - need to respect 30min minimum hold rule. 4 consecutive down candles suggest potential breakdown, but position needs time to develop. Support test is crucial - if it holds, could see bounce back toward $84.50+.",
-      "market_outlook": "neutral",
-      "solPrice": 84.4,
-      "agentBalance": 10,
-      "treasuryBalance": 10,
-      "driftPosition": {
-        "direction": "LONG",
-        "size": 0.09,
-        "pnl": -0.889816
-      }
-    },
     {
       "time": 1770711802515,
       "cycle": 6206,
@@ -2566,6 +2530,42 @@
         "direction": "LONG",
         "size": 0.09,
         "pnl": -0.86364
+      }
+    },
+    {
+      "time": 1770717733331,
+      "cycle": 6254,
+      "action": "HOLD",
+      "amount": 0,
+      "txSig": null,
+      "confidence": 75,
+      "reason": "Long 0.09 SOL showing first green candle after testing exact support at $84.48. Price bounced to $84.50 indicating support may be holding. Trend strength very weak at 11/100 but position needs time to develop through consolidation phase. The -$0.85 PnL is normal limit order residual cost.",
+      "market_outlook": "neutral",
+      "solPrice": 84.5,
+      "agentBalance": 10,
+      "treasuryBalance": 10,
+      "driftPosition": {
+        "direction": "LONG",
+        "size": 0.09,
+        "pnl": -0.854305
+      }
+    },
+    {
+      "time": 1770717857527,
+      "cycle": 6255,
+      "action": "HOLD",
+      "amount": 0,
+      "txSig": null,
+      "confidence": 75,
+      "reason": "Long 0.09 SOL showing first green candle after testing exact support at $84.48. Price bounced to $84.51 with 2 consecutive up candles, suggesting support is holding. Trend strength is very weak at 21/100 indicating choppy consolidation, but position is developing through normal support test. The -$0.87 PnL is normal limit order residual. Position needs more time to develop rather than interfering with unnecessary trades.",
+      "market_outlook": "neutral",
+      "solPrice": 84.51,
+      "agentBalance": 10,
+      "treasuryBalance": 10,
+      "driftPosition": {
+        "direction": "LONG",
+        "size": 0.09,
+        "pnl": -0.869384
       }
     }
   ],
