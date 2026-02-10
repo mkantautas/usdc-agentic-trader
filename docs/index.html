@@ -410,28 +410,28 @@
           const spreadCost = perf.spreadCost || 0;
           const stratTrades = perf.strategyTrades || [];
           const stratPositive = stratPnL >= 0;
-          return \`
+          return `
         <div class="card">
           <h3>Strategy P&L (Oracle-Based)</h3>
-          <div class="stat-big \${stratPositive ? 'green' : 'red'}">\${stratPositive ? '+' : ''}$\${stratPnL.toFixed(4)}</div>
+          <div class="stat-big ${stratPositive ? 'green' : 'red'}">${stratPositive ? '+' : ''}$${stratPnL.toFixed(4)}</div>
           <div class="stat-label">What the strategy would make at oracle prices (no spread)</div>
           <div class="stat-row" style="margin-top:12px">
             <span class="label">Strategy Realized</span>
-            <span class="\${stratRealized >= 0 ? 'green' : 'red'}">\${stratRealized >= 0 ? '+' : ''}$\${stratRealized.toFixed(4)}</span>
+            <span class="${stratRealized >= 0 ? 'green' : 'red'}">${stratRealized >= 0 ? '+' : ''}$${stratRealized.toFixed(4)}</span>
           </div>
           <div class="stat-row">
             <span class="label">Strategy Unrealized</span>
-            <span class="\${stratUnrealized >= 0 ? 'green' : 'red'}">\${stratUnrealized >= 0 ? '+' : ''}$\${stratUnrealized.toFixed(4)}</span>
+            <span class="${stratUnrealized >= 0 ? 'green' : 'red'}">${stratUnrealized >= 0 ? '+' : ''}$${stratUnrealized.toFixed(4)}</span>
           </div>
           <div class="stat-row">
             <span class="label">Spread Cost (lost to fees)</span>
-            <span class="red">$\${Math.abs(spreadCost).toFixed(4)}</span>
+            <span class="red">$${Math.abs(spreadCost).toFixed(4)}</span>
           </div>
           <div style="margin-top:12px;padding:8px;border-radius:6px;font-size:11px;color:var(--dim);background:rgba(255,215,0,0.05);border:1px solid rgba(255,215,0,0.15)">
-            \${stratPositive ? '&#9989; Strategy is profitable — losses are from devnet spread, not bad decisions.' : '&#10060; Strategy itself is losing — need better entry/exit logic.'}
-            \${stratTrades.length > 0 ? ' (' + stratTrades.length + ' strategy trades tracked)' : ' (No strategy trades yet — will populate on next position close)'}
+            ${stratPositive ? '&#9989; Strategy is profitable — losses are from devnet spread, not bad decisions.' : '&#10060; Strategy itself is losing — need better entry/exit logic.'}
+            ${stratTrades.length > 0 ? ' (' + stratTrades.length + ' strategy trades tracked)' : ' (No strategy trades yet — will populate on next position close)'}
           </div>
-        </div>\`;
+        </div>`;
         })()}
 
         <!-- SOL Price -->
