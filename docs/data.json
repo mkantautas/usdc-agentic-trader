@@ -1,22 +1,22 @@
 {
-  "lastUpdated": "2026-02-12T20:38:00.295Z",
+  "lastUpdated": "2026-02-12T20:44:16.714Z",
   "wallet": "BGYMcHT1XkWP2a9b6YNAjw5cBKYPoJh3R1ujao7i3Mgq",
   "treasury": "GYqf6NVVhJqhv6ywyYy9d1cptjjSkiD8tWTdF5xswrZU",
   "balances": {
     "agent": 10,
     "treasury": 10,
-    "total": 35.971308
+    "total": 35.950461
   },
   "performance": {
     "initialBalance": 37.499999,
-    "currentBalance": 35.971308,
-    "totalPnL": -1.528691000000002,
-    "totalPnLPercent": -4.076509442040257,
+    "currentBalance": 35.950461,
+    "totalPnL": -1.5495380000000054,
+    "totalPnLPercent": -4.1321014435227195,
     "realizedPnL": -99.91845799999996,
-    "unrealizedPnL": -1.528692,
-    "strategyPnL": 0.20155049999999786,
-    "strategyRealizedPnL": 0.1628504999999985,
-    "strategyUnrealizedPnL": 0.03869999999999933,
+    "unrealizedPnL": -1.549539,
+    "strategyPnL": 0.19885049999999774,
+    "strategyRealizedPnL": 0.19885049999999774,
+    "strategyUnrealizedPnL": 0,
     "strategyTrades": [
       {
         "time": 1770675526480,
@@ -161,32 +161,19 @@
         "oracleClose": 80.2,
         "size": 0.09,
         "pnl": -0.04204484999999948
+      },
+      {
+        "time": 1770928805706,
+        "direction": "SHORT",
+        "oracleOpen": 77.58,
+        "oracleClose": 77.18,
+        "size": 0.09,
+        "pnl": 0.035999999999999234
       }
     ],
-    "spreadCost": -100.08130849999996
+    "spreadCost": -100.11730849999995
   },
   "balanceHistory": [
-    {
-      "time": 1770904108609,
-      "total": 36.360758,
-      "agent": 10,
-      "treasury": 10,
-      "drift": 16.360758
-    },
-    {
-      "time": 1770904232010,
-      "total": 36.354243,
-      "agent": 10,
-      "treasury": 10,
-      "drift": 16.354243
-    },
-    {
-      "time": 1770904354967,
-      "total": 36.362839,
-      "agent": 10,
-      "treasury": 10,
-      "drift": 16.362839
-    },
     {
       "time": 1770904478697,
       "total": 36.361524,
@@ -1565,39 +1552,48 @@
       "agent": 10,
       "treasury": 10,
       "drift": 15.971205
+    },
+    {
+      "time": 1770928800624,
+      "total": 35.974276,
+      "agent": 10,
+      "treasury": 10,
+      "drift": 15.974276
+    },
+    {
+      "time": 1770928926075,
+      "total": 35.96964,
+      "agent": 10,
+      "treasury": 10,
+      "drift": 15.96964
+    },
+    {
+      "time": 1770929052944,
+      "total": 35.956507,
+      "agent": 10,
+      "treasury": 10,
+      "drift": 15.956507
     }
   ],
   "drift": {
     "balance": 17.5,
-    "freeCollateral": 15.623697,
+    "freeCollateral": 15.603887,
     "position": {
       "baseAmount": 0.09,
       "quoteAmount": -8.480883,
       "direction": "LONG",
-      "unrealizedPnl": -1.528692
+      "unrealizedPnl": -1.549539
     },
     "hasAccount": true
   },
   "stats": {
-    "totalCycles": 7961,
-    "totalTransactions": 497,
+    "totalCycles": 7964,
+    "totalTransactions": 498,
     "totalVolumeUSDC": 863.3441120000003,
-    "uptime": 557137953,
-    "avgCycleTime": 69983.41326466524
+    "uptime": 557514372,
+    "avgCycleTime": 70004.31592164742
   },
   "prices": [
-    {
-      "time": 1770922586508,
-      "price": 77.67
-    },
-    {
-      "time": 1770922710017,
-      "price": 77.68
-    },
-    {
-      "time": 1770922834768,
-      "price": 77.64
-    },
     {
       "time": 1770922959429,
       "price": 77.63
@@ -1785,63 +1781,21 @@
     {
       "time": 1770928673702,
       "price": 77.15
+    },
+    {
+      "time": 1770928800525,
+      "price": 77.18
+    },
+    {
+      "time": 1770928925984,
+      "price": 77.18
+    },
+    {
+      "time": 1770929052874,
+      "price": 77.19
     }
   ],
   "trades": [
-    {
-      "time": 1770922589822,
-      "cycle": 7912,
-      "action": "HOLD",
-      "amount": 0,
-      "txSig": null,
-      "confidence": 75,
-      "reason": "Holding LONG 0.0900 SOL position. Price has bounced from $77.43 support to $77.67 (at resistance) with 4 consecutive up candles showing potential reversal. Current -$1.49 PnL is normal limit order entry cost. Position needs more time to develop - only ~25 minutes in. Must respect 30-minute minimum hold discipline and let reversal thesis play out.",
-      "market_outlook": "neutral",
-      "solPrice": 77.67,
-      "agentBalance": 10,
-      "treasuryBalance": 10,
-      "driftPosition": {
-        "direction": "LONG",
-        "size": 0.09,
-        "pnl": -1.488187
-      }
-    },
-    {
-      "time": 1770922714470,
-      "cycle": 7913,
-      "action": "HOLD",
-      "amount": 0,
-      "txSig": null,
-      "confidence": 85,
-      "reason": "Holding LONG 0.0900 SOL position. Price has bounced from $77.43 support to $77.68 (at resistance) with 5 consecutive up candles showing strong reversal momentum. Current -$1.50 PnL is just limit order entry cost. Position is now ~30 minutes old and showing the reversal thesis playing out. Neutral trend (51/100) with positive momentum (0.21%) supports continuation. Price at resistance but multiple up candles suggest potential breakout.",
-      "market_outlook": "neutral",
-      "solPrice": 77.68,
-      "agentBalance": 10,
-      "treasuryBalance": 10,
-      "driftPosition": {
-        "direction": "LONG",
-        "size": 0.09,
-        "pnl": -1.500586
-      }
-    },
-    {
-      "time": 1770922839184,
-      "cycle": 7914,
-      "action": "HOLD",
-      "amount": 0,
-      "txSig": null,
-      "confidence": 75,
-      "reason": "Holding LONG 0.0900 SOL position that has shown strong reversal momentum with 5 consecutive up candles from $77.43 support to $77.68 resistance. Position is now ~30+ minutes old meeting minimum hold requirement. Current -$1.50 PnL is just limit order entry cost. Price at resistance but multiple up candles suggest potential breakout. Neutral trend (11/100) with positive momentum (0.09%) supports letting position develop further before making any changes.",
-      "market_outlook": "neutral",
-      "solPrice": 77.64,
-      "agentBalance": 10,
-      "treasuryBalance": 10,
-      "driftPosition": {
-        "direction": "LONG",
-        "size": 0.09,
-        "pnl": -1.4997099999999999
-      }
-    },
     {
       "time": 1770922964888,
       "cycle": 7915,
@@ -2686,6 +2640,60 @@
         "direction": "LONG",
         "size": 0.09,
         "pnl": -1.5287950000000001
+      }
+    },
+    {
+      "time": 1770928805706,
+      "cycle": 7962,
+      "action": "CLOSE_LONG",
+      "amount": 0,
+      "txSig": "2HQo8tLBW78wZHXrjckNnfPKmVVH8jX2uBvyi27wsZaKQEGFqHmDuD5gsi1mz6YYb4Cqm7nwH4JcyYWqBFNb6W7C",
+      "confidence": 75,
+      "reason": "30-minute minimum hold period completed (31 min). Position showing -$1.53 PnL with neutral trend (32/100) and weak momentum. Price near support but 3 consecutive up candles may indicate short-term bounce - good time to exit with minimal loss before potential reversal.",
+      "market_outlook": "neutral",
+      "solPrice": 77.18,
+      "agentBalance": 10,
+      "treasuryBalance": 10,
+      "driftPosition": {
+        "direction": "LONG",
+        "size": 0.09,
+        "pnl": -1.5257239999999999
+      }
+    },
+    {
+      "time": 1770928932633,
+      "cycle": 7963,
+      "action": "HOLD",
+      "amount": 0,
+      "txSig": null,
+      "confidence": 85,
+      "reason": "Cooldown active with 8 minutes remaining. Just closed position 2 minutes ago with -$1.53 PnL. Market showing neutral trend (1/100 strength) with mixed signals - price bouncing slightly but still in consolidation range. Must respect cooldown period and wait for clearer directional signals.",
+      "market_outlook": "neutral",
+      "solPrice": 77.18,
+      "agentBalance": 10,
+      "treasuryBalance": 10,
+      "driftPosition": {
+        "direction": "LONG",
+        "size": 0.09,
+        "pnl": -1.53036
+      }
+    },
+    {
+      "time": 1770929056550,
+      "cycle": 7964,
+      "action": "HOLD",
+      "amount": 0,
+      "txSig": null,
+      "confidence": 85,
+      "reason": "Cooldown period still active (5.9 min remaining). Market showing neutral trend with very weak strength (10/100) and minimal momentum (-0.13%). Price consolidating in tight range between $77.09-$77.29. Must respect trading discipline and wait for cooldown to expire before considering any new positions.",
+      "market_outlook": "neutral",
+      "solPrice": 77.19,
+      "agentBalance": 10,
+      "treasuryBalance": 10,
+      "driftPosition": {
+        "direction": "LONG",
+        "size": 0.09,
+        "pnl": -1.543493
       }
     }
   ],
