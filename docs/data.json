@@ -1,22 +1,22 @@
 {
-  "lastUpdated": "2026-02-12T20:29:37.511Z",
+  "lastUpdated": "2026-02-12T20:33:47.158Z",
   "wallet": "BGYMcHT1XkWP2a9b6YNAjw5cBKYPoJh3R1ujao7i3Mgq",
   "treasury": "GYqf6NVVhJqhv6ywyYy9d1cptjjSkiD8tWTdF5xswrZU",
   "balances": {
     "agent": 10,
     "treasury": 10,
-    "total": 35.960162
+    "total": 35.960189
   },
   "performance": {
     "initialBalance": 37.499999,
-    "currentBalance": 35.960162,
-    "totalPnL": -1.5398370000000057,
-    "totalPnLPercent": -4.106232109499538,
+    "currentBalance": 35.960189,
+    "totalPnL": -1.5398100000000028,
+    "totalPnLPercent": -4.10616010949761,
     "realizedPnL": -99.91845799999996,
-    "unrealizedPnL": -1.539838,
-    "strategyPnL": 0.1997504999999982,
+    "unrealizedPnL": -1.539811,
+    "strategyPnL": 0.20695049999999804,
     "strategyRealizedPnL": 0.1628504999999985,
-    "strategyUnrealizedPnL": 0.03689999999999969,
+    "strategyUnrealizedPnL": 0.044099999999999535,
     "strategyTrades": [
       {
         "time": 1770675526480,
@@ -166,20 +166,6 @@
     "spreadCost": -100.08130849999996
   },
   "balanceHistory": [
-    {
-      "time": 1770903612792,
-      "total": 36.361974000000004,
-      "agent": 10,
-      "treasury": 10,
-      "drift": 16.361974
-    },
-    {
-      "time": 1770903736086,
-      "total": 36.356995,
-      "agent": 10,
-      "treasury": 10,
-      "drift": 16.356995
-    },
     {
       "time": 1770903860938,
       "total": 36.359823,
@@ -1565,35 +1551,41 @@
       "agent": 10,
       "treasury": 10,
       "drift": 15.962012
+    },
+    {
+      "time": 1770928297777,
+      "total": 35.945172,
+      "agent": 10,
+      "treasury": 10,
+      "drift": 15.945172
+    },
+    {
+      "time": 1770928421449,
+      "total": 35.958709999999996,
+      "agent": 10,
+      "treasury": 10,
+      "drift": 15.95871
     }
   ],
   "drift": {
     "balance": 17.5,
-    "freeCollateral": 15.613111,
+    "freeCollateral": 15.611350999999999,
     "position": {
       "baseAmount": 0.09,
       "quoteAmount": -8.480883,
       "direction": "LONG",
-      "unrealizedPnl": -1.539838
+      "unrealizedPnl": -1.539811
     },
     "hasAccount": true
   },
   "stats": {
-    "totalCycles": 7957,
+    "totalCycles": 7959,
     "totalTransactions": 497,
     "totalVolumeUSDC": 863.3441120000003,
-    "uptime": 556635169,
-    "avgCycleTime": 69955.4064345859
+    "uptime": 556884817,
+    "avgCycleTime": 69969.19424550823
   },
   "prices": [
-    {
-      "time": 1770922090888,
-      "price": 77.53
-    },
-    {
-      "time": 1770922215365,
-      "price": 77.6
-    },
     {
       "time": 1770922339163,
       "price": 77.63
@@ -1785,45 +1777,17 @@
     {
       "time": 1770928172233,
       "price": 77.17
+    },
+    {
+      "time": 1770928297695,
+      "price": 77.14
+    },
+    {
+      "time": 1770928421368,
+      "price": 77.09
     }
   ],
   "trades": [
-    {
-      "time": 1770922095132,
-      "cycle": 7908,
-      "action": "HOLD",
-      "amount": 0,
-      "txSig": null,
-      "confidence": 75,
-      "reason": "Holding LONG 0.0900 SOL position. Price bounced from support $77.43 to $77.53 with brief recovery showing 3 up candles before current consolidation. Current -$1.48 PnL is normal limit order entry cost. Must respect minimum 30-minute hold discipline and let position develop. Neutral trend (11/100) suggests choppy market - need more time for thesis to play out.",
-      "market_outlook": "neutral",
-      "solPrice": 77.53,
-      "agentBalance": 10,
-      "treasuryBalance": 10,
-      "driftPosition": {
-        "direction": "LONG",
-        "size": 0.09,
-        "pnl": -1.481872
-      }
-    },
-    {
-      "time": 1770922218955,
-      "cycle": 7909,
-      "action": "HOLD",
-      "amount": 0,
-      "txSig": null,
-      "confidence": 75,
-      "reason": "Holding LONG 0.0900 SOL position. Price at $77.60 has bounced from support $77.43 and is now at resistance level. Position shows recovery potential with 1 up candle after testing lows. Current -$1.49 PnL is normal limit order entry cost. Must respect 30-minute minimum hold discipline. Neutral trend (11/100) suggests choppy market - need more time for position to develop.",
-      "market_outlook": "neutral",
-      "solPrice": 77.6,
-      "agentBalance": 10,
-      "treasuryBalance": 10,
-      "driftPosition": {
-        "direction": "LONG",
-        "size": 0.09,
-        "pnl": -1.488108
-      }
-    },
     {
       "time": 1770922342522,
       "cycle": 7910,
@@ -2686,6 +2650,42 @@
         "direction": "LONG",
         "size": 0.09,
         "pnl": -1.537988
+      }
+    },
+    {
+      "time": 1770928301165,
+      "cycle": 7958,
+      "action": "HOLD",
+      "amount": 0,
+      "txSig": null,
+      "confidence": 75,
+      "reason": "Currently holding LONG 0.09 SOL position for 22.7 minutes with -$1.55 PnL. Must respect 30-minute minimum hold rule - still have 7+ minutes remaining. Despite bearish trend (62/100) and 6 consecutive down candles, position was opened under different market conditions and needs time to develop. Price at support $77.14 but trend strength suggests potential for reversal once selling pressure exhausts.",
+      "market_outlook": "bearish",
+      "solPrice": 77.14,
+      "agentBalance": 10,
+      "treasuryBalance": 10,
+      "driftPosition": {
+        "direction": "LONG",
+        "size": 0.09,
+        "pnl": -1.554828
+      }
+    },
+    {
+      "time": 1770928427082,
+      "cycle": 7959,
+      "action": "HOLD",
+      "amount": 0,
+      "txSig": null,
+      "confidence": 80,
+      "reason": "Currently holding LONG 0.09 SOL position for 24.7 minutes with -$1.54 PnL. Must respect 30-minute minimum hold rule - still have 5+ minutes remaining. Despite strong bearish trend (72/100) and 7 consecutive down candles, position was opened under different market conditions and needs time to develop. Price at support $77.09 but must let position play out according to trading discipline.",
+      "market_outlook": "bearish",
+      "solPrice": 77.09,
+      "agentBalance": 10,
+      "treasuryBalance": 10,
+      "driftPosition": {
+        "direction": "LONG",
+        "size": 0.09,
+        "pnl": -1.54129
       }
     }
   ],
