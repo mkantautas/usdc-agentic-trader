@@ -1,22 +1,22 @@
 {
-  "lastUpdated": "2026-02-12T07:49:16.762Z",
+  "lastUpdated": "2026-02-12T07:53:26.952Z",
   "wallet": "BGYMcHT1XkWP2a9b6YNAjw5cBKYPoJh3R1ujao7i3Mgq",
   "treasury": "GYqf6NVVhJqhv6ywyYy9d1cptjjSkiD8tWTdF5xswrZU",
   "balances": {
     "agent": 10,
     "treasury": 10,
-    "total": 36.286599
+    "total": 36.279787999999996
   },
   "performance": {
     "initialBalance": 37.499999,
-    "currentBalance": 36.286599,
-    "totalPnL": -1.2134,
-    "totalPnLPercent": -3.2357334196195575,
+    "currentBalance": 36.279787999999996,
+    "totalPnL": -1.2202110000000062,
+    "totalPnLPercent": -3.253896086770579,
     "realizedPnL": -99.91845799999996,
-    "unrealizedPnL": -1.213401,
-    "strategyPnL": 0.22289534999999827,
-    "strategyRealizedPnL": 0.2615953499999989,
-    "strategyUnrealizedPnL": -0.038700000000000616,
+    "unrealizedPnL": -1.220212,
+    "strategyPnL": 0.2246953499999979,
+    "strategyRealizedPnL": 0.2246953499999979,
+    "strategyUnrealizedPnL": 0,
     "strategyTrades": [
       {
         "time": 1770675526480,
@@ -137,25 +137,19 @@
         "oracleClose": 80.24,
         "size": 0.09,
         "pnl": -0.008994060000000416
+      },
+      {
+        "time": 1770882682880,
+        "direction": "SHORT",
+        "oracleOpen": 80.32,
+        "oracleClose": 80.73,
+        "size": 0.09,
+        "pnl": -0.036900000000000974
       }
     ],
-    "spreadCost": -100.18005334999995
+    "spreadCost": -100.14315334999996
   },
   "balanceHistory": [
-    {
-      "time": 1770857982491,
-      "total": 36.219106,
-      "agent": 10,
-      "treasury": 10,
-      "drift": 16.219106
-    },
-    {
-      "time": 1770858105903,
-      "total": 36.228702,
-      "agent": 10,
-      "treasury": 10,
-      "drift": 16.228702
-    },
     {
       "time": 1770858229276,
       "total": 36.242277,
@@ -1541,35 +1535,41 @@
       "agent": 10,
       "treasury": 10,
       "drift": 16.286615
+    },
+    {
+      "time": 1770882676991,
+      "total": 36.284076,
+      "agent": 10,
+      "treasury": 10,
+      "drift": 16.284076
+    },
+    {
+      "time": 1770882803205,
+      "total": 36.279743,
+      "agent": 10,
+      "treasury": 10,
+      "drift": 16.279743
     }
   ],
   "drift": {
     "balance": 17.5,
-    "freeCollateral": 15.921496,
+    "freeCollateral": 15.916889,
     "position": {
       "baseAmount": 0.09,
       "quoteAmount": -8.478127,
       "direction": "LONG",
-      "unrealizedPnl": -1.213401
+      "unrealizedPnl": -1.220212
     },
     "hasAccount": true
   },
   "stats": {
-    "totalCycles": 7587,
-    "totalTransactions": 474,
+    "totalCycles": 7589,
+    "totalTransactions": 475,
     "totalVolumeUSDC": 852.3441120000003,
-    "uptime": 511014420,
-    "avgCycleTime": 67353.95017793594
+    "uptime": 511264611,
+    "avgCycleTime": 67369.16734747661
   },
   "prices": [
-    {
-      "time": 1770876483988,
-      "price": 80.5
-    },
-    {
-      "time": 1770876607352,
-      "price": 80.49
-    },
     {
       "time": 1770876731243,
       "price": 80.49
@@ -1761,45 +1761,17 @@
     {
       "time": 1770882552921,
       "price": 80.75
+    },
+    {
+      "time": 1770882676923,
+      "price": 80.73
+    },
+    {
+      "time": 1770882803138,
+      "price": 80.71
     }
   ],
   "trades": [
-    {
-      "time": 1770876487150,
-      "cycle": 7538,
-      "action": "HOLD",
-      "amount": 0,
-      "txSig": null,
-      "confidence": 75,
-      "reason": "COOLDOWN ACTIVE: 3.9min remaining. Cannot open new positions yet. Market showing neutral consolidation at $80.50 with weak trend strength (11/100). Price broke above resistance to $80.53 but failed to hold, suggesting fake breakout. Need to wait for cooldown to expire and see if any meaningful trend develops.",
-      "market_outlook": "neutral",
-      "solPrice": 80.5,
-      "agentBalance": 10,
-      "treasuryBalance": 10,
-      "driftPosition": {
-        "direction": "LONG",
-        "size": 0.09,
-        "pnl": -1.244235
-      }
-    },
-    {
-      "time": 1770876611041,
-      "cycle": 7539,
-      "action": "HOLD",
-      "amount": 0,
-      "txSig": null,
-      "confidence": 85,
-      "reason": "COOLDOWN ACTIVE: 1.8min remaining. Cannot open new positions yet. Market showing neutral consolidation at $80.49 with weak trend strength (21/100) and minimal momentum (0.1%). Price is range-bound between support ($80.4) and resistance ($80.53). Recent fake breakout to $80.53 failed to hold, confirming lack of conviction. Must wait for cooldown to expire and see if any meaningful trend develops.",
-      "market_outlook": "neutral",
-      "solPrice": 80.49,
-      "agentBalance": 10,
-      "treasuryBalance": 10,
-      "driftPosition": {
-        "direction": "LONG",
-        "size": 0.09,
-        "pnl": -1.240841
-      }
-    },
     {
       "time": 1770876735063,
       "cycle": 7540,
@@ -2662,6 +2634,42 @@
         "direction": "LONG",
         "size": 0.09,
         "pnl": -1.213385
+      }
+    },
+    {
+      "time": 1770882682880,
+      "cycle": 7588,
+      "action": "CLOSE_LONG",
+      "amount": 0,
+      "txSig": "4rhcu1z56Ej5T8emtgXeaNnH6dp9HdtaKoyhMfNPngFDKpDCGYatGJB659HGZJDk3mGGVAwY4eW57AZ75fyJp8Ez",
+      "confidence": 75,
+      "reason": "Position held for 30.9min meeting minimum time requirement. Price showing 1 down candle with neutral trend (10/100) and minimal momentum (0.06%). At resistance level $80.79 with limited upside. Recovery momentum from $80.30 has stalled. Time to close and reassess.",
+      "market_outlook": "neutral",
+      "solPrice": 80.73,
+      "agentBalance": 10,
+      "treasuryBalance": 10,
+      "driftPosition": {
+        "direction": "LONG",
+        "size": 0.09,
+        "pnl": -1.215924
+      }
+    },
+    {
+      "time": 1770882806923,
+      "cycle": 7589,
+      "action": "HOLD",
+      "amount": 0,
+      "txSig": null,
+      "confidence": 85,
+      "reason": "Cooldown active (8min remaining) prevents new positions. Just closed LONG after 30min hold. Market showing neutral trend (20/100) with minimal momentum (0.01%) and choppy price action. Price at $80.71 near middle of tight range. Need to wait for clearer directional signal before next trade.",
+      "market_outlook": "neutral",
+      "solPrice": 80.71,
+      "agentBalance": 10,
+      "treasuryBalance": 10,
+      "driftPosition": {
+        "direction": "LONG",
+        "size": 0.09,
+        "pnl": -1.220257
       }
     }
   ],
