@@ -1,31 +1,23 @@
 {
-  "lastUpdated": "2026-02-13T14:47:48.873Z",
+  "lastUpdated": "2026-02-13T14:54:09.981Z",
   "wallet": "BGYMcHT1XkWP2a9b6YNAjw5cBKYPoJh3R1ujao7i3Mgq",
   "treasury": "GYqf6NVVhJqhv6ywyYy9d1cptjjSkiD8tWTdF5xswrZU",
   "balances": {
     "agent": 10,
     "treasury": 10,
-    "total": 36.367093
+    "total": 37.5
   },
   "performance": {
     "initialBalance": 37.499999,
-    "currentBalance": 36.367093,
-    "totalPnL": -1.1329060000000055,
-    "totalPnLPercent": -3.021082747228888,
+    "currentBalance": 37.5,
+    "totalPnL": 9.999999974752427e-7,
+    "totalPnLPercent": 0.000002666666731045093,
     "realizedPnL": -99.91845799999996,
-    "unrealizedPnL": -1.1329069999999999,
-    "strategyPnL": 0.28918223999999915,
-    "strategyRealizedPnL": 0.2855671199999984,
-    "strategyUnrealizedPnL": 0.0036151200000007575,
+    "unrealizedPnL": 0,
+    "strategyPnL": 0.3071822399999994,
+    "strategyRealizedPnL": 0.3071822399999994,
+    "strategyUnrealizedPnL": 0,
     "strategyTrades": [
-      {
-        "time": 1770739722887,
-        "direction": "LONG",
-        "oracleOpen": 84.287726,
-        "oracleClose": 84.08,
-        "size": 0.09,
-        "pnl": -0.018695340000000726
-      },
       {
         "time": 1770756242586,
         "direction": "SHORT",
@@ -177,32 +169,19 @@
         "oracleClose": 80.2,
         "size": 0.09,
         "pnl": -0.02610000000000056
+      },
+      {
+        "time": 1770994203410,
+        "direction": "LONG",
+        "oracleOpen": 81.159832,
+        "oracleClose": 81.4,
+        "size": 0.09,
+        "pnl": 0.02161512000000101
       }
     ],
-    "spreadCost": -100.20402511999995
+    "spreadCost": -100.22564023999996
   },
   "balanceHistory": [
-    {
-      "time": 1770969618674,
-      "total": 36.120649,
-      "agent": 10,
-      "treasury": 10,
-      "drift": 16.120649
-    },
-    {
-      "time": 1770969742191,
-      "total": 36.110628,
-      "agent": 10,
-      "treasury": 10,
-      "drift": 16.110628
-    },
-    {
-      "time": 1770969865568,
-      "total": 36.122552999999996,
-      "agent": 10,
-      "treasury": 10,
-      "drift": 16.122553
-    },
     {
       "time": 1770969989582,
       "total": 36.141174,
@@ -1581,39 +1560,43 @@
       "agent": 10,
       "treasury": 10,
       "drift": 16.36533
+    },
+    {
+      "time": 1770994189344,
+      "total": 36.381771,
+      "agent": 10,
+      "treasury": 10,
+      "drift": 16.381771
+    },
+    {
+      "time": 1770994323966,
+      "total": 37.5,
+      "agent": 10,
+      "treasury": 10,
+      "drift": 17.5
+    },
+    {
+      "time": 1770994447340,
+      "total": 37.5,
+      "agent": 10,
+      "treasury": 10,
+      "drift": 17.5
     }
   ],
   "drift": {
     "balance": 17.5,
-    "freeCollateral": 15.999507,
-    "position": {
-      "baseAmount": 0.09,
-      "quoteAmount": -8.484635,
-      "direction": "LONG",
-      "unrealizedPnl": -1.1329069999999999
-    },
+    "freeCollateral": 16.370766,
+    "position": null,
     "hasAccount": true
   },
   "stats": {
-    "totalCycles": 8492,
-    "totalTransactions": 525,
+    "totalCycles": 8495,
+    "totalTransactions": 526,
     "totalVolumeUSDC": 871.3441120000003,
-    "uptime": 622526531,
-    "avgCycleTime": 73307.41062176166
+    "uptime": 622907639,
+    "avgCycleTime": 73326.38481459682
   },
   "prices": [
-    {
-      "time": 1770988106010,
-      "price": 79.99
-    },
-    {
-      "time": 1770988229285,
-      "price": 79.92
-    },
-    {
-      "time": 1770988353964,
-      "price": 79.92
-    },
     {
       "time": 1770988478006,
       "price": 79.89
@@ -1801,63 +1784,21 @@
     {
       "time": 1770994064685,
       "price": 81.2
+    },
+    {
+      "time": 1770994189056,
+      "price": 81.4
+    },
+    {
+      "time": 1770994323890,
+      "price": 81.45
+    },
+    {
+      "time": 1770994447250,
+      "price": 81.44
     }
   ],
   "trades": [
-    {
-      "time": 1770988109053,
-      "cycle": 8443,
-      "action": "HOLD",
-      "amount": 0,
-      "txSig": null,
-      "confidence": 15,
-      "reason": "Current LONG position at -$1.31 PnL in tight $79.94-$80.03 consolidation. Price at $79.99 after rejecting resistance multiple times. Trend remains neutral (11/100) with minimal momentum (0.06%). Position needs more time to either break above $80.03 resistance convincingly or test support below $79.94. No clear directional conviction in this choppy 9-cent range to warrant any action.",
-      "market_outlook": "neutral",
-      "solPrice": 79.99,
-      "agentBalance": 10,
-      "treasuryBalance": 10,
-      "driftPosition": {
-        "direction": "LONG",
-        "size": 0.09,
-        "pnl": -1.310069
-      }
-    },
-    {
-      "time": 1770988233640,
-      "cycle": 8444,
-      "action": "CLOSE_LONG",
-      "amount": 0,
-      "txSig": "2NDMRjbofCHy2YTT9jv8AXYDa43tcfpKdvCbcmRP1fQfw4STXkN6Zmzh7g6jSfSLtLKH7At6WvHzppeBVk5fHjcD",
-      "confidence": 75,
-      "reason": "Price broke below support at $79.92 after 2 consecutive down candles. Tight consolidation range finally broke to the downside. Current position at -$1.30 PnL should be closed before further downside. Clear breakdown from $79.94-$80.03 range.",
-      "market_outlook": "bearish",
-      "solPrice": 79.92,
-      "agentBalance": 10,
-      "treasuryBalance": 10,
-      "driftPosition": {
-        "direction": "LONG",
-        "size": 0.09,
-        "pnl": -1.300233
-      }
-    },
-    {
-      "time": 1770988357809,
-      "cycle": 8445,
-      "action": "HOLD",
-      "amount": 0,
-      "txSig": null,
-      "confidence": 85,
-      "reason": "COOLDOWN ACTIVE: 8.0min remaining - cannot open new positions. Price broke support at $79.92 and is consolidating at this new level. Previous LONG position was correctly closed at breakdown. Need to wait for cooldown to expire and observe if price establishes new support or continues declining before considering SHORT position.",
-      "market_outlook": "bearish",
-      "solPrice": 79.92,
-      "agentBalance": 10,
-      "treasuryBalance": 10,
-      "driftPosition": {
-        "direction": "LONG",
-        "size": 0.09,
-        "pnl": -1.304988
-      }
-    },
     {
       "time": 1770988481366,
       "cycle": 8446,
@@ -2703,6 +2644,52 @@
         "size": 0.09,
         "pnl": -1.13467
       }
+    },
+    {
+      "time": 1770994203410,
+      "cycle": 8493,
+      "action": "CLOSE_LONG",
+      "amount": 0,
+      "txSig": "2U2z7zmjRu4Kk42ttNPGRzhMPCQtu7z9TvtsRKUkdiEoF6ngZGV2EfpDBt4h2iV7syYpiNBKiqiCcjPvach1iKyj",
+      "confidence": 75,
+      "reason": "Price at resistance ($81.40) after strong bounce from $79.91. Trend strength weak (35/100) and position now at break-even territory. Take profit while at resistance before potential rejection.",
+      "market_outlook": "neutral",
+      "solPrice": 81.4,
+      "agentBalance": 10,
+      "treasuryBalance": 10,
+      "driftPosition": {
+        "direction": "LONG",
+        "size": 0.09,
+        "pnl": -1.118229
+      }
+    },
+    {
+      "time": 1770994327057,
+      "cycle": 8494,
+      "action": "HOLD",
+      "amount": 0,
+      "txSig": null,
+      "confidence": 85,
+      "reason": "COOLDOWN ACTIVE: 8.0min remaining - cannot open new positions yet. Price at resistance ($81.45) after strong bounce from $79.91 support. Just closed profitable LONG position. Need to respect cooldown period and wait for clearer setup.",
+      "market_outlook": "neutral",
+      "solPrice": 81.45,
+      "agentBalance": 10,
+      "treasuryBalance": 10,
+      "driftPosition": null
+    },
+    {
+      "time": 1770994449957,
+      "cycle": 8495,
+      "action": "HOLD",
+      "amount": 0,
+      "txSig": null,
+      "confidence": 85,
+      "reason": "COOLDOWN ACTIVE: 5.9min remaining - cannot open new positions yet. Price at resistance ($81.44) with weak trend (15/100). Just closed profitable position at $81.40. Need to respect cooldown and wait for clearer setup after consolidation.",
+      "market_outlook": "neutral",
+      "solPrice": 81.44,
+      "agentBalance": 10,
+      "treasuryBalance": 10,
+      "driftPosition": null
     }
   ],
   "network": "devnet",
