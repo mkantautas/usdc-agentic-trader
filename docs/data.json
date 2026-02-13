@@ -1,31 +1,23 @@
 {
-  "lastUpdated": "2026-02-13T13:49:51.694Z",
+  "lastUpdated": "2026-02-13T13:54:00.068Z",
   "wallet": "BGYMcHT1XkWP2a9b6YNAjw5cBKYPoJh3R1ujao7i3Mgq",
   "treasury": "GYqf6NVVhJqhv6ywyYy9d1cptjjSkiD8tWTdF5xswrZU",
   "balances": {
     "agent": 10,
     "treasury": 10,
-    "total": 36.232677
+    "total": 36.246243
   },
   "performance": {
     "initialBalance": 37.499999,
-    "currentBalance": 36.232677,
-    "totalPnL": -1.267322,
-    "totalPnLPercent": -3.3795254234540115,
+    "currentBalance": 36.246243,
+    "totalPnL": -1.2537560000000028,
+    "totalPnLPercent": -3.343349422489325,
     "realizedPnL": -99.91845799999996,
-    "unrealizedPnL": -1.267323,
-    "strategyPnL": 0.2918671199999991,
-    "strategyRealizedPnL": 0.31166711999999896,
-    "strategyUnrealizedPnL": -0.019799999999999898,
+    "unrealizedPnL": -1.253757,
+    "strategyPnL": 0.2855671199999984,
+    "strategyRealizedPnL": 0.2855671199999984,
+    "strategyUnrealizedPnL": 0,
     "strategyTrades": [
-      {
-        "time": 1770724046265,
-        "direction": "LONG",
-        "oracleOpen": 84.530314,
-        "oracleClose": 84.16,
-        "size": 0.09,
-        "pnl": -0.03332826000000068
-      },
       {
         "time": 1770739722887,
         "direction": "LONG",
@@ -177,25 +169,19 @@
         "oracleClose": 79.95,
         "size": 0.09,
         "pnl": -0.004855769999999353
+      },
+      {
+        "time": 1770990715475,
+        "direction": "SHORT",
+        "oracleOpen": 79.91,
+        "oracleClose": 80.2,
+        "size": 0.09,
+        "pnl": -0.02610000000000056
       }
     ],
-    "spreadCost": -100.23012511999995
+    "spreadCost": -100.20402511999995
   },
   "balanceHistory": [
-    {
-      "time": 1770966011830,
-      "total": 36.086383,
-      "agent": 10,
-      "treasury": 10,
-      "drift": 16.086383
-    },
-    {
-      "time": 1770966136170,
-      "total": 36.093189,
-      "agent": 10,
-      "treasury": 10,
-      "drift": 16.093189
-    },
     {
       "time": 1770966260469,
       "total": 36.104277,
@@ -1581,35 +1567,41 @@
       "agent": 10,
       "treasury": 10,
       "drift": 16.232676
+    },
+    {
+      "time": 1770990711939,
+      "total": 36.245997,
+      "agent": 10,
+      "treasury": 10,
+      "drift": 16.245997
+    },
+    {
+      "time": 1770990835776,
+      "total": 36.24642,
+      "agent": 10,
+      "treasury": 10,
+      "drift": 16.24642
     }
   ],
   "drift": {
     "balance": 17.5,
-    "freeCollateral": 15.871808,
+    "freeCollateral": 15.88471,
     "position": {
       "baseAmount": 0.09,
       "quoteAmount": -8.484423,
       "direction": "LONG",
-      "unrealizedPnl": -1.267323
+      "unrealizedPnl": -1.253757
     },
     "hasAccount": true
   },
   "stats": {
-    "totalCycles": 8463,
-    "totalTransactions": 523,
+    "totalCycles": 8465,
+    "totalTransactions": 524,
     "totalVolumeUSDC": 871.3441120000003,
-    "uptime": 619049352,
-    "avgCycleTime": 73147.74335342077
+    "uptime": 619297727,
+    "avgCycleTime": 73159.80236266981
   },
   "prices": [
-    {
-      "time": 1770984611657,
-      "price": 80
-    },
-    {
-      "time": 1770984735469,
-      "price": 79.96
-    },
     {
       "time": 1770984760865,
       "price": 79.96
@@ -1801,45 +1793,17 @@
     {
       "time": 1770990588139,
       "price": 80.13
+    },
+    {
+      "time": 1770990711860,
+      "price": 80.2
+    },
+    {
+      "time": 1770990835668,
+      "price": 80.2
     }
   ],
   "trades": [
-    {
-      "time": 1770984615283,
-      "cycle": 8414,
-      "action": "HOLD",
-      "amount": 0,
-      "txSig": null,
-      "confidence": 25,
-      "reason": "COOLDOWN ACTIVE: 5.9min remaining - cannot open new positions. Current LONG 0.0900 SOL showing -$1.29 PnL. Price at $80.00 support level after rejection at $80.22 resistance. Trend is very weak (30/100) with minimal momentum (-0.11%). Must wait for cooldown to expire and observe if price holds support or breaks lower.",
-      "market_outlook": "neutral",
-      "solPrice": 80,
-      "agentBalance": 10,
-      "treasuryBalance": 10,
-      "driftPosition": {
-        "direction": "LONG",
-        "size": 0.09,
-        "pnl": -1.288312
-      }
-    },
-    {
-      "time": 1770984738925,
-      "cycle": 8415,
-      "action": "HOLD",
-      "amount": 0,
-      "txSig": null,
-      "confidence": 25,
-      "reason": "COOLDOWN ACTIVE: 3.9min remaining - cannot open new positions. Current LONG 0.0900 SOL showing -$1.29 PnL. Price at $79.96 support after rejection at $80.22 resistance with 4 consecutive down candles. Trend is weak (41/100) with negative momentum (-0.22%). Must wait for cooldown to expire and observe if price holds support or breaks lower.",
-      "market_outlook": "neutral",
-      "solPrice": 79.96,
-      "agentBalance": 10,
-      "treasuryBalance": 10,
-      "driftPosition": {
-        "direction": "LONG",
-        "size": 0.09,
-        "pnl": -1.28636
-      }
-    },
     {
       "time": 1770984764358,
       "cycle": 8416,
@@ -2702,6 +2666,42 @@
         "direction": "LONG",
         "size": 0.09,
         "pnl": -1.267324
+      }
+    },
+    {
+      "time": 1770990715475,
+      "cycle": 8464,
+      "action": "CLOSE_LONG",
+      "amount": 0,
+      "txSig": "2fDyw5gW1sJnCzZYNVUmbXZcFwZWSxXr6MdmND1T85rDFDi6heZAjkoGSsHyst8pMuCyJ34SEpwvnT5tUdGogLsu",
+      "confidence": 85,
+      "reason": "Position held for 30.9min meets minimum hold time. Price rejected at $80.44 resistance with 6 consecutive down candles and weak trend (12/100). Position thesis invalidated - cut losses at -$1.25 before further decline.",
+      "market_outlook": "bearish",
+      "solPrice": 80.2,
+      "agentBalance": 10,
+      "treasuryBalance": 10,
+      "driftPosition": {
+        "direction": "LONG",
+        "size": 0.09,
+        "pnl": -1.254003
+      }
+    },
+    {
+      "time": 1770990839988,
+      "cycle": 8465,
+      "action": "HOLD",
+      "amount": 0,
+      "txSig": null,
+      "confidence": 85,
+      "reason": "COOLDOWN ACTIVE: 8.0min remaining - cannot open new positions. Just closed LONG at -$1.25 loss after position was rejected at $80.44 resistance. Price showing mixed signals near support ($80.13) but bearish trend (2/100) and recent rejection pattern suggest waiting for clearer directional move.",
+      "market_outlook": "bearish",
+      "solPrice": 80.2,
+      "agentBalance": 10,
+      "treasuryBalance": 10,
+      "driftPosition": {
+        "direction": "LONG",
+        "size": 0.09,
+        "pnl": -1.25358
       }
     }
   ],
