@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-02-13T23:44:31.453Z",
+  "lastUpdated": "2026-02-13T23:48:39.231Z",
   "wallet": "BGYMcHT1XkWP2a9b6YNAjw5cBKYPoJh3R1ujao7i3Mgq",
   "treasury": "GYqf6NVVhJqhv6ywyYy9d1cptjjSkiD8tWTdF5xswrZU",
   "balances": {
@@ -182,20 +182,6 @@
     "spreadCost": -100.26811004705277
   },
   "balanceHistory": [
-    {
-      "time": 1771000858360,
-      "total": 36.420131,
-      "agent": 10,
-      "treasury": 10,
-      "drift": 16.420131
-    },
-    {
-      "time": 1771000983452,
-      "total": 36.414295,
-      "agent": 10,
-      "treasury": 10,
-      "drift": 16.414295
-    },
     {
       "time": 1771001107064,
       "total": 36.417377,
@@ -1581,6 +1567,20 @@
       "agent": 10,
       "treasury": 10,
       "drift": 17.5
+    },
+    {
+      "time": 1771026391912,
+      "total": 37.5,
+      "agent": 10,
+      "treasury": 10,
+      "drift": 17.5
+    },
+    {
+      "time": 1771026515417,
+      "total": 37.5,
+      "agent": 10,
+      "treasury": 10,
+      "drift": 17.5
     }
   ],
   "drift": {
@@ -1590,21 +1590,13 @@
     "hasAccount": true
   },
   "stats": {
-    "totalCycles": 8744,
+    "totalCycles": 8746,
     "totalTransactions": 555,
     "totalVolumeUSDC": 893.3441120000003,
-    "uptime": 654729111,
-    "avgCycleTime": 74877.52870539798
+    "uptime": 654976889,
+    "avgCycleTime": 74888.736450949
   },
   "prices": [
-    {
-      "time": 1771020193171,
-      "price": 84.7
-    },
-    {
-      "time": 1771020316902,
-      "price": 84.69
-    },
     {
       "time": 1771020443777,
       "price": 84.68
@@ -1796,45 +1788,17 @@
     {
       "time": 1771026268042,
       "price": 84.24
+    },
+    {
+      "time": 1771026391622,
+      "price": 84.22
+    },
+    {
+      "time": 1771026515126,
+      "price": 84.22
     }
   ],
   "trades": [
-    {
-      "time": 1771020196712,
-      "cycle": 8695,
-      "action": "HOLD",
-      "amount": 0,
-      "txSig": null,
-      "confidence": 25,
-      "reason": "Position held for 39.6min satisfies minimum requirement. However, trend remains weak neutral (31/100) with price at $84.70 in middle of support-resistance range ($84.61-$84.75). Current -$1.16 PnL is still within expected limit order fee range. Market showing 3 consecutive up candles but trend strength too weak (<50%) to justify position changes. Price action choppy and indecisive - need stronger trend conviction before adjusting.",
-      "market_outlook": "neutral",
-      "solPrice": 84.7,
-      "agentBalance": 10,
-      "treasuryBalance": 10,
-      "driftPosition": {
-        "direction": "LONG",
-        "size": 0.09,
-        "pnl": -1.164952
-      }
-    },
-    {
-      "time": 1771020323319,
-      "cycle": 8696,
-      "action": "HOLD",
-      "amount": 0,
-      "txSig": null,
-      "confidence": 15,
-      "reason": "Position held 41.7min satisfies minimum requirement. Trend remains weak neutral (10/100) with price at $84.69 showing choppy action between support ($84.61) and resistance ($84.74). Current -$1.17 PnL is within expected limit order fee range. Market lacks directional conviction with only 1 down candle after previous uptick. Waiting for trend strength >50% before making any position adjustments.",
-      "market_outlook": "neutral",
-      "solPrice": 84.69,
-      "agentBalance": 10,
-      "treasuryBalance": 10,
-      "driftPosition": {
-        "direction": "LONG",
-        "size": 0.09,
-        "pnl": -1.167329
-      }
-    },
     {
       "time": 1771020446758,
       "cycle": 8697,
@@ -2639,6 +2603,34 @@
       "reason": "Extremely weak neutral trend (40/100) with minimal momentum (-0.08%). Price consolidating in tight range showing 4 consecutive down candles but very small moves. Market lacks clear directional conviction and required trend strength (>70%) for position entry. Recent price action demonstrates choppy sideways movement rather than tradeable trend.",
       "market_outlook": "neutral",
       "solPrice": 84.24,
+      "agentBalance": 10,
+      "treasuryBalance": 10,
+      "driftPosition": null
+    },
+    {
+      "time": 1771026394865,
+      "cycle": 8745,
+      "action": "HOLD",
+      "amount": 0,
+      "txSig": null,
+      "confidence": 85,
+      "reason": "Extremely weak neutral trend (51/100) with minimal momentum (-0.11%). Price showing 5 consecutive down candles but in very tight range $84.22-$84.51. Market lacks clear directional conviction - this is choppy sideways action, not a tradeable trend. Need trend strength >70% before opening positions.",
+      "market_outlook": "neutral",
+      "solPrice": 84.22,
+      "agentBalance": 10,
+      "treasuryBalance": 10,
+      "driftPosition": null
+    },
+    {
+      "time": 1771026519132,
+      "cycle": 8746,
+      "action": "HOLD",
+      "amount": 0,
+      "txSig": null,
+      "confidence": 15,
+      "reason": "Extremely weak neutral trend (1/100 strength) with minimal momentum (-0.11%) and price at support $84.22. Recent price action shows 6 consecutive down candles but in very tight range $84.22-$84.51, indicating choppy sideways movement rather than a tradeable trend. Market lacks clear directional conviction and required trend strength (>70%) for position entry. Need to wait for stronger signal with clear breakout or breakdown.",
+      "market_outlook": "neutral",
+      "solPrice": 84.22,
       "agentBalance": 10,
       "treasuryBalance": 10,
       "driftPosition": null
