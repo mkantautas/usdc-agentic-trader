@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-02-13T15:59:37.181Z",
+  "lastUpdated": "2026-02-13T16:03:45.003Z",
   "wallet": "BGYMcHT1XkWP2a9b6YNAjw5cBKYPoJh3R1ujao7i3Mgq",
   "treasury": "GYqf6NVVhJqhv6ywyYy9d1cptjjSkiD8tWTdF5xswrZU",
   "balances": {
@@ -182,20 +182,6 @@
     "spreadCost": -100.2818971342272
   },
   "balanceHistory": [
-    {
-      "time": 1770973700199,
-      "total": 36.184329,
-      "agent": 10,
-      "treasury": 10,
-      "drift": 16.184328999999998
-    },
-    {
-      "time": 1770973824140,
-      "total": 36.176528,
-      "agent": 10,
-      "treasury": 10,
-      "drift": 16.176528
-    },
     {
       "time": 1770973947775,
       "total": 36.186937,
@@ -1581,30 +1567,36 @@
       "agent": 10,
       "treasury": 10,
       "drift": 17.5
+    },
+    {
+      "time": 1770998497420,
+      "total": 37.5,
+      "agent": 10,
+      "treasury": 10,
+      "drift": 17.5
+    },
+    {
+      "time": 1770998620800,
+      "total": 37.5,
+      "agent": 10,
+      "treasury": 10,
+      "drift": 17.5
     }
   ],
   "drift": {
     "balance": 17.5,
-    "freeCollateral": 16.3904,
+    "freeCollateral": 16.39033,
     "position": null,
     "hasAccount": true
   },
   "stats": {
-    "totalCycles": 8525,
+    "totalCycles": 8527,
     "totalTransactions": 530,
     "totalVolumeUSDC": 874.3441120000003,
-    "uptime": 626834840,
-    "avgCycleTime": 73529.01348973607
+    "uptime": 627082661,
+    "avgCycleTime": 73540.83042101559
   },
   "prices": [
-    {
-      "time": 1770992196417,
-      "price": 79.91
-    },
-    {
-      "time": 1770992319738,
-      "price": 79.94
-    },
     {
       "time": 1770992443146,
       "price": 80.06
@@ -1796,45 +1788,17 @@
     {
       "time": 1770998373750,
       "price": 83.07
+    },
+    {
+      "time": 1770998497360,
+      "price": 83.07
+    },
+    {
+      "time": 1770998620735,
+      "price": 83.09
     }
   ],
   "trades": [
-    {
-      "time": 1770992199533,
-      "cycle": 8476,
-      "action": "HOLD",
-      "amount": 0,
-      "txSig": null,
-      "confidence": 85,
-      "reason": "COOLDOWN ACTIVE: 3.9min remaining - cannot open new positions. Price at support ($79.91) with 8 consecutive down candles and strong bearish trend (83/100). Need to wait for cooldown to expire and see if support holds or breaks before considering next move.",
-      "market_outlook": "bearish",
-      "solPrice": 79.91,
-      "agentBalance": 10,
-      "treasuryBalance": 10,
-      "driftPosition": {
-        "direction": "LONG",
-        "size": 0.09,
-        "pnl": -1.287447
-      }
-    },
-    {
-      "time": 1770992322938,
-      "cycle": 8477,
-      "action": "HOLD",
-      "amount": 0,
-      "txSig": null,
-      "confidence": 85,
-      "reason": "COOLDOWN ACTIVE: 1.8min remaining. Currently holding LONG 0.09 SOL with -$1.26 PnL. Price at support ($79.94) with bearish trend (13/100 strength). Need to wait for cooldown expiry and see if support holds or breaks before considering next move.",
-      "market_outlook": "bearish",
-      "solPrice": 79.94,
-      "agentBalance": 10,
-      "treasuryBalance": 10,
-      "driftPosition": {
-        "direction": "LONG",
-        "size": 0.09,
-        "pnl": -1.262062
-      }
-    },
     {
       "time": 1770992447825,
       "cycle": 8478,
@@ -2647,6 +2611,34 @@
       "reason": "Cooldown active (8 minutes remaining). Market shows weak trend (11/100) with price at support after rejection at resistance. Waiting for cooldown to expire and clearer directional signal.",
       "market_outlook": "neutral",
       "solPrice": 83.07,
+      "agentBalance": 10,
+      "treasuryBalance": 10,
+      "driftPosition": null
+    },
+    {
+      "time": 1770998500536,
+      "cycle": 8526,
+      "action": "HOLD",
+      "amount": 0,
+      "txSig": null,
+      "confidence": 15,
+      "reason": "Cooldown active (5.9min remaining). Market shows very weak trend (2/100 strength), neutral momentum (-0.18%), and price consolidating at support after resistance rejection. No clear directional bias. Wait for cooldown to expire and stronger signal.",
+      "market_outlook": "neutral",
+      "solPrice": 83.07,
+      "agentBalance": 10,
+      "treasuryBalance": 10,
+      "driftPosition": null
+    },
+    {
+      "time": 1770998624928,
+      "cycle": 8527,
+      "action": "HOLD",
+      "amount": 0,
+      "txSig": null,
+      "confidence": 85,
+      "reason": "Cooldown active (3.9min remaining). Market shows very weak trend (12/100 strength) with neutral momentum (-0.2%). Price consolidating near support after clear resistance rejection at $83.33. No clear directional bias - waiting for cooldown expiry and stronger trend signal before trading.",
+      "market_outlook": "neutral",
+      "solPrice": 83.09,
       "agentBalance": 10,
       "treasuryBalance": 10,
       "driftPosition": null
