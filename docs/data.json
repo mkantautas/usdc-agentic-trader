@@ -1,19 +1,19 @@
 {
-  "lastUpdated": "2026-02-13T12:49:55.140Z",
+  "lastUpdated": "2026-02-13T12:54:02.526Z",
   "wallet": "BGYMcHT1XkWP2a9b6YNAjw5cBKYPoJh3R1ujao7i3Mgq",
   "treasury": "GYqf6NVVhJqhv6ywyYy9d1cptjjSkiD8tWTdF5xswrZU",
   "balances": {
     "agent": 10,
     "treasury": 10,
-    "total": 36.212002
+    "total": 36.221251
   },
   "performance": {
     "initialBalance": 37.499999,
-    "currentBalance": 36.212002,
-    "totalPnL": -1.2879970000000043,
-    "totalPnLPercent": -3.434658758257578,
+    "currentBalance": 36.221251,
+    "totalPnL": -1.2787480000000002,
+    "totalPnLPercent": -3.409994757599861,
     "realizedPnL": -99.91845799999996,
-    "unrealizedPnL": -1.287998,
+    "unrealizedPnL": -1.278749,
     "strategyPnL": 0.31166711999999896,
     "strategyRealizedPnL": 0.31166711999999896,
     "strategyUnrealizedPnL": 0,
@@ -182,20 +182,6 @@
     "spreadCost": -100.23012511999995
   },
   "balanceHistory": [
-    {
-      "time": 1770962405463,
-      "total": 36.059313,
-      "agent": 10,
-      "treasury": 10,
-      "drift": 16.059313
-    },
-    {
-      "time": 1770962529435,
-      "total": 36.062704,
-      "agent": 10,
-      "treasury": 10,
-      "drift": 16.062704
-    },
     {
       "time": 1770962652834,
       "total": 36.062759,
@@ -1581,35 +1567,41 @@
       "agent": 10,
       "treasury": 10,
       "drift": 16.212068
+    },
+    {
+      "time": 1770987115392,
+      "total": 36.213699,
+      "agent": 10,
+      "treasury": 10,
+      "drift": 16.213699
+    },
+    {
+      "time": 1770987239207,
+      "total": 36.220404,
+      "agent": 10,
+      "treasury": 10,
+      "drift": 16.220404
     }
   ],
   "drift": {
     "balance": 17.5,
-    "freeCollateral": 15.852192,
+    "freeCollateral": 15.860978,
     "position": {
       "baseAmount": 0.09,
       "quoteAmount": -8.484213,
       "direction": "LONG",
-      "unrealizedPnl": -1.287998
+      "unrealizedPnl": -1.278749
     },
     "hasAccount": true
   },
   "stats": {
-    "totalCycles": 8434,
+    "totalCycles": 8436,
     "totalTransactions": 521,
     "totalVolumeUSDC": 868.3441120000003,
-    "uptime": 615452798,
-    "avgCycleTime": 72972.82404553
+    "uptime": 615700184,
+    "avgCycleTime": 72984.84874348032
   },
   "prices": [
-    {
-      "time": 1770981013118,
-      "price": 80.25
-    },
-    {
-      "time": 1770981138097,
-      "price": 80.2
-    },
     {
       "time": 1770981261818,
       "price": 80.11
@@ -1801,45 +1793,17 @@
     {
       "time": 1770986991701,
       "price": 79.94
+    },
+    {
+      "time": 1770987115314,
+      "price": 79.94
+    },
+    {
+      "time": 1770987239146,
+      "price": 79.94
     }
   ],
   "trades": [
-    {
-      "time": 1770981017858,
-      "cycle": 8385,
-      "action": "HOLD",
-      "amount": 0,
-      "txSig": null,
-      "confidence": 65,
-      "reason": "LONG position showing 5 consecutive down candles in consolidation phase after strong rally from $79.92 to $80.42. Currently at $80.25, still well above support at $80.22 and both SMAs. The -$1.28 PnL is just limit order fees. Position needs more time to develop - this appears to be normal consolidation within the larger upward trend. Trend strength is neutral (50/100) suggesting choppy conditions, but overall momentum from support level remains intact.",
-      "market_outlook": "neutral",
-      "solPrice": 80.25,
-      "agentBalance": 10,
-      "treasuryBalance": 10,
-      "driftPosition": {
-        "direction": "LONG",
-        "size": 0.09,
-        "pnl": -1.275952
-      }
-    },
-    {
-      "time": 1770981141628,
-      "cycle": 8386,
-      "action": "HOLD",
-      "amount": 0,
-      "txSig": null,
-      "confidence": 65,
-      "reason": "LONG position showing 6 consecutive down candles but still in normal consolidation range after strong rally from $79.92 to $80.42. Current price $80.20 is exactly at support level and above both SMAs. The -$1.28 PnL is just limit order fees. Position needs more time to develop - this appears to be healthy consolidation within the larger upward trend that started from strong support.",
-      "market_outlook": "neutral",
-      "solPrice": 80.2,
-      "agentBalance": 10,
-      "treasuryBalance": 10,
-      "driftPosition": {
-        "direction": "LONG",
-        "size": 0.09,
-        "pnl": -1.283334
-      }
-    },
     {
       "time": 1770981266295,
       "cycle": 8387,
@@ -2702,6 +2666,42 @@
         "direction": "LONG",
         "size": 0.09,
         "pnl": -1.287932
+      }
+    },
+    {
+      "time": 1770987118947,
+      "cycle": 8435,
+      "action": "HOLD",
+      "amount": 0,
+      "txSig": null,
+      "confidence": 25,
+      "reason": "Current LONG position at -$1.29 PnL in tight $79.94-$80.03 consolidation. Price exactly at support after rejecting resistance. Trend is neutral (1/100) with negative momentum (-0.11%). No clear breakout direction yet - need to wait for either convincing break above $80.03 or below $79.92. Position needs more time in this choppy 9-cent range.",
+      "market_outlook": "neutral",
+      "solPrice": 79.94,
+      "agentBalance": 10,
+      "treasuryBalance": 10,
+      "driftPosition": {
+        "direction": "LONG",
+        "size": 0.09,
+        "pnl": -1.286301
+      }
+    },
+    {
+      "time": 1770987242499,
+      "cycle": 8436,
+      "action": "HOLD",
+      "amount": 0,
+      "txSig": null,
+      "confidence": 85,
+      "reason": "Current LONG position at -$1.28 PnL in tight $79.94-$80.03 consolidation with neutral trend (1/100) and negative momentum (-0.11%). Price exactly at support level after rejecting resistance multiple times. Position needs more time to either break above $80.03 convincingly or break below $79.92 support with volume. No clear directional bias in this choppy 9-cent range warrants closing and reopening.",
+      "market_outlook": "neutral",
+      "solPrice": 79.94,
+      "agentBalance": 10,
+      "treasuryBalance": 10,
+      "driftPosition": {
+        "direction": "LONG",
+        "size": 0.09,
+        "pnl": -1.279596
       }
     }
   ],
