@@ -1,31 +1,23 @@
 {
-  "lastUpdated": "2026-02-13T23:13:23.889Z",
+  "lastUpdated": "2026-02-13T23:19:48.197Z",
   "wallet": "BGYMcHT1XkWP2a9b6YNAjw5cBKYPoJh3R1ujao7i3Mgq",
   "treasury": "GYqf6NVVhJqhv6ywyYy9d1cptjjSkiD8tWTdF5xswrZU",
   "balances": {
     "agent": 10,
     "treasury": 10,
-    "total": 36.30477
+    "total": 37.5
   },
   "performance": {
     "initialBalance": 37.499999,
-    "currentBalance": 36.30477,
-    "totalPnL": -1.1952290000000048,
-    "totalPnLPercent": -3.1872774183274104,
+    "currentBalance": 37.5,
+    "totalPnL": 9.999999974752427e-7,
+    "totalPnLPercent": 0.000002666666731045093,
     "realizedPnL": -99.91845799999996,
-    "unrealizedPnL": -1.19523,
-    "strategyPnL": 0.35341896877147,
-    "strategyRealizedPnL": 0.40333068154368906,
-    "strategyUnrealizedPnL": -0.049911712772219056,
+    "unrealizedPnL": 0,
+    "strategyPnL": 0.3496520470528114,
+    "strategyRealizedPnL": 0.3496520470528114,
+    "strategyUnrealizedPnL": 0,
     "strategyTrades": [
-      {
-        "time": 1770782297182,
-        "direction": "SHORT",
-        "oracleOpen": 83.63,
-        "oracleClose": 83.48,
-        "size": 0.09,
-        "pnl": 0.013499999999999231
-      },
       {
         "time": 1770788163884,
         "direction": "LONG",
@@ -177,32 +169,19 @@
         "oracleClose": 84.55,
         "size": 0.07108162539983415,
         "pnl": 0.00995142755597682
+      },
+      {
+        "time": 1771024538159,
+        "direction": "LONG",
+        "oracleOpen": 84.95,
+        "oracleClose": 84.38,
+        "size": 0.09417304296645085,
+        "pnl": -0.05367863449087768
       }
     ],
-    "spreadCost": -100.32178868154365
+    "spreadCost": -100.26811004705277
   },
   "balanceHistory": [
-    {
-      "time": 1770998991396,
-      "total": 37.5,
-      "agent": 10,
-      "treasury": 10,
-      "drift": 17.5
-    },
-    {
-      "time": 1770999126465,
-      "total": 36.380448,
-      "agent": 10,
-      "treasury": 10,
-      "drift": 16.380448
-    },
-    {
-      "time": 1770999250464,
-      "total": 36.382761,
-      "agent": 10,
-      "treasury": 10,
-      "drift": 16.382761
-    },
     {
       "time": 1770999373715,
       "total": 36.383785,
@@ -1581,39 +1560,43 @@
       "agent": 10,
       "treasury": 10,
       "drift": 16.305024
+    },
+    {
+      "time": 1771024525088,
+      "total": 36.310487,
+      "agent": 10,
+      "treasury": 10,
+      "drift": 16.310487
+    },
+    {
+      "time": 1771024658914,
+      "total": 37.5,
+      "agent": 10,
+      "treasury": 10,
+      "drift": 17.5
+    },
+    {
+      "time": 1771024785131,
+      "total": 37.5,
+      "agent": 10,
+      "treasury": 10,
+      "drift": 17.5
     }
   ],
   "drift": {
     "balance": 17.5,
-    "freeCollateral": 15.915189999999999,
-    "position": {
-      "baseAmount": 0.09,
-      "quoteAmount": -8.78683,
-      "direction": "LONG",
-      "unrealizedPnl": -1.19523
-    },
+    "freeCollateral": 16.314812,
+    "position": null,
     "hasAccount": true
   },
   "stats": {
-    "totalCycles": 8729,
-    "totalTransactions": 554,
+    "totalCycles": 8732,
+    "totalTransactions": 555,
     "totalVolumeUSDC": 893.3441120000003,
-    "uptime": 652861547,
-    "avgCycleTime": 74792.24962767785
+    "uptime": 653245856,
+    "avgCycleTime": 74810.56527714155
   },
   "prices": [
-    {
-      "time": 1771018433505,
-      "price": 84.87
-    },
-    {
-      "time": 1771018557252,
-      "price": 84.86
-    },
-    {
-      "time": 1771018680750,
-      "price": 84.84
-    },
     {
       "time": 1771018804203,
       "price": 84.8
@@ -1801,63 +1784,21 @@
     {
       "time": 1771024398098,
       "price": 84.42
+    },
+    {
+      "time": 1771024524799,
+      "price": 84.38
+    },
+    {
+      "time": 1771024658625,
+      "price": 84.38
+    },
+    {
+      "time": 1771024784849,
+      "price": 84.33
     }
   ],
   "trades": [
-    {
-      "time": 1771018436911,
-      "cycle": 8680,
-      "action": "HOLD",
-      "amount": 0,
-      "txSig": null,
-      "confidence": 85,
-      "reason": "LONG position opened only 10.3 minutes ago, needs minimum 30 minutes to develop per trading discipline. Current -$1.15 PnL is expected limit order fee, not real loss. Price at $84.87 showing 3 consecutive down candles but still near resistance. Must respect position holding requirements and let trade develop.",
-      "market_outlook": "neutral",
-      "solPrice": 84.87,
-      "agentBalance": 10,
-      "treasuryBalance": 10,
-      "driftPosition": {
-        "direction": "LONG",
-        "size": 0.09,
-        "pnl": -1.15294
-      }
-    },
-    {
-      "time": 1771018560381,
-      "cycle": 8681,
-      "action": "HOLD",
-      "amount": 0,
-      "txSig": null,
-      "confidence": 75,
-      "reason": "LONG position opened only 12.4 minutes ago, needs minimum 30 minutes to develop per trading discipline. Current -$1.16 PnL is expected limit order fee, not real loss. Price at $84.86 with 4 consecutive down candles shows normal pullback after breakout attempt. Must respect position holding requirements.",
-      "market_outlook": "neutral",
-      "solPrice": 84.86,
-      "agentBalance": 10,
-      "treasuryBalance": 10,
-      "driftPosition": {
-        "direction": "LONG",
-        "size": 0.09,
-        "pnl": -1.157229
-      }
-    },
-    {
-      "time": 1771018683919,
-      "cycle": 8682,
-      "action": "HOLD",
-      "amount": 0,
-      "txSig": null,
-      "confidence": 75,
-      "reason": "LONG position opened only 14.4 minutes ago, needs minimum 30 minutes to develop per trading discipline. Current -$1.16 PnL is expected limit order fee. Price at $84.84 with 5 consecutive down candles shows normal pullback after breakout attempt. Must respect position holding requirements and let trade develop.",
-      "market_outlook": "neutral",
-      "solPrice": 84.84,
-      "agentBalance": 10,
-      "treasuryBalance": 10,
-      "driftPosition": {
-        "direction": "LONG",
-        "size": 0.09,
-        "pnl": -1.15899
-      }
-    },
     {
       "time": 1771018807021,
       "cycle": 8683,
@@ -2703,6 +2644,52 @@
         "size": 0.09,
         "pnl": -1.194976
       }
+    },
+    {
+      "time": 1771024538159,
+      "cycle": 8730,
+      "action": "CLOSE_LONG",
+      "amount": 0,
+      "txSig": "YqadW1jD4iCvDJ1KarvCqsfUmgVQb1G3R1ztpLBhAdN4TQt4knH5UZAiLVLemm7whAGEqrakvrwiiCt3nRok7QT",
+      "confidence": 75,
+      "reason": "6 consecutive down candles breaking support at $84.38. Trend strength at 61% showing clear bearish momentum. Position held 111.8min meets time requirement. Clear breakdown pattern warrants closing to preserve capital.",
+      "market_outlook": "bearish",
+      "solPrice": 84.38,
+      "agentBalance": 10,
+      "treasuryBalance": 10,
+      "driftPosition": {
+        "direction": "LONG",
+        "size": 0.09,
+        "pnl": -1.189513
+      }
+    },
+    {
+      "time": 1771024664400,
+      "cycle": 8731,
+      "action": "HOLD",
+      "amount": 0,
+      "txSig": null,
+      "confidence": 85,
+      "reason": "Cooldown active for 8 minutes - cannot open new positions. Just closed a losing long position due to clear bearish breakdown with 6 consecutive down candles. Market showing weak bearish trend (1/100 strength) with price at support $84.38. Need to wait for cooldown to expire and clearer trend direction before considering new positions.",
+      "market_outlook": "neutral",
+      "solPrice": 84.38,
+      "agentBalance": 10,
+      "treasuryBalance": 10,
+      "driftPosition": null
+    },
+    {
+      "time": 1771024788097,
+      "cycle": 8732,
+      "action": "HOLD",
+      "amount": 0,
+      "txSig": null,
+      "confidence": 85,
+      "reason": "Cooldown active (5.9min remaining) prevents new positions. Just closed losing long due to bearish breakdown. Price at support $84.33 with weak neutral trend (12/100). Need to wait for cooldown expiry and clearer directional signal before considering new trades.",
+      "market_outlook": "neutral",
+      "solPrice": 84.33,
+      "agentBalance": 10,
+      "treasuryBalance": 10,
+      "driftPosition": null
     }
   ],
   "network": "devnet",
