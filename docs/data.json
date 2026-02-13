@@ -1,22 +1,22 @@
 {
-  "lastUpdated": "2026-02-13T14:39:31.769Z",
+  "lastUpdated": "2026-02-13T14:43:39.976Z",
   "wallet": "BGYMcHT1XkWP2a9b6YNAjw5cBKYPoJh3R1ujao7i3Mgq",
   "treasury": "GYqf6NVVhJqhv6ywyYy9d1cptjjSkiD8tWTdF5xswrZU",
   "balances": {
     "agent": 10,
     "treasury": 10,
-    "total": 36.312543
+    "total": 36.273892000000004
   },
   "performance": {
     "initialBalance": 37.499999,
-    "currentBalance": 36.312543,
-    "totalPnL": -1.1874560000000045,
-    "totalPnLPercent": -3.166549417774663,
+    "currentBalance": 36.273892000000004,
+    "totalPnL": -1.226106999999999,
+    "totalPnLPercent": -3.269618753856497,
     "realizedPnL": -99.91845799999996,
-    "unrealizedPnL": -1.187457,
-    "strategyPnL": 0.27028223999999845,
+    "unrealizedPnL": -1.226108,
+    "strategyPnL": 0.2666822399999992,
     "strategyRealizedPnL": 0.2855671199999984,
-    "strategyUnrealizedPnL": -0.015284879999999957,
+    "strategyUnrealizedPnL": -0.01888487999999924,
     "strategyTrades": [
       {
         "time": 1770739722887,
@@ -182,20 +182,6 @@
     "spreadCost": -100.20402511999995
   },
   "balanceHistory": [
-    {
-      "time": 1770969123146,
-      "total": 36.095791,
-      "agent": 10,
-      "treasury": 10,
-      "drift": 16.095791
-    },
-    {
-      "time": 1770969246291,
-      "total": 36.116319,
-      "agent": 10,
-      "treasury": 10,
-      "drift": 16.116319
-    },
     {
       "time": 1770969370676,
       "total": 36.126247,
@@ -1581,35 +1567,41 @@
       "agent": 10,
       "treasury": 10,
       "drift": 16.314337000000002
+    },
+    {
+      "time": 1770993692023,
+      "total": 36.268334,
+      "agent": 10,
+      "treasury": 10,
+      "drift": 16.268334
+    },
+    {
+      "time": 1770993815993,
+      "total": 36.268009,
+      "agent": 10,
+      "treasury": 10,
+      "drift": 16.268009
     }
   ],
   "drift": {
     "balance": 17.5,
-    "freeCollateral": 15.947683,
+    "freeCollateral": 15.910129,
     "position": {
       "baseAmount": 0.09,
       "quoteAmount": -8.484635,
       "direction": "LONG",
-      "unrealizedPnl": -1.187457
+      "unrealizedPnl": -1.226108
     },
     "hasAccount": true
   },
   "stats": {
-    "totalCycles": 8488,
+    "totalCycles": 8490,
     "totalTransactions": 525,
     "totalVolumeUSDC": 871.3441120000003,
-    "uptime": 622029427,
-    "avgCycleTime": 73283.3914938737
+    "uptime": 622277634,
+    "avgCycleTime": 73295.3632508834
   },
   "prices": [
-    {
-      "time": 1770987610155,
-      "price": 80.02
-    },
-    {
-      "time": 1770987733769,
-      "price": 79.99
-    },
     {
       "time": 1770987858458,
       "price": 80
@@ -1801,45 +1793,17 @@
     {
       "time": 1770993568678,
       "price": 80.99
+    },
+    {
+      "time": 1770993691943,
+      "price": 80.96
+    },
+    {
+      "time": 1770993815914,
+      "price": 80.95
     }
   ],
   "trades": [
-    {
-      "time": 1770987613480,
-      "cycle": 8439,
-      "action": "HOLD",
-      "amount": 0,
-      "txSig": null,
-      "confidence": 25,
-      "reason": "Current LONG position at -$1.29 PnL in tight $79.94-$80.03 consolidation. Price at $80.02 near resistance with neutral trend (30/100) and minimal momentum (0.04%). 3 consecutive green candles show slight bullish bias but need convincing breakout above $80.03. Position needs more time to play out - either resistance breaks or support tests. No clear directional conviction in this choppy 9-cent range.",
-      "market_outlook": "neutral",
-      "solPrice": 80.02,
-      "agentBalance": 10,
-      "treasuryBalance": 10,
-      "driftPosition": {
-        "direction": "LONG",
-        "size": 0.09,
-        "pnl": -1.291703
-      }
-    },
-    {
-      "time": 1770987738222,
-      "cycle": 8440,
-      "action": "HOLD",
-      "amount": 0,
-      "txSig": null,
-      "confidence": 15,
-      "reason": "Current LONG position at -$1.28 PnL in tight $79.94-$80.03 consolidation. Price at $79.99 after rejecting resistance at $80.02. Trend is neutral (10/100) with minimal momentum (0%). Position needs more time to either break above $80.03 resistance convincingly or test support at $79.94. No clear directional conviction in this choppy 9-cent range to warrant any action.",
-      "market_outlook": "neutral",
-      "solPrice": 79.99,
-      "agentBalance": 10,
-      "treasuryBalance": 10,
-      "driftPosition": {
-        "direction": "LONG",
-        "size": 0.09,
-        "pnl": -1.283546
-      }
-    },
     {
       "time": 1770987861953,
       "cycle": 8441,
@@ -2702,6 +2666,42 @@
         "direction": "LONG",
         "size": 0.09,
         "pnl": -1.185663
+      }
+    },
+    {
+      "time": 1770993695705,
+      "cycle": 8489,
+      "action": "HOLD",
+      "amount": 0,
+      "txSig": null,
+      "confidence": 75,
+      "reason": "Strong bullish momentum (97/100 trend strength) with price breaking through resistance to $80.99, but seeing first down candle after 9 consecutive up candles. Position thesis is playing out perfectly but need to see if this is just a minor pullback or beginning of reversal. Let the breakout develop further before making any changes.",
+      "market_outlook": "bullish",
+      "solPrice": 80.96,
+      "agentBalance": 10,
+      "treasuryBalance": 10,
+      "driftPosition": {
+        "direction": "LONG",
+        "size": 0.09,
+        "pnl": -1.231666
+      }
+    },
+    {
+      "time": 1770993819944,
+      "cycle": 8490,
+      "action": "HOLD",
+      "amount": 0,
+      "txSig": null,
+      "confidence": 75,
+      "reason": "Position thesis intact but seeing first signs of momentum shift. Strong bounce from $79.91 to $80.99 broke resistance, but now seeing 2 consecutive down candles after 9 up candles. Trend strength dropped from 97 to 27. Position PnL at -$1.23 is manageable. Need to see if this is minor pullback or reversal beginning. Respecting position hold time discipline.",
+      "market_outlook": "neutral",
+      "solPrice": 80.95,
+      "agentBalance": 10,
+      "treasuryBalance": 10,
+      "driftPosition": {
+        "direction": "LONG",
+        "size": 0.09,
+        "pnl": -1.231991
       }
     }
   ],
