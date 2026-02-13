@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-02-13T14:54:09.981Z",
+  "lastUpdated": "2026-02-13T14:58:17.657Z",
   "wallet": "BGYMcHT1XkWP2a9b6YNAjw5cBKYPoJh3R1ujao7i3Mgq",
   "treasury": "GYqf6NVVhJqhv6ywyYy9d1cptjjSkiD8tWTdF5xswrZU",
   "balances": {
@@ -182,20 +182,6 @@
     "spreadCost": -100.22564023999996
   },
   "balanceHistory": [
-    {
-      "time": 1770969989582,
-      "total": 36.141174,
-      "agent": 10,
-      "treasury": 10,
-      "drift": 16.141174
-    },
-    {
-      "time": 1770970113576,
-      "total": 36.131392,
-      "agent": 10,
-      "treasury": 10,
-      "drift": 16.131391999999998
-    },
     {
       "time": 1770970236984,
       "total": 36.133318,
@@ -1581,30 +1567,36 @@
       "agent": 10,
       "treasury": 10,
       "drift": 17.5
+    },
+    {
+      "time": 1770994570419,
+      "total": 37.5,
+      "agent": 10,
+      "treasury": 10,
+      "drift": 17.5
+    },
+    {
+      "time": 1770994693956,
+      "total": 37.5,
+      "agent": 10,
+      "treasury": 10,
+      "drift": 17.5
     }
   ],
   "drift": {
     "balance": 17.5,
-    "freeCollateral": 16.370766,
+    "freeCollateral": 16.370428,
     "position": null,
     "hasAccount": true
   },
   "stats": {
-    "totalCycles": 8495,
+    "totalCycles": 8497,
     "totalTransactions": 526,
     "totalVolumeUSDC": 871.3441120000003,
-    "uptime": 622907639,
-    "avgCycleTime": 73326.38481459682
+    "uptime": 623155316,
+    "avgCycleTime": 73338.27421442862
   },
   "prices": [
-    {
-      "time": 1770988478006,
-      "price": 79.89
-    },
-    {
-      "time": 1770988601569,
-      "price": 79.85
-    },
     {
       "time": 1770988725357,
       "price": 79.84
@@ -1796,45 +1788,17 @@
     {
       "time": 1770994447250,
       "price": 81.44
+    },
+    {
+      "time": 1770994570151,
+      "price": 81.53
+    },
+    {
+      "time": 1770994693886,
+      "price": 81.45
     }
   ],
   "trades": [
-    {
-      "time": 1770988481366,
-      "cycle": 8446,
-      "action": "HOLD",
-      "amount": 0,
-      "txSig": null,
-      "confidence": 85,
-      "reason": "COOLDOWN ACTIVE: 5.9min remaining - cannot open new positions. Price at $79.89 (exactly at support) after breaking below previous $79.94-$80.03 consolidation. Need to wait for cooldown and observe if this becomes new support or continues declining before considering SHORT entry.",
-      "market_outlook": "bearish",
-      "solPrice": 79.89,
-      "agentBalance": 10,
-      "treasuryBalance": 10,
-      "driftPosition": {
-        "direction": "LONG",
-        "size": 0.09,
-        "pnl": -1.303728
-      }
-    },
-    {
-      "time": 1770988604998,
-      "cycle": 8447,
-      "action": "HOLD",
-      "amount": 0,
-      "txSig": null,
-      "confidence": 85,
-      "reason": "COOLDOWN ACTIVE: 3.9min remaining - cannot open new positions. Price at $79.85 (exactly at support level) after breaking below previous consolidation range. Need to wait for cooldown to expire and observe if this becomes new support or continues declining. Premature to take action without seeing how price reacts at this critical level.",
-      "market_outlook": "bearish",
-      "solPrice": 79.85,
-      "agentBalance": 10,
-      "treasuryBalance": 10,
-      "driftPosition": {
-        "direction": "LONG",
-        "size": 0.09,
-        "pnl": -1.300061
-      }
-    },
     {
       "time": 1770988729130,
       "cycle": 8448,
@@ -2687,6 +2651,34 @@
       "reason": "COOLDOWN ACTIVE: 5.9min remaining - cannot open new positions yet. Price at resistance ($81.44) with weak trend (15/100). Just closed profitable position at $81.40. Need to respect cooldown and wait for clearer setup after consolidation.",
       "market_outlook": "neutral",
       "solPrice": 81.44,
+      "agentBalance": 10,
+      "treasuryBalance": 10,
+      "driftPosition": null
+    },
+    {
+      "time": 1770994573692,
+      "cycle": 8496,
+      "action": "HOLD",
+      "amount": 0,
+      "txSig": null,
+      "confidence": 25,
+      "reason": "COOLDOWN ACTIVE: 3.9min remaining - cannot open new positions. Price at resistance ($81.53) with weak trend strength (15/100) and minimal momentum (0.75%). Just closed profitable position. Need to respect cooldown and wait for clearer setup.",
+      "market_outlook": "neutral",
+      "solPrice": 81.53,
+      "agentBalance": 10,
+      "treasuryBalance": 10,
+      "driftPosition": null
+    },
+    {
+      "time": 1770994697629,
+      "cycle": 8497,
+      "action": "HOLD",
+      "amount": 0,
+      "txSig": null,
+      "confidence": 85,
+      "reason": "COOLDOWN ACTIVE: 1.8min remaining - cannot open new positions yet. Price at resistance ($81.45) with weak trend strength (15/100) and minimal momentum (0.57%). Just closed profitable LONG position 8 minutes ago. Need to respect cooldown period and wait for clearer setup. Market is consolidating at resistance after strong bounce from $79.91.",
+      "market_outlook": "neutral",
+      "solPrice": 81.45,
       "agentBalance": 10,
       "treasuryBalance": 10,
       "driftPosition": null
