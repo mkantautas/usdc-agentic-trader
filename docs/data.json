@@ -1,31 +1,23 @@
 {
-  "lastUpdated": "2026-02-13T12:14:47.818Z",
+  "lastUpdated": "2026-02-13T12:18:56.121Z",
   "wallet": "BGYMcHT1XkWP2a9b6YNAjw5cBKYPoJh3R1ujao7i3Mgq",
   "treasury": "GYqf6NVVhJqhv6ywyYy9d1cptjjSkiD8tWTdF5xswrZU",
   "balances": {
     "agent": 10,
     "treasury": 10,
-    "total": 36.206802
+    "total": 36.213075
   },
   "performance": {
     "initialBalance": 37.499999,
-    "currentBalance": 36.206802,
-    "totalPnL": -1.2931969999999993,
-    "totalPnLPercent": -3.4485254252940094,
+    "currentBalance": 36.213075,
+    "totalPnL": -1.286923999999999,
+    "totalPnLPercent": -3.431797424847929,
     "realizedPnL": -99.91845799999996,
-    "unrealizedPnL": -1.293198,
-    "strategyPnL": 0.31256711999999814,
-    "strategyRealizedPnL": 0.31652288999999834,
-    "strategyUnrealizedPnL": -0.003955770000000172,
+    "unrealizedPnL": -1.286925,
+    "strategyPnL": 0.31166711999999896,
+    "strategyRealizedPnL": 0.31166711999999896,
+    "strategyUnrealizedPnL": 0,
     "strategyTrades": [
-      {
-        "time": 1770707308843,
-        "direction": "SHORT",
-        "oracleOpen": 85.42,
-        "oracleClose": 84.75,
-        "size": 0.09,
-        "pnl": 0.06030000000000015
-      },
       {
         "time": 1770724046265,
         "direction": "LONG",
@@ -177,25 +169,19 @@
         "oracleClose": 78.37,
         "size": 0.09,
         "pnl": 0.012105450000000389
+      },
+      {
+        "time": 1770985012774,
+        "direction": "LONG",
+        "oracleOpen": 80.003953,
+        "oracleClose": 79.95,
+        "size": 0.09,
+        "pnl": -0.004855769999999353
       }
     ],
-    "spreadCost": -100.23498088999996
+    "spreadCost": -100.23012511999995
   },
   "balanceHistory": [
-    {
-      "time": 1770960298459,
-      "total": 36.064247,
-      "agent": 10,
-      "treasury": 10,
-      "drift": 16.064247
-    },
-    {
-      "time": 1770960421536,
-      "total": 36.063669,
-      "agent": 10,
-      "treasury": 10,
-      "drift": 16.063669
-    },
     {
       "time": 1770960545548,
       "total": 36.061744,
@@ -1581,35 +1567,41 @@
       "agent": 10,
       "treasury": 10,
       "drift": 16.205953
+    },
+    {
+      "time": 1770985008068,
+      "total": 36.201594,
+      "agent": 10,
+      "treasury": 10,
+      "drift": 16.201594
+    },
+    {
+      "time": 1770985133131,
+      "total": 36.213156,
+      "agent": 10,
+      "treasury": 10,
+      "drift": 16.213156
     }
   ],
   "drift": {
     "balance": 17.5,
-    "freeCollateral": 15.846296,
+    "freeCollateral": 15.852251,
     "position": {
       "baseAmount": 0.09,
       "quoteAmount": -8.484213,
       "direction": "LONG",
-      "unrealizedPnl": -1.293198
+      "unrealizedPnl": -1.286925
     },
     "hasAccount": true
   },
   "stats": {
-    "totalCycles": 8417,
-    "totalTransactions": 520,
+    "totalCycles": 8419,
+    "totalTransactions": 521,
     "totalVolumeUSDC": 868.3441120000003,
-    "uptime": 613345477,
-    "avgCycleTime": 72869.84400617797
+    "uptime": 613593779,
+    "avgCycleTime": 72882.02625014847
   },
   "prices": [
-    {
-      "time": 1770978908203,
-      "price": 79.97
-    },
-    {
-      "time": 1770979032522,
-      "price": 80.08
-    },
     {
       "time": 1770979155971,
       "price": 80.18
@@ -1801,45 +1793,17 @@
     {
       "time": 1770984884577,
       "price": 79.96
+    },
+    {
+      "time": 1770985007989,
+      "price": 79.95
+    },
+    {
+      "time": 1770985133058,
+      "price": 79.92
     }
   ],
   "trades": [
-    {
-      "time": 1770978912297,
-      "cycle": 8368,
-      "action": "HOLD",
-      "amount": 0,
-      "txSig": null,
-      "confidence": 65,
-      "reason": "Current LONG position showing normal consolidation at $79.97 after strong rally from $79.58 to $80.05. The -$1.26 PnL is just entry fees from limit orders. Position needs more time to develop - market trend is neutral (21/100) but price remains above both SMAs with recent bullish momentum. Will hold through this consolidation phase as position hasn't had sufficient time to play out.",
-      "market_outlook": "neutral",
-      "solPrice": 79.97,
-      "agentBalance": 10,
-      "treasuryBalance": 10,
-      "driftPosition": {
-        "direction": "LONG",
-        "size": 0.09,
-        "pnl": -1.256256
-      }
-    },
-    {
-      "time": 1770979035776,
-      "cycle": 8369,
-      "action": "HOLD",
-      "amount": 0,
-      "txSig": null,
-      "confidence": 75,
-      "reason": "LONG position showing positive momentum with price breaking to new high at $80.08 and 3 consecutive up candles. The -$1.26 PnL is just limit order fees. Position needs more time to develop - strong price action from consolidation around $79.92 to current $80.08 suggests upward momentum continuing. At resistance but momentum favors continuation.",
-      "market_outlook": "bullish",
-      "solPrice": 80.08,
-      "agentBalance": 10,
-      "treasuryBalance": 10,
-      "driftPosition": {
-        "direction": "LONG",
-        "size": 0.09,
-        "pnl": -1.258009
-      }
-    },
     {
       "time": 1770979160051,
       "cycle": 8370,
@@ -2702,6 +2666,42 @@
         "direction": "LONG",
         "size": 0.09,
         "pnl": -1.294047
+      }
+    },
+    {
+      "time": 1770985012774,
+      "cycle": 8418,
+      "action": "CLOSE_LONG",
+      "amount": 0,
+      "txSig": "244U3Ax9TzcAcSg8Yt6ER4oeBRXuVVF6VuDc3WxCrMVa7LymQ3N82AWJ6fYvNNtXZmeSGrdzo8y9UuWZisU49LYC",
+      "confidence": 75,
+      "reason": "Price at $79.95 support showing weakness after failed breakout at $80.22. Trend is very weak (12/100) with negative momentum (-0.31%). Current position showing -$1.30 PnL and price action suggests support may break. Better to close and preserve capital in this bearish environment.",
+      "market_outlook": "bearish",
+      "solPrice": 79.95,
+      "agentBalance": 10,
+      "treasuryBalance": 10,
+      "driftPosition": {
+        "direction": "LONG",
+        "size": 0.09,
+        "pnl": -1.298406
+      }
+    },
+    {
+      "time": 1770985136089,
+      "cycle": 8419,
+      "action": "HOLD",
+      "amount": 0,
+      "txSig": null,
+      "confidence": 85,
+      "reason": "COOLDOWN ACTIVE: 8min remaining - cannot open new positions. Current LONG 0.0900 SOL at -$1.29 PnL. Price at $79.92 support with weak trend (22/100) and negative momentum (-0.37%). Must wait for cooldown to expire and observe if support holds or breaks.",
+      "market_outlook": "bearish",
+      "solPrice": 79.92,
+      "agentBalance": 10,
+      "treasuryBalance": 10,
+      "driftPosition": {
+        "direction": "LONG",
+        "size": 0.09,
+        "pnl": -1.2868439999999999
       }
     }
   ],
