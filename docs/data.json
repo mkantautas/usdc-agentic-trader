@@ -1,22 +1,22 @@
 {
-  "lastUpdated": "2026-02-13T18:04:02.912Z",
+  "lastUpdated": "2026-02-13T18:08:13.778Z",
   "wallet": "BGYMcHT1XkWP2a9b6YNAjw5cBKYPoJh3R1ujao7i3Mgq",
   "treasury": "GYqf6NVVhJqhv6ywyYy9d1cptjjSkiD8tWTdF5xswrZU",
   "balances": {
     "agent": 10,
     "treasury": 10,
-    "total": 36.383909
+    "total": 36.38921
   },
   "performance": {
     "initialBalance": 37.499999,
-    "currentBalance": 36.383909,
-    "totalPnL": -1.1160899999999998,
-    "totalPnLPercent": -2.9762400793664012,
+    "currentBalance": 36.38921,
+    "totalPnL": -1.110789000000004,
+    "totalPnLPercent": -2.9621040789894524,
     "realizedPnL": -99.91845799999996,
-    "unrealizedPnL": -1.116091,
-    "strategyPnL": 0.38556027519373054,
+    "unrealizedPnL": -1.11079,
+    "strategyPnL": 0.39409007024171094,
     "strategyRealizedPnL": 0.39337925398771223,
-    "strategyUnrealizedPnL": -0.007818978793981716,
+    "strategyUnrealizedPnL": 0.0007108162539987052,
     "strategyTrades": [
       {
         "time": 1770764603427,
@@ -182,20 +182,6 @@
     "spreadCost": -100.31183725398768
   },
   "balanceHistory": [
-    {
-      "time": 1770981138166,
-      "total": 36.216666000000004,
-      "agent": 10,
-      "treasury": 10,
-      "drift": 16.216666
-    },
-    {
-      "time": 1770981261885,
-      "total": 36.215659,
-      "agent": 10,
-      "treasury": 10,
-      "drift": 16.215659
-    },
     {
       "time": 1770981386581,
       "total": 36.217161,
@@ -1581,35 +1567,41 @@
       "agent": 10,
       "treasury": 10,
       "drift": 16.383702
+    },
+    {
+      "time": 1771005963598,
+      "total": 36.387626,
+      "agent": 10,
+      "treasury": 10,
+      "drift": 16.387626
+    },
+    {
+      "time": 1771006088392,
+      "total": 36.388806,
+      "agent": 10,
+      "treasury": 10,
+      "drift": 16.388806
     }
   ],
   "drift": {
     "balance": 17.5,
-    "freeCollateral": 16.087958,
+    "freeCollateral": 16.092995,
     "position": {
       "baseAmount": 0.07,
       "quoteAmount": -7.035113,
       "direction": "LONG",
-      "unrealizedPnl": -1.116091
+      "unrealizedPnl": -1.11079
     },
     "hasAccount": true
   },
   "stats": {
-    "totalCycles": 8585,
+    "totalCycles": 8587,
     "totalTransactions": 534,
     "totalVolumeUSDC": 885.3441120000003,
-    "uptime": 634300570,
-    "avgCycleTime": 73884.74898078044
+    "uptime": 634551436,
+    "avgCycleTime": 73896.75509491091
   },
   "prices": [
-    {
-      "time": 1770999744683,
-      "price": 83.63
-    },
-    {
-      "time": 1770999869543,
-      "price": 83.62
-    },
     {
       "time": 1770999993471,
       "price": 83.63
@@ -1801,45 +1793,17 @@
     {
       "time": 1771005839451,
       "price": 84.3
+    },
+    {
+      "time": 1771005963083,
+      "price": 84.38
+    },
+    {
+      "time": 1771006087866,
+      "price": 84.42
     }
   ],
   "trades": [
-    {
-      "time": 1770999749098,
-      "cycle": 8536,
-      "action": "HOLD",
-      "amount": 0,
-      "txSig": null,
-      "confidence": 65,
-      "reason": "Position held for only 12.3 minutes, well below 30-minute minimum commitment. Current -$1.13 PnL is mostly limit order fee impact. Price at $83.63 near resistance with weak trend strength (24/100) but still within bullish range. Need to let position develop despite 2 consecutive down candles - this could be normal consolidation within the uptrend.",
-      "market_outlook": "neutral",
-      "solPrice": 83.63,
-      "agentBalance": 10,
-      "treasuryBalance": 10,
-      "driftPosition": {
-        "direction": "LONG",
-        "size": 0.05,
-        "pnl": -1.126976
-      }
-    },
-    {
-      "time": 1770999873269,
-      "cycle": 8537,
-      "action": "HOLD",
-      "amount": 0,
-      "txSig": null,
-      "confidence": 65,
-      "reason": "Position held for only 14.4 minutes, well below 30-minute minimum commitment. Current -$1.12 PnL is mostly limit order fee impact. Price at $83.62 near resistance showing 3 consecutive down candles but trend strength at 33/100 is still neutral-bullish. This appears to be normal consolidation within the broader uptrend that started from $83.07. Need to let position develop despite recent weakness.",
-      "market_outlook": "neutral",
-      "solPrice": 83.62,
-      "agentBalance": 10,
-      "treasuryBalance": 10,
-      "driftPosition": {
-        "direction": "LONG",
-        "size": 0.05,
-        "pnl": -1.124342
-      }
-    },
     {
       "time": 1770999997309,
       "cycle": 8538,
@@ -2650,6 +2614,42 @@
         "direction": "LONG",
         "size": 0.07,
         "pnl": -1.116298
+      }
+    },
+    {
+      "time": 1771005967527,
+      "cycle": 8586,
+      "action": "HOLD",
+      "amount": 0,
+      "txSig": null,
+      "confidence": 65,
+      "reason": "Position is 30.9min old and can now be evaluated. SOL holding above $84.34 breakout level with current price at $84.38. Trend remains neutral (10/100) with minimal momentum, but price is holding key support. Current -$1.11 PnL is mostly fees. Market showing consolidation pattern - will hold for now as original breakout thesis hasn't been invalidated.",
+      "market_outlook": "neutral",
+      "solPrice": 84.38,
+      "agentBalance": 10,
+      "treasuryBalance": 10,
+      "driftPosition": {
+        "direction": "LONG",
+        "size": 0.07,
+        "pnl": -1.112374
+      }
+    },
+    {
+      "time": 1771006093260,
+      "cycle": 8587,
+      "action": "HOLD",
+      "amount": 0,
+      "txSig": null,
+      "confidence": 60,
+      "reason": "Position now 33min old and past minimum hold. SOL showing slight recovery to $84.42 with 2 up candles, but trend remains weak (20/100) with minimal momentum (0.04%). Price at resistance level. Current -$1.11 PnL is mostly fees. Will hold as no clear invalidation of breakout thesis yet - need stronger signal to close.",
+      "market_outlook": "neutral",
+      "solPrice": 84.42,
+      "agentBalance": 10,
+      "treasuryBalance": 10,
+      "driftPosition": {
+        "direction": "LONG",
+        "size": 0.07,
+        "pnl": -1.111194
       }
     }
   ],
