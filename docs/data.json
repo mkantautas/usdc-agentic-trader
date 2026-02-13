@@ -1,22 +1,22 @@
 {
-  "lastUpdated": "2026-02-13T15:43:58.409Z",
+  "lastUpdated": "2026-02-13T15:46:03.940Z",
   "wallet": "BGYMcHT1XkWP2a9b6YNAjw5cBKYPoJh3R1ujao7i3Mgq",
   "treasury": "GYqf6NVVhJqhv6ywyYy9d1cptjjSkiD8tWTdF5xswrZU",
   "balances": {
     "agent": 10,
     "treasury": 10,
-    "total": 36.390843
+    "total": 36.392005
   },
   "performance": {
     "initialBalance": 37.499999,
-    "currentBalance": 36.390843,
-    "totalPnL": -1.1091560000000058,
-    "totalPnLPercent": -2.9577494122066663,
+    "currentBalance": 36.392005,
+    "totalPnL": -1.107994000000005,
+    "totalPnLPercent": -2.9546507454573665,
     "realizedPnL": -99.91845799999996,
-    "unrealizedPnL": -1.109157,
-    "strategyPnL": 0.3711606687290101,
+    "unrealizedPnL": -1.107995,
+    "strategyPnL": 0.36821913177595217,
     "strategyRealizedPnL": 0.3071822399999994,
-    "strategyUnrealizedPnL": 0.06397842872901072,
+    "strategyUnrealizedPnL": 0.061036891775952805,
     "strategyTrades": [
       {
         "time": 1770756242586,
@@ -182,13 +182,6 @@
     "spreadCost": -100.22564023999996
   },
   "balanceHistory": [
-    {
-      "time": 1770972956349,
-      "total": 36.179309,
-      "agent": 10,
-      "treasury": 10,
-      "drift": 16.179309
-    },
     {
       "time": 1770973079433,
       "total": 36.179917,
@@ -1581,31 +1574,34 @@
       "agent": 10,
       "treasury": 10,
       "drift": 16.390855
+    },
+    {
+      "time": 1770997559103,
+      "total": 36.392221,
+      "agent": 10,
+      "treasury": 10,
+      "drift": 16.392221
     }
   ],
   "drift": {
     "balance": 17.5,
-    "freeCollateral": 16.266238,
+    "freeCollateral": 16.267328,
     "position": {
       "baseAmount": 0.03,
       "quoteAmount": -3.601273,
       "direction": "LONG",
-      "unrealizedPnl": -1.109157
+      "unrealizedPnl": -1.107995
     },
     "hasAccount": true
   },
   "stats": {
-    "totalCycles": 8519,
+    "totalCycles": 8520,
     "totalTransactions": 527,
     "totalVolumeUSDC": 874.3441120000003,
-    "uptime": 625896068,
-    "avgCycleTime": 73470.6031224322
+    "uptime": 626021598,
+    "avgCycleTime": 73476.7133802817
   },
   "prices": [
-    {
-      "time": 1770991453907,
-      "price": 80.28
-    },
     {
       "time": 1770991577516,
       "price": 80.21
@@ -1801,27 +1797,13 @@
     {
       "time": 1770997434293,
       "price": 83.33
+    },
+    {
+      "time": 1770997558586,
+      "price": 83.25
     }
   ],
   "trades": [
-    {
-      "time": 1770991457317,
-      "cycle": 8470,
-      "action": "HOLD",
-      "amount": 0,
-      "txSig": null,
-      "confidence": 25,
-      "reason": "Just closed position 12min ago after -$1.28 loss. Price showing weak neutral trend (21/100 strength) with minimal momentum (-0.01%). Currently at 88% of range near resistance. Need to wait for stronger trend development before re-entering.",
-      "market_outlook": "neutral",
-      "solPrice": 80.28,
-      "agentBalance": 10,
-      "treasuryBalance": 10,
-      "driftPosition": {
-        "direction": "LONG",
-        "size": 0.09,
-        "pnl": -1.281227
-      }
-    },
     {
       "time": 1770991581889,
       "cycle": 8471,
@@ -2658,6 +2640,24 @@
         "direction": "LONG",
         "size": 0.03,
         "pnl": -1.109145
+      }
+    },
+    {
+      "time": 1770997563870,
+      "cycle": 8520,
+      "action": "HOLD",
+      "amount": 0,
+      "txSig": null,
+      "confidence": 75,
+      "reason": "Position held 33.1 minutes meets minimum hold requirement. Despite first down candle after 9 consecutive up moves, bullish trend remains intact (15/100 strength, though weakened). Price at $83.25 near resistance at $83.33. Current -$1.11 PnL is still just limit order fee. One down candle doesn't invalidate the strong uptrend from $81.30 to $83.33. Let position develop further as daily momentum remains positive at 3.29%.",
+      "market_outlook": "bullish",
+      "solPrice": 83.25,
+      "agentBalance": 10,
+      "treasuryBalance": 10,
+      "driftPosition": {
+        "direction": "LONG",
+        "size": 0.03,
+        "pnl": -1.107779
       }
     }
   ],
