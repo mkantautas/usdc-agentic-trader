@@ -1,22 +1,22 @@
 {
-  "lastUpdated": "2026-02-13T05:39:33.201Z",
+  "lastUpdated": "2026-02-13T05:43:39.147Z",
   "wallet": "BGYMcHT1XkWP2a9b6YNAjw5cBKYPoJh3R1ujao7i3Mgq",
   "treasury": "GYqf6NVVhJqhv6ywyYy9d1cptjjSkiD8tWTdF5xswrZU",
   "balances": {
     "agent": 10,
     "treasury": 10,
-    "total": 36.078058
+    "total": 36.091633
   },
   "performance": {
     "initialBalance": 37.499999,
-    "currentBalance": 36.078058,
-    "totalPnL": -1.421941000000004,
-    "totalPnLPercent": -3.791842767782484,
+    "currentBalance": 36.091633,
+    "totalPnL": -1.408366000000001,
+    "totalPnLPercent": -3.7556427668171426,
     "realizedPnL": -99.91845799999996,
-    "unrealizedPnL": -1.421942,
-    "strategyPnL": 0.32462288999999733,
+    "unrealizedPnL": -1.408367,
+    "strategyPnL": 0.32372288999999815,
     "strategyRealizedPnL": 0.30441743999999793,
-    "strategyUnrealizedPnL": 0.020205449999999417,
+    "strategyUnrealizedPnL": 0.019305450000000234,
     "strategyTrades": [
       {
         "time": 1770695522395,
@@ -182,20 +182,6 @@
     "spreadCost": -100.22287543999995
   },
   "balanceHistory": [
-    {
-      "time": 1770936636918,
-      "total": 36.005111,
-      "agent": 10,
-      "treasury": 10,
-      "drift": 16.005111
-    },
-    {
-      "time": 1770936760142,
-      "total": 36.008107,
-      "agent": 10,
-      "treasury": 10,
-      "drift": 16.008107
-    },
     {
       "time": 1770936883535,
       "total": 36.015216,
@@ -1581,35 +1567,41 @@
       "agent": 10,
       "treasury": 10,
       "drift": 16.078093
+    },
+    {
+      "time": 1770961293451,
+      "total": 36.077305,
+      "agent": 10,
+      "treasury": 10,
+      "drift": 16.077305
+    },
+    {
+      "time": 1770961416343,
+      "total": 36.090699,
+      "agent": 10,
+      "treasury": 10,
+      "drift": 16.090699
     }
   ],
   "drift": {
     "balance": 17.5,
-    "freeCollateral": 15.725018,
+    "freeCollateral": 15.737914,
     "position": {
       "baseAmount": 0.09,
       "quoteAmount": -8.482745,
       "direction": "LONG",
-      "unrealizedPnl": -1.421942
+      "unrealizedPnl": -1.408367
     },
     "hasAccount": true
   },
   "stats": {
-    "totalCycles": 8225,
+    "totalCycles": 8227,
     "totalTransactions": 509,
     "totalVolumeUSDC": 868.3441120000003,
-    "uptime": 589630859,
-    "avgCycleTime": 71687.64243161095
+    "uptime": 589876806,
+    "avgCycleTime": 71700.11012519752
   },
   "prices": [
-    {
-      "time": 1770955203518,
-      "price": 78.96
-    },
-    {
-      "time": 1770955327511,
-      "price": 78.92
-    },
     {
       "time": 1770955451888,
       "price": 78.95
@@ -1801,45 +1793,17 @@
     {
       "time": 1770961170297,
       "price": 78.46
+    },
+    {
+      "time": 1770961293375,
+      "price": 78.45
+    },
+    {
+      "time": 1770961416271,
+      "price": 78.45
     }
   ],
   "trades": [
-    {
-      "time": 1770955207271,
-      "cycle": 8176,
-      "action": "HOLD",
-      "amount": 0,
-      "txSig": null,
-      "confidence": 75,
-      "reason": "Following 30-minute discipline rule. Position showing 8 consecutive down candles from $79.19 resistance to current $78.96, but price is now stabilizing at key support level. One up candle at end suggests potential bounce attempt. Current PnL of -$1.37 is manageable. Critical support test at $78.95 - need more time to see if support holds for potential bounce or breaks for further decline.",
-      "market_outlook": "neutral",
-      "solPrice": 78.96,
-      "agentBalance": 10,
-      "treasuryBalance": 10,
-      "driftPosition": {
-        "direction": "LONG",
-        "size": 0.09,
-        "pnl": -1.37426
-      }
-    },
-    {
-      "time": 1770955331665,
-      "cycle": 8177,
-      "action": "HOLD",
-      "amount": 0,
-      "txSig": null,
-      "confidence": 85,
-      "reason": "Following 30-minute discipline rule. Position showing 8 consecutive down candles from $79.19 resistance to current $78.92, breaking below support at $78.95. Price is now exactly at the original support level where we entered. Current PnL of -$1.37 is manageable but concerning as we've broken key support. Need more time to see if this is a false breakdown or real trend reversal before making any decisions.",
-      "market_outlook": "bearish",
-      "solPrice": 78.92,
-      "agentBalance": 10,
-      "treasuryBalance": 10,
-      "driftPosition": {
-        "direction": "LONG",
-        "size": 0.09,
-        "pnl": -1.371471
-      }
-    },
     {
       "time": 1770955456021,
       "cycle": 8178,
@@ -2702,6 +2666,42 @@
         "direction": "LONG",
         "size": 0.09,
         "pnl": -1.421907
+      }
+    },
+    {
+      "time": 1770961296080,
+      "cycle": 8226,
+      "action": "HOLD",
+      "amount": 0,
+      "txSig": null,
+      "confidence": 75,
+      "reason": "Strong bullish reversal confirmed: 6 consecutive up candles from $78.23 support to resistance at $78.46, breaking above both SMAs. Price recovered 1.0% from lows with positive momentum (0.29%). Currently at resistance with momentum suggesting potential breakout. Good risk/reward setup.",
+      "market_outlook": "bullish",
+      "solPrice": 78.45,
+      "agentBalance": 10,
+      "treasuryBalance": 10,
+      "driftPosition": {
+        "direction": "LONG",
+        "size": 0.09,
+        "pnl": -1.422695
+      }
+    },
+    {
+      "time": 1770961419120,
+      "cycle": 8227,
+      "action": "HOLD",
+      "amount": 0,
+      "txSig": null,
+      "confidence": 75,
+      "reason": "Strong bullish reversal confirmed with 6 consecutive up candles from $78.23 support to $78.46 resistance. Price recovered 1.0% from lows with positive momentum (0.29%). Clear trend shift from previous bearish pattern. Currently at resistance but momentum suggests potential breakout above $78.46. Good risk/reward setup with strong technical signals.",
+      "market_outlook": "bullish",
+      "solPrice": 78.45,
+      "agentBalance": 10,
+      "treasuryBalance": 10,
+      "driftPosition": {
+        "direction": "LONG",
+        "size": 0.09,
+        "pnl": -1.4093010000000001
       }
     }
   ],
