@@ -1,19 +1,19 @@
 {
-  "lastUpdated": "2026-02-13T19:08:21.753Z",
+  "lastUpdated": "2026-02-13T19:14:31.992Z",
   "wallet": "BGYMcHT1XkWP2a9b6YNAjw5cBKYPoJh3R1ujao7i3Mgq",
   "treasury": "GYqf6NVVhJqhv6ywyYy9d1cptjjSkiD8tWTdF5xswrZU",
   "balances": {
     "agent": 10,
     "treasury": 10,
-    "total": 36.378815
+    "total": 37.5
   },
   "performance": {
     "initialBalance": 37.499999,
-    "currentBalance": 36.378815,
-    "totalPnL": -1.1211839999999995,
-    "totalPnLPercent": -2.9898240797286406,
+    "currentBalance": 37.5,
+    "totalPnL": 9.999999974752427e-7,
+    "totalPnLPercent": 0.000002666666731045093,
     "realizedPnL": -99.91845799999996,
-    "unrealizedPnL": -1.121185,
+    "unrealizedPnL": 0,
     "strategyPnL": 0.40333068154368906,
     "strategyRealizedPnL": 0.40333068154368906,
     "strategyUnrealizedPnL": 0,
@@ -182,27 +182,6 @@
     "spreadCost": -100.32178868154365
   },
   "balanceHistory": [
-    {
-      "time": 1770984884732,
-      "total": 36.205953,
-      "agent": 10,
-      "treasury": 10,
-      "drift": 16.205953
-    },
-    {
-      "time": 1770985008068,
-      "total": 36.201594,
-      "agent": 10,
-      "treasury": 10,
-      "drift": 16.201594
-    },
-    {
-      "time": 1770985133131,
-      "total": 36.213156,
-      "agent": 10,
-      "treasury": 10,
-      "drift": 16.213156
-    },
     {
       "time": 1770985256357,
       "total": 36.218238,
@@ -1581,39 +1560,43 @@
       "agent": 10,
       "treasury": 10,
       "drift": 16.38133
+    },
+    {
+      "time": 1771009822011,
+      "total": 37.5,
+      "agent": 10,
+      "treasury": 10,
+      "drift": 17.5
+    },
+    {
+      "time": 1771009945567,
+      "total": 37.5,
+      "agent": 10,
+      "treasury": 10,
+      "drift": 17.5
+    },
+    {
+      "time": 1771010068704,
+      "total": 37.5,
+      "agent": 10,
+      "treasury": 10,
+      "drift": 17.5
     }
   ],
   "drift": {
     "balance": 17.5,
-    "freeCollateral": 15.984841,
-    "position": {
-      "baseAmount": 0.09,
-      "quoteAmount": -8.80067,
-      "direction": "LONG",
-      "unrealizedPnl": -1.121185
-    },
+    "freeCollateral": 16.378549,
+    "position": null,
     "hasAccount": true
   },
   "stats": {
-    "totalCycles": 8616,
+    "totalCycles": 8619,
     "totalTransactions": 537,
     "totalVolumeUSDC": 885.3441120000003,
-    "uptime": 638159412,
-    "avgCycleTime": 74066.78412256268
+    "uptime": 638529651,
+    "avgCycleTime": 74083.95997215454
   },
   "prices": [
-    {
-      "time": 1771003597943,
-      "price": 84.19
-    },
-    {
-      "time": 1771003721358,
-      "price": 84.19
-    },
-    {
-      "time": 1771003844852,
-      "price": 84.21
-    },
     {
       "time": 1771003968830,
       "price": 84.34
@@ -1801,51 +1784,21 @@
     {
       "time": 1771009697485,
       "price": 85.27
+    },
+    {
+      "time": 1771009821928,
+      "price": 85.31
+    },
+    {
+      "time": 1771009945504,
+      "price": 85.32
+    },
+    {
+      "time": 1771010068632,
+      "price": 85.32
     }
   ],
   "trades": [
-    {
-      "time": 1771003601152,
-      "cycle": 8567,
-      "action": "HOLD",
-      "amount": 0,
-      "txSig": null,
-      "confidence": 45,
-      "reason": "Price at resistance ($84.19) after 6 up candles from $83.83 support, but neutral trend (62/100) and minimal momentum (0.23%) suggest consolidation rather than breakout. Need clearer directional confirmation before entering position.",
-      "market_outlook": "neutral",
-      "solPrice": 84.19,
-      "agentBalance": 10,
-      "treasuryBalance": 10,
-      "driftPosition": null
-    },
-    {
-      "time": 1771003724628,
-      "cycle": 8568,
-      "action": "HOLD",
-      "amount": 0,
-      "txSig": null,
-      "confidence": 40,
-      "reason": "Price at resistance ($84.19) with weak bullish trend (3/100) and minimal momentum (0.32%). After bouncing from $83.83 support, SOL is now testing the top of its range. Mixed signals - could break higher or reject from resistance. Need clearer directional confirmation before entering position.",
-      "market_outlook": "neutral",
-      "solPrice": 84.19,
-      "agentBalance": 10,
-      "treasuryBalance": 10,
-      "driftPosition": null
-    },
-    {
-      "time": 1771003848643,
-      "cycle": 8569,
-      "action": "HOLD",
-      "amount": 0,
-      "txSig": null,
-      "confidence": 25,
-      "reason": "Price at resistance ($84.21) with very weak bullish trend (13/100) and minimal momentum (0.43%). After 7 consecutive up candles from $83.83 support, SOL is now at the top of its range. This could be a rejection point or breakout - but with such low trend strength and momentum, this looks more like consolidation than a clear directional move. Need stronger conviction before entering position.",
-      "market_outlook": "neutral",
-      "solPrice": 84.21,
-      "agentBalance": 10,
-      "treasuryBalance": 10,
-      "driftPosition": null
-    },
     {
       "time": 1771003974063,
       "cycle": 8570,
@@ -2647,6 +2600,48 @@
         "size": 0.09,
         "pnl": -1.11867
       }
+    },
+    {
+      "time": 1771009825251,
+      "cycle": 8617,
+      "action": "HOLD",
+      "amount": 0,
+      "txSig": null,
+      "confidence": 75,
+      "reason": "Trend strength collapsed from 95 to 10, momentum near zero (0.13%), and price showing consolidation after hitting resistance at $85.38. Recent position likely closed due to clear reversal signals. Market needs time to establish clear direction before next trade.",
+      "market_outlook": "neutral",
+      "solPrice": 85.31,
+      "agentBalance": 10,
+      "treasuryBalance": 10,
+      "driftPosition": null
+    },
+    {
+      "time": 1771009948427,
+      "cycle": 8618,
+      "action": "HOLD",
+      "amount": 0,
+      "txSig": null,
+      "confidence": 75,
+      "reason": "Market showing consolidation after failed breakout at $85.38 resistance. Trend strength collapsed from 95 to 20, momentum near zero (0.01%), and price range-bound between $85.27-$85.38. Recent position likely auto-closed due to clear reversal signals. Need to wait for clear directional break either above resistance or below support before next trade.",
+      "market_outlook": "neutral",
+      "solPrice": 85.32,
+      "agentBalance": 10,
+      "treasuryBalance": 10,
+      "driftPosition": null
+    },
+    {
+      "time": 1771010071969,
+      "cycle": 8619,
+      "action": "HOLD",
+      "amount": 0,
+      "txSig": null,
+      "confidence": 85,
+      "reason": "Market in clear consolidation phase after failed breakout at $85.38. Trend strength neutral (1/100), momentum flat (-0.01%), price range-bound between support/resistance. Need to wait for clear directional break before trading.",
+      "market_outlook": "neutral",
+      "solPrice": 85.32,
+      "agentBalance": 10,
+      "treasuryBalance": 10,
+      "driftPosition": null
     }
   ],
   "network": "devnet",
