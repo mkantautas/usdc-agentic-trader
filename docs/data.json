@@ -1,19 +1,19 @@
 {
-  "lastUpdated": "2026-02-13T12:29:16.344Z",
+  "lastUpdated": "2026-02-13T12:33:24.745Z",
   "wallet": "BGYMcHT1XkWP2a9b6YNAjw5cBKYPoJh3R1ujao7i3Mgq",
   "treasury": "GYqf6NVVhJqhv6ywyYy9d1cptjjSkiD8tWTdF5xswrZU",
   "balances": {
     "agent": 10,
     "treasury": 10,
-    "total": 36.21829
+    "total": 36.218905
   },
   "performance": {
     "initialBalance": 37.499999,
-    "currentBalance": 36.21829,
-    "totalPnL": -1.2817089999999993,
-    "totalPnLPercent": -3.4178907578104183,
+    "currentBalance": 36.218905,
+    "totalPnL": -1.281094000000003,
+    "totalPnLPercent": -3.416250757766695,
     "realizedPnL": -99.91845799999996,
-    "unrealizedPnL": -1.28171,
+    "unrealizedPnL": -1.281095,
     "strategyPnL": 0.31166711999999896,
     "strategyRealizedPnL": 0.31166711999999896,
     "strategyUnrealizedPnL": 0,
@@ -182,20 +182,6 @@
     "spreadCost": -100.23012511999995
   },
   "balanceHistory": [
-    {
-      "time": 1770961170391,
-      "total": 36.078093,
-      "agent": 10,
-      "treasury": 10,
-      "drift": 16.078093
-    },
-    {
-      "time": 1770961293451,
-      "total": 36.077305,
-      "agent": 10,
-      "treasury": 10,
-      "drift": 16.077305
-    },
     {
       "time": 1770961416343,
       "total": 36.090699,
@@ -1581,35 +1567,41 @@
       "agent": 10,
       "treasury": 10,
       "drift": 16.218037
+    },
+    {
+      "time": 1770985876576,
+      "total": 36.219193,
+      "agent": 10,
+      "treasury": 10,
+      "drift": 16.219193
+    },
+    {
+      "time": 1770986001224,
+      "total": 36.219387,
+      "agent": 10,
+      "treasury": 10,
+      "drift": 16.219387
     }
   ],
   "drift": {
     "balance": 17.5,
-    "freeCollateral": 15.858165,
+    "freeCollateral": 15.85875,
     "position": {
       "baseAmount": 0.09,
       "quoteAmount": -8.484213,
       "direction": "LONG",
-      "unrealizedPnl": -1.28171
+      "unrealizedPnl": -1.281095
     },
     "hasAccount": true
   },
   "stats": {
-    "totalCycles": 8424,
+    "totalCycles": 8426,
     "totalTransactions": 521,
     "totalVolumeUSDC": 868.3441120000003,
-    "uptime": 614214002,
-    "avgCycleTime": 72912.39339981007
+    "uptime": 614462404,
+    "avgCycleTime": 72924.56729171611
   },
   "prices": [
-    {
-      "time": 1770979773875,
-      "price": 80.23
-    },
-    {
-      "time": 1770979897914,
-      "price": 80.22
-    },
     {
       "time": 1770980021935,
       "price": 80.23
@@ -1801,45 +1793,17 @@
     {
       "time": 1770985751958,
       "price": 80
+    },
+    {
+      "time": 1770985876507,
+      "price": 80.01
+    },
+    {
+      "time": 1770986001138,
+      "price": 80.03
     }
   ],
   "trades": [
-    {
-      "time": 1770979777722,
-      "cycle": 8375,
-      "action": "HOLD",
-      "amount": 0,
-      "txSig": null,
-      "confidence": 65,
-      "reason": "LONG position showing strong momentum with price at new high $80.23 and holding above resistance. 3 consecutive up candles from $79.92 support with bullish trend (2/100). The -$1.26 PnL is just limit order fees. Position needs more time to develop - strong upward momentum suggests continuation likely but trend strength is still very weak.",
-      "market_outlook": "neutral",
-      "solPrice": 80.23,
-      "agentBalance": 10,
-      "treasuryBalance": 10,
-      "driftPosition": {
-        "direction": "LONG",
-        "size": 0.09,
-        "pnl": -1.263531
-      }
-    },
-    {
-      "time": 1770979901747,
-      "cycle": 8376,
-      "action": "HOLD",
-      "amount": 0,
-      "txSig": null,
-      "confidence": 65,
-      "reason": "Current LONG position at resistance with 1 down candle after strong rally. Price at $80.22 near resistance at $80.23. Trend neutral (12/100) but position needs more time to develop. The -$1.27 PnL is just limit order fees. Will hold through this minor pullback as overall momentum from $79.92 support remains intact.",
-      "market_outlook": "neutral",
-      "solPrice": 80.22,
-      "agentBalance": 10,
-      "treasuryBalance": 10,
-      "driftPosition": {
-        "direction": "LONG",
-        "size": 0.09,
-        "pnl": -1.265564
-      }
-    },
     {
       "time": 1770980025761,
       "cycle": 8377,
@@ -2702,6 +2666,42 @@
         "direction": "LONG",
         "size": 0.09,
         "pnl": -1.281963
+      }
+    },
+    {
+      "time": 1770985880887,
+      "cycle": 8425,
+      "action": "HOLD",
+      "amount": 0,
+      "txSig": null,
+      "confidence": 75,
+      "reason": "Current LONG 0.0900 SOL showing -$1.28 PnL but price at exactly $80.01 resistance with 3 consecutive up candles from $79.92 support. Trend is neutral (30/100) with slight positive momentum (0.06%). Position needs more time to play out - we're at a critical technical level where price could break above resistance or reject back down. Given the recent bounce from support and we're now at the top of the range, maintaining position to see if breakout occurs.",
+      "market_outlook": "neutral",
+      "solPrice": 80.01,
+      "agentBalance": 10,
+      "treasuryBalance": 10,
+      "driftPosition": {
+        "direction": "LONG",
+        "size": 0.09,
+        "pnl": -1.280807
+      }
+    },
+    {
+      "time": 1770986004713,
+      "cycle": 8426,
+      "action": "HOLD",
+      "amount": 0,
+      "txSig": null,
+      "confidence": 65,
+      "reason": "Position at critical resistance $80.03 with 4 consecutive up candles from $79.92 support. Trend improving to neutral (41/100) with positive momentum (0.09%). Price needs time to either break above resistance convincingly or reject back down. Current position only showing -$1.28 PnL and needs more time to play out at this key technical level.",
+      "market_outlook": "neutral",
+      "solPrice": 80.03,
+      "agentBalance": 10,
+      "treasuryBalance": 10,
+      "driftPosition": {
+        "direction": "LONG",
+        "size": 0.09,
+        "pnl": -1.280613
       }
     }
   ],
