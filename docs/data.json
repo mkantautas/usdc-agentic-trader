@@ -1,22 +1,22 @@
 {
-  "lastUpdated": "2026-02-13T21:59:08.770Z",
+  "lastUpdated": "2026-02-13T22:03:16.740Z",
   "wallet": "BGYMcHT1XkWP2a9b6YNAjw5cBKYPoJh3R1ujao7i3Mgq",
   "treasury": "GYqf6NVVhJqhv6ywyYy9d1cptjjSkiD8tWTdF5xswrZU",
   "balances": {
     "agent": 10,
     "treasury": 10,
-    "total": 36.336184
+    "total": 36.333666
   },
   "performance": {
     "initialBalance": 37.499999,
-    "currentBalance": 36.336184,
-    "totalPnL": -1.1638149999999996,
-    "totalPnLPercent": -3.1035067494268453,
+    "currentBalance": 36.333666,
+    "totalPnL": -1.1663330000000016,
+    "totalPnLPercent": -3.110221416272575,
     "realizedPnL": -99.91845799999996,
-    "unrealizedPnL": -1.163816,
-    "strategyPnL": 0.3731953077944241,
+    "unrealizedPnL": -1.166334,
+    "strategyPnL": 0.37978742080207634,
     "strategyRealizedPnL": 0.40333068154368906,
-    "strategyUnrealizedPnL": -0.030135373749264966,
+    "strategyUnrealizedPnL": -0.023543260741612712,
     "strategyTrades": [
       {
         "time": 1770782297182,
@@ -182,20 +182,6 @@
     "spreadCost": -100.32178868154365
   },
   "balanceHistory": [
-    {
-      "time": 1770994323966,
-      "total": 37.5,
-      "agent": 10,
-      "treasury": 10,
-      "drift": 17.5
-    },
-    {
-      "time": 1770994447340,
-      "total": 37.5,
-      "agent": 10,
-      "treasury": 10,
-      "drift": 17.5
-    },
     {
       "time": 1770994570419,
       "total": 37.5,
@@ -1581,35 +1567,41 @@
       "agent": 10,
       "treasury": 10,
       "drift": 16.336498
+    },
+    {
+      "time": 1771020069246,
+      "total": 36.343441,
+      "agent": 10,
+      "treasury": 10,
+      "drift": 16.343441
+    },
+    {
+      "time": 1771020193239,
+      "total": 36.335048,
+      "agent": 10,
+      "treasury": 10,
+      "drift": 16.335048
     }
   ],
   "drift": {
     "balance": 17.5,
-    "freeCollateral": 15.955056,
+    "freeCollateral": 15.952653,
     "position": {
       "baseAmount": 0.09,
-      "quoteAmount": -8.786382,
+      "quoteAmount": -8.786607,
       "direction": "LONG",
-      "unrealizedPnl": -1.163816
+      "unrealizedPnl": -1.166334
     },
     "hasAccount": true
   },
   "stats": {
-    "totalCycles": 8693,
+    "totalCycles": 8695,
     "totalTransactions": 553,
     "totalVolumeUSDC": 893.3441120000003,
-    "uptime": 648406428,
-    "avgCycleTime": 74589.48901414931
+    "uptime": 648654399,
+    "avgCycleTime": 74600.85094882116
   },
   "prices": [
-    {
-      "time": 1771013718493,
-      "price": 84.45
-    },
-    {
-      "time": 1771013841350,
-      "price": 84.41
-    },
     {
       "time": 1771013965189,
       "price": 84.34
@@ -1801,45 +1793,17 @@
     {
       "time": 1771019943552,
       "price": 84.63
+    },
+    {
+      "time": 1771020068951,
+      "price": 84.65
+    },
+    {
+      "time": 1771020193171,
+      "price": 84.7
     }
   ],
   "trades": [
-    {
-      "time": 1771013721143,
-      "cycle": 8644,
-      "action": "HOLD",
-      "amount": 0,
-      "txSig": null,
-      "confidence": 75,
-      "reason": "SHORT position thesis remains valid. Price hit exact support at $84.45, continuing the failed breakout pattern from $85.38 through $85.16. Small -$1.10 PnL is normal development. Need patience for bearish continuation to profit targets.",
-      "market_outlook": "bearish",
-      "solPrice": 84.45,
-      "agentBalance": 10,
-      "treasuryBalance": 10,
-      "driftPosition": {
-        "direction": "SHORT",
-        "size": 0.09,
-        "pnl": -1.097826
-      }
-    },
-    {
-      "time": 1771013844986,
-      "cycle": 8645,
-      "action": "HOLD",
-      "amount": 0,
-      "txSig": null,
-      "confidence": 75,
-      "reason": "SHORT position thesis remains valid. Price at $84.41 (at exact support level) with 2 consecutive down candles confirms continued bearish momentum. Failed breakout pattern from $85.38 through $85.16 support is developing as expected. -$1.09 PnL is normal early position development. Need patience for bearish continuation to reach profit targets.",
-      "market_outlook": "bearish",
-      "solPrice": 84.41,
-      "agentBalance": 10,
-      "treasuryBalance": 10,
-      "driftPosition": {
-        "direction": "SHORT",
-        "size": 0.09,
-        "pnl": -1.092164
-      }
-    },
     {
       "time": 1771013968096,
       "cycle": 8646,
@@ -2658,6 +2622,42 @@
         "direction": "LONG",
         "size": 0.09,
         "pnl": -1.163502
+      }
+    },
+    {
+      "time": 1771020072897,
+      "cycle": 8694,
+      "action": "HOLD",
+      "amount": 0,
+      "txSig": null,
+      "confidence": 25,
+      "reason": "Position held 37.6min satisfies minimum holding requirement. However, trend remains weak neutral (21/100) with price bouncing between support ($84.61) and resistance ($84.76). Current -$1.16 PnL is within expected limit order fee range. Market showing indecisive choppy action with 2 consecutive up candles but still no strong directional conviction. Waiting for trend strength >50% before making position adjustments.",
+      "market_outlook": "neutral",
+      "solPrice": 84.65,
+      "agentBalance": 10,
+      "treasuryBalance": 10,
+      "driftPosition": {
+        "direction": "LONG",
+        "size": 0.09,
+        "pnl": -1.1565590000000001
+      }
+    },
+    {
+      "time": 1771020196712,
+      "cycle": 8695,
+      "action": "HOLD",
+      "amount": 0,
+      "txSig": null,
+      "confidence": 25,
+      "reason": "Position held for 39.6min satisfies minimum requirement. However, trend remains weak neutral (31/100) with price at $84.70 in middle of support-resistance range ($84.61-$84.75). Current -$1.16 PnL is still within expected limit order fee range. Market showing 3 consecutive up candles but trend strength too weak (<50%) to justify position changes. Price action choppy and indecisive - need stronger trend conviction before adjusting.",
+      "market_outlook": "neutral",
+      "solPrice": 84.7,
+      "agentBalance": 10,
+      "treasuryBalance": 10,
+      "driftPosition": {
+        "direction": "LONG",
+        "size": 0.09,
+        "pnl": -1.164952
       }
     }
   ],
