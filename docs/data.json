@@ -1,22 +1,22 @@
 {
-  "lastUpdated": "2026-02-13T16:24:33.297Z",
+  "lastUpdated": "2026-02-13T16:28:40.813Z",
   "wallet": "BGYMcHT1XkWP2a9b6YNAjw5cBKYPoJh3R1ujao7i3Mgq",
   "treasury": "GYqf6NVVhJqhv6ywyYy9d1cptjjSkiD8tWTdF5xswrZU",
   "balances": {
     "agent": 10,
     "treasury": 10,
-    "total": 36.376389
+    "total": 36.397766
   },
   "performance": {
     "initialBalance": 37.499999,
-    "currentBalance": 36.376389,
-    "totalPnL": -1.1236099999999993,
-    "totalPnLPercent": -2.9962934132344894,
+    "currentBalance": 36.397766,
+    "totalPnL": -1.1022330000000053,
+    "totalPnLPercent": -2.9392880783810296,
     "realizedPnL": -99.91845799999996,
-    "unrealizedPnL": -1.123611,
-    "strategyPnL": 0.3706247629697484,
+    "unrealizedPnL": -1.102234,
+    "strategyPnL": 0.3772115893170538,
     "strategyRealizedPnL": 0.3634391342272332,
-    "strategyUnrealizedPnL": 0.007185628742515242,
+    "strategyUnrealizedPnL": 0.013772455089820598,
     "strategyTrades": [
       {
         "time": 1770761847195,
@@ -182,20 +182,6 @@
     "spreadCost": -100.2818971342272
   },
   "balanceHistory": [
-    {
-      "time": 1770975185075,
-      "total": 36.185964,
-      "agent": 10,
-      "treasury": 10,
-      "drift": 16.185964
-    },
-    {
-      "time": 1770975308519,
-      "total": 36.179664,
-      "agent": 10,
-      "treasury": 10,
-      "drift": 16.179664
-    },
     {
       "time": 1770975431690,
       "total": 36.178163,
@@ -1581,35 +1567,41 @@
       "agent": 10,
       "treasury": 10,
       "drift": 16.375658
+    },
+    {
+      "time": 1770999993534,
+      "total": 36.384314,
+      "agent": 10,
+      "treasury": 10,
+      "drift": 16.384314
+    },
+    {
+      "time": 1771000117580,
+      "total": 36.398912,
+      "agent": 10,
+      "treasury": 10,
+      "drift": 16.398912
     }
   ],
   "drift": {
     "balance": 17.5,
-    "freeCollateral": 16.167417,
+    "freeCollateral": 16.187721,
     "position": {
       "baseAmount": 0.05,
       "quoteAmount": -5.303062,
       "direction": "LONG",
-      "unrealizedPnl": -1.123611
+      "unrealizedPnl": -1.102234
     },
     "hasAccount": true
   },
   "stats": {
-    "totalCycles": 8537,
+    "totalCycles": 8539,
     "totalTransactions": 531,
     "totalVolumeUSDC": 879.3441120000003,
-    "uptime": 628330955,
-    "avgCycleTime": 73600.90839873491
+    "uptime": 628578472,
+    "avgCycleTime": 73612.65628293711
   },
   "prices": [
-    {
-      "time": 1770993568678,
-      "price": 80.99
-    },
-    {
-      "time": 1770993691943,
-      "price": 80.96
-    },
     {
       "time": 1770993815914,
       "price": 80.95
@@ -1801,45 +1793,17 @@
     {
       "time": 1770999869543,
       "price": 83.62
+    },
+    {
+      "time": 1770999993471,
+      "price": 83.63
+    },
+    {
+      "time": 1771000117501,
+      "price": 83.73
     }
   ],
   "trades": [
-    {
-      "time": 1770993571737,
-      "cycle": 8488,
-      "action": "HOLD",
-      "amount": 0,
-      "txSig": null,
-      "confidence": 85,
-      "reason": "Strong bullish momentum with 9 consecutive up candles and 97/100 trend strength. Current LONG position thesis playing out perfectly - price bounced from support ($79.91) and broke through resistance at $80.74, now at $80.99. Position PnL improving from -$1.26 to -$1.19. Need to let this breakout develop further and capture more upside momentum.",
-      "market_outlook": "bullish",
-      "solPrice": 80.99,
-      "agentBalance": 10,
-      "treasuryBalance": 10,
-      "driftPosition": {
-        "direction": "LONG",
-        "size": 0.09,
-        "pnl": -1.185663
-      }
-    },
-    {
-      "time": 1770993695705,
-      "cycle": 8489,
-      "action": "HOLD",
-      "amount": 0,
-      "txSig": null,
-      "confidence": 75,
-      "reason": "Strong bullish momentum (97/100 trend strength) with price breaking through resistance to $80.99, but seeing first down candle after 9 consecutive up candles. Position thesis is playing out perfectly but need to see if this is just a minor pullback or beginning of reversal. Let the breakout develop further before making any changes.",
-      "market_outlook": "bullish",
-      "solPrice": 80.96,
-      "agentBalance": 10,
-      "treasuryBalance": 10,
-      "driftPosition": {
-        "direction": "LONG",
-        "size": 0.09,
-        "pnl": -1.231666
-      }
-    },
     {
       "time": 1770993819944,
       "cycle": 8490,
@@ -2634,6 +2598,42 @@
         "direction": "LONG",
         "size": 0.05,
         "pnl": -1.124342
+      }
+    },
+    {
+      "time": 1770999997309,
+      "cycle": 8538,
+      "action": "HOLD",
+      "amount": 0,
+      "txSig": null,
+      "confidence": 65,
+      "reason": "Position held for only 16.5 minutes, well below 30-minute minimum commitment. Current -$1.12 PnL is mostly limit order fee impact. Despite 3 consecutive down candles, trend strength remains neutral-bullish at 12/100 and we're still near resistance. The move from $83.07 to current levels shows the original bullish thesis may still be valid. Need to let position develop through this consolidation phase.",
+      "market_outlook": "neutral",
+      "solPrice": 83.63,
+      "agentBalance": 10,
+      "treasuryBalance": 10,
+      "driftPosition": {
+        "direction": "LONG",
+        "size": 0.05,
+        "pnl": -1.115686
+      }
+    },
+    {
+      "time": 1771000120784,
+      "cycle": 8539,
+      "action": "HOLD",
+      "amount": 0,
+      "txSig": null,
+      "confidence": 25,
+      "reason": "Position held for only 18.5 minutes, well below 30-minute minimum commitment. Current -$1.10 PnL is mostly limit order fees. Price at resistance showing weak trend (21/100) and neutral momentum, but original bullish thesis from $83.07 breakout may still be valid. Need to let position develop despite recent consolidation.",
+      "market_outlook": "neutral",
+      "solPrice": 83.73,
+      "agentBalance": 10,
+      "treasuryBalance": 10,
+      "driftPosition": {
+        "direction": "LONG",
+        "size": 0.05,
+        "pnl": -1.101088
       }
     }
   ],
