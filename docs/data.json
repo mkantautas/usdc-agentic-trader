@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-02-14T03:34:58.381Z",
+  "lastUpdated": "2026-02-14T03:37:01.791Z",
   "wallet": "BGYMcHT1XkWP2a9b6YNAjw5cBKYPoJh3R1ujao7i3Mgq",
   "treasury": "GYqf6NVVhJqhv6ywyYy9d1cptjjSkiD8tWTdF5xswrZU",
   "balances": {
@@ -14,9 +14,9 @@
     "totalPnLPercent": 0.000002666666731045093,
     "realizedPnL": -99.91845799999996,
     "unrealizedPnL": 0,
-    "strategyPnL": 0.33926979127178264,
+    "strategyPnL": 0.3369101876851853,
     "strategyRealizedPnL": 0.3496520470528114,
-    "strategyUnrealizedPnL": -0.010382255781028733,
+    "strategyUnrealizedPnL": -0.01274185936762605,
     "strategyTrades": [
       {
         "time": 1770788163884,
@@ -182,13 +182,6 @@
     "spreadCost": -100.26811004705277
   },
   "balanceHistory": [
-    {
-      "time": 1771015080207,
-      "total": 36.389069,
-      "agent": 10,
-      "treasury": 10,
-      "drift": 16.389069
-    },
     {
       "time": 1771015205968,
       "total": 36.38575,
@@ -1581,6 +1574,13 @@
       "agent": 10,
       "treasury": 10,
       "drift": 17.5
+    },
+    {
+      "time": 1771040218620,
+      "total": 37.5,
+      "agent": 10,
+      "treasury": 10,
+      "drift": 17.5
     }
   ],
   "drift": {
@@ -1590,17 +1590,13 @@
     "hasAccount": true
   },
   "stats": {
-    "totalCycles": 8854,
+    "totalCycles": 8855,
     "totalTransactions": 563,
     "totalVolumeUSDC": 897.3441120000003,
-    "uptime": 668556039,
-    "avgCycleTime": 75508.9269256833
+    "uptime": 668679450,
+    "avgCycleTime": 75514.33653303218
   },
   "prices": [
-    {
-      "time": 1771033997118,
-      "price": 84.96
-    },
     {
       "time": 1771034119595,
       "price": 84.97
@@ -1796,27 +1792,13 @@
     {
       "time": 1771040094216,
       "price": 84.98
+    },
+    {
+      "time": 1771040218545,
+      "price": 85.03
     }
   ],
   "trades": [
-    {
-      "time": 1771033999411,
-      "cycle": 8805,
-      "action": "HOLD",
-      "amount": 0,
-      "txSig": null,
-      "confidence": 75,
-      "reason": "Position held for ~27 minutes, still within 30-minute minimum hold period. Market remains in tight consolidation range $84.82-$85.01 with weak trend strength (21/100). Current -$1.18 PnL is normal limit order fee. Must respect trading discipline and allow thesis time to develop.",
-      "market_outlook": "neutral",
-      "solPrice": 84.96,
-      "agentBalance": 10,
-      "treasuryBalance": 10,
-      "driftPosition": {
-        "direction": "LONG",
-        "size": 0.09,
-        "pnl": -1.177197
-      }
-    },
     {
       "time": 1771034126502,
       "cycle": 8806,
@@ -2627,6 +2609,20 @@
       "reason": "Market remains in extremely tight consolidation with weak trend strength (40/100) and minimal momentum (0.06%). Price at resistance ($84.98) after 4 consecutive up candles, but total gain is only $0.17 - this is noise within the ongoing narrow range. Recent history shows 10+ consecutive position closures due to choppy conditions. No clear directional catalyst or decisive breakout above resistance. Trading discipline demands waiting for stronger trend development or clear range break before deploying capital.",
       "market_outlook": "neutral",
       "solPrice": 84.98,
+      "agentBalance": 10,
+      "treasuryBalance": 10,
+      "driftPosition": null
+    },
+    {
+      "time": 1771040221759,
+      "cycle": 8855,
+      "action": "HOLD",
+      "amount": 0,
+      "txSig": null,
+      "confidence": 85,
+      "reason": "Market remains in extremely tight consolidation with trend strength at only 50/100. Price hit exact resistance at $85.03 after 5 consecutive up candles, but this appears to be noise within ongoing range-bound action. Recent history shows 10+ consecutive position closures due to choppy conditions in this narrow range. No clear directional catalyst or decisive breakout signal. Trading discipline demands waiting for stronger trend development or clear range break.",
+      "market_outlook": "neutral",
+      "solPrice": 85.03,
       "agentBalance": 10,
       "treasuryBalance": 10,
       "driftPosition": null
