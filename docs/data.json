@@ -1,19 +1,19 @@
 {
-  "lastUpdated": "2026-02-14T01:34:49.686Z",
+  "lastUpdated": "2026-02-14T01:38:55.940Z",
   "wallet": "BGYMcHT1XkWP2a9b6YNAjw5cBKYPoJh3R1ujao7i3Mgq",
   "treasury": "GYqf6NVVhJqhv6ywyYy9d1cptjjSkiD8tWTdF5xswrZU",
   "balances": {
     "agent": 10,
     "treasury": 10,
-    "total": 36.308548
+    "total": 36.319552
   },
   "performance": {
     "initialBalance": 37.499999,
-    "currentBalance": 36.308548,
-    "totalPnL": -1.1914510000000007,
-    "totalPnLPercent": -3.1772027513920746,
+    "currentBalance": 36.319552,
+    "totalPnL": -1.180447000000001,
+    "totalPnLPercent": -3.147858750609569,
     "realizedPnL": -99.91845799999996,
-    "unrealizedPnL": -1.191452,
+    "unrealizedPnL": -1.180448,
     "strategyPnL": 0.3496520470528114,
     "strategyRealizedPnL": 0.3496520470528114,
     "strategyUnrealizedPnL": 0,
@@ -182,20 +182,6 @@
     "spreadCost": -100.26811004705277
   },
   "balanceHistory": [
-    {
-      "time": 1771007342525,
-      "total": 37.5,
-      "agent": 10,
-      "treasury": 10,
-      "drift": 17.5
-    },
-    {
-      "time": 1771007466234,
-      "total": 37.5,
-      "agent": 10,
-      "treasury": 10,
-      "drift": 17.5
-    },
     {
       "time": 1771007589892,
       "total": 37.5,
@@ -1581,35 +1567,41 @@
       "agent": 10,
       "treasury": 10,
       "drift": 16.308527
+    },
+    {
+      "time": 1771033009992,
+      "total": 36.315219,
+      "agent": 10,
+      "treasury": 10,
+      "drift": 16.315219
+    },
+    {
+      "time": 1771033132699,
+      "total": 36.319549,
+      "agent": 10,
+      "treasury": 10,
+      "drift": 16.319549
     }
   ],
   "drift": {
     "balance": 17.5,
-    "freeCollateral": 15.926658,
+    "freeCollateral": 15.937111999999999,
     "position": {
       "baseAmount": 0.09,
       "quoteAmount": -8.829256,
       "direction": "LONG",
-      "unrealizedPnl": -1.191452
+      "unrealizedPnl": -1.180448
     },
     "hasAccount": true
   },
   "stats": {
-    "totalCycles": 8796,
+    "totalCycles": 8798,
     "totalTransactions": 559,
     "totalVolumeUSDC": 893.3441120000003,
-    "uptime": 661347344,
-    "avgCycleTime": 75187.28331059573
+    "uptime": 661593599,
+    "avgCycleTime": 75198.18129120255
   },
   "prices": [
-    {
-      "time": 1771026639407,
-      "price": 84.23
-    },
-    {
-      "time": 1771026766281,
-      "price": 84.25
-    },
     {
       "time": 1771026889221,
       "price": 84.26
@@ -1801,37 +1793,17 @@
     {
       "time": 1771032886834,
       "price": 84.84
+    },
+    {
+      "time": 1771033009855,
+      "price": 84.85
+    },
+    {
+      "time": 1771033132633,
+      "price": 84.86
     }
   ],
   "trades": [
-    {
-      "time": 1771026646048,
-      "cycle": 8747,
-      "action": "HOLD",
-      "amount": 0,
-      "txSig": null,
-      "confidence": 15,
-      "reason": "Extremely weak neutral trend (11/100) with minimal momentum (-0.08%). Price consolidating in tight range $84.22-$84.31 showing choppy sideways action rather than tradeable trend. Market lacks required trend strength (>70%) for position entry. Need to wait for clear breakout with strong directional conviction.",
-      "market_outlook": "neutral",
-      "solPrice": 84.23,
-      "agentBalance": 10,
-      "treasuryBalance": 10,
-      "driftPosition": null
-    },
-    {
-      "time": 1771026769038,
-      "cycle": 8748,
-      "action": "HOLD",
-      "amount": 0,
-      "txSig": null,
-      "confidence": 15,
-      "reason": "Extremely weak neutral trend (21/100) with minimal momentum (-0.05%). Price consolidating in tight range $84.22-$84.31 showing choppy sideways action with only 2 up candles after extended downtrend. Market lacks required trend strength (>70%) and clear directional conviction for position entry. Need to wait for stronger breakout signal.",
-      "market_outlook": "neutral",
-      "solPrice": 84.25,
-      "agentBalance": 10,
-      "treasuryBalance": 10,
-      "driftPosition": null
-    },
     {
       "time": 1771026892663,
       "cycle": 8749,
@@ -2594,6 +2566,42 @@
         "direction": "LONG",
         "size": 0.09,
         "pnl": -1.191473
+      }
+    },
+    {
+      "time": 1771033012442,
+      "cycle": 8797,
+      "action": "HOLD",
+      "amount": 0,
+      "txSig": null,
+      "confidence": 75,
+      "reason": "Position only held for minutes, must respect 30-minute minimum hold time. Price showing consolidation between $84.82-$85.01 with very weak trend strength (11/100). Current -$1.18 PnL is normal limit order fee. Need more time for thesis to develop in this choppy market.",
+      "market_outlook": "neutral",
+      "solPrice": 84.85,
+      "agentBalance": 10,
+      "treasuryBalance": 10,
+      "driftPosition": {
+        "direction": "LONG",
+        "size": 0.09,
+        "pnl": -1.184781
+      }
+    },
+    {
+      "time": 1771033135911,
+      "cycle": 8798,
+      "action": "HOLD",
+      "amount": 0,
+      "txSig": null,
+      "confidence": 15,
+      "reason": "Position only held for minutes, must respect 30-minute minimum hold time. Price consolidating between $84.82-$85.01 with very weak trend strength (21/100) and minimal momentum (-0.08%). Current -$1.18 PnL is normal limit order fee. Market showing indecision - need more time for clear directional bias to develop before making any decisions.",
+      "market_outlook": "neutral",
+      "solPrice": 84.86,
+      "agentBalance": 10,
+      "treasuryBalance": 10,
+      "driftPosition": {
+        "direction": "LONG",
+        "size": 0.09,
+        "pnl": -1.180451
       }
     }
   ],
