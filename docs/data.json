@@ -1,22 +1,22 @@
 {
-  "lastUpdated": "2026-02-14T11:34:34.939Z",
+  "lastUpdated": "2026-02-14T11:38:48.796Z",
   "wallet": "BGYMcHT1XkWP2a9b6YNAjw5cBKYPoJh3R1ujao7i3Mgq",
   "treasury": "GYqf6NVVhJqhv6ywyYy9d1cptjjSkiD8tWTdF5xswrZU",
   "balances": {
     "agent": 10,
     "treasury": 10,
-    "total": 37.5
+    "total": 36.320344
   },
   "performance": {
     "initialBalance": 37.499999,
-    "currentBalance": 37.5,
-    "totalPnL": 9.999999974752427e-7,
-    "totalPnLPercent": 0.000002666666731045093,
+    "currentBalance": 36.320344,
+    "totalPnL": -1.179655000000004,
+    "totalPnLPercent": -3.145746750553257,
     "realizedPnL": -99.91845799999996,
-    "unrealizedPnL": 0,
-    "strategyPnL": 0.44419109579033333,
+    "unrealizedPnL": -1.179656,
+    "strategyPnL": 0.43831910518551787,
     "strategyRealizedPnL": 0.3496520470528114,
-    "strategyUnrealizedPnL": 0.09453904873752197,
+    "strategyUnrealizedPnL": 0.08866705813270645,
     "strategyTrades": [
       {
         "time": 1770788163884,
@@ -182,20 +182,6 @@
     "spreadCost": -100.26811004705277
   },
   "balanceHistory": [
-    {
-      "time": 1771042558630,
-      "total": 37.5,
-      "agent": 10,
-      "treasury": 10,
-      "drift": 17.5
-    },
-    {
-      "time": 1771042682426,
-      "total": 37.5,
-      "agent": 10,
-      "treasury": 10,
-      "drift": 17.5
-    },
     {
       "time": 1771042805312,
       "total": 37.5,
@@ -1581,30 +1567,41 @@
       "agent": 10,
       "treasury": 10,
       "drift": 17.5
+    },
+    {
+      "time": 1771068995161,
+      "total": 37.5,
+      "agent": 10,
+      "treasury": 10,
+      "drift": 17.5
+    },
+    {
+      "time": 1771069123828,
+      "total": 36.321487,
+      "agent": 10,
+      "treasury": 10,
+      "drift": 16.321487
     }
   ],
   "drift": {
     "balance": 17.5,
-    "freeCollateral": 16.317678,
-    "position": null,
+    "freeCollateral": 15.920445,
+    "position": {
+      "baseAmount": -0.09,
+      "quoteAmount": 6.618342,
+      "direction": "SHORT",
+      "unrealizedPnl": -1.179656
+    },
     "hasAccount": true
   },
   "stats": {
-    "totalCycles": 9070,
-    "totalTransactions": 586,
+    "totalCycles": 9072,
+    "totalTransactions": 588,
     "totalVolumeUSDC": 902.3441120000003,
-    "uptime": 697332597,
-    "avgCycleTime": 76883.41753031974
+    "uptime": 697586454,
+    "avgCycleTime": 76894.4503968254
   },
   "prices": [
-    {
-      "time": 1771062273821,
-      "price": 85.91
-    },
-    {
-      "time": 1771062397377,
-      "price": 85.94
-    },
     {
       "time": 1771062702556,
       "price": 85.98
@@ -1796,41 +1793,17 @@
     {
       "time": 1771068871592,
       "price": 86.76
+    },
+    {
+      "time": 1771068995093,
+      "price": 86.69
+    },
+    {
+      "time": 1771069123763,
+      "price": 86.66
     }
   ],
   "trades": [
-    {
-      "time": 1771062277184,
-      "cycle": 9021,
-      "action": "HOLD",
-      "amount": 0,
-      "txSig": "3A7P8xU9846PkyGSJvbqWPjWxH6T1595g6XAZhtakoDKTe3H2FjkH36UZtgKhR3EhPsDmMUTtQKF3szKR6gadtxQ",
-      "confidence": 75,
-      "reason": "Clear breakdown below $86.00 support confirmed with 6 consecutive down candles from resistance $86.20. Classic exhaustion reversal pattern after 7.80% daily gain. Price now testing lower support at $85.88 with negative momentum and high probability of continuation lower.",
-      "market_outlook": "bearish",
-      "solPrice": 85.91,
-      "agentBalance": 10,
-      "treasuryBalance": 10,
-      "driftPosition": null
-    },
-    {
-      "time": 1771062582315,
-      "cycle": 9022,
-      "action": "HOLD",
-      "amount": 0,
-      "txSig": "5iQQyPzPVNh4Q4Gx4DVVbWgiLmJWcdVvLiC2PsDm9op2oFwwki6G2jXEcZsvLQrdnSQC5NWrXF9AyJ1iisK6v6GG",
-      "confidence": 75,
-      "reason": "Short position held for 103 minutes showing -$1.18 PnL. Price bounced off support $85.88 and now showing 2 consecutive up candles to $85.94. Trend strength low at 21/100 with minimal momentum suggests sideways consolidation rather than continued breakdown. Time to close and wait for clearer directional signal.",
-      "market_outlook": "neutral",
-      "solPrice": 85.94,
-      "agentBalance": 10,
-      "treasuryBalance": 10,
-      "driftPosition": {
-        "direction": "SHORT",
-        "size": 0.03,
-        "pnl": -1.181208
-      }
-    },
     {
       "time": 1771062706521,
       "cycle": 9023,
@@ -2570,6 +2543,38 @@
       "agentBalance": 10,
       "treasuryBalance": 10,
       "driftPosition": null
+    },
+    {
+      "time": 1771069003534,
+      "cycle": 9071,
+      "action": "HOLD",
+      "amount": 0,
+      "txSig": "TEGJFFpZ4nqY2BibtKYyHcCYG9NDGJu57QFsXNg1XEXBvR6bRF6Do6UBxy5BY3XYAB6sm7B1ykDa7tJsCPNrTgM",
+      "confidence": 78,
+      "reason": "Trend exhaustion after 9-candle run: strength dropped from 96/100 to 23/100, price rejected at resistance $86.84, 2 consecutive down candles signal reversal",
+      "market_outlook": "bearish",
+      "solPrice": 86.69,
+      "agentBalance": 10,
+      "treasuryBalance": 10,
+      "driftPosition": null
+    },
+    {
+      "time": 1771069128737,
+      "cycle": 9072,
+      "action": "HOLD",
+      "amount": 0,
+      "txSig": "5zSZdnbUVU3EP9PGGMbLGkgwAVzpr6Nk676pzS6gvqAEr7AbQLdaHgSfYoXon6QX1g1D9qcqGEp5Fbfecx8rjoZB",
+      "confidence": 75,
+      "reason": "Clear trend reversal confirmed: 3 consecutive down candles after 9-candle rally, trend strength collapsed from 96/100 to 32/100, price rejected at resistance $86.84. Short position thesis validated - exit before further losses.",
+      "market_outlook": "bearish",
+      "solPrice": 86.66,
+      "agentBalance": 10,
+      "treasuryBalance": 10,
+      "driftPosition": {
+        "direction": "SHORT",
+        "size": 0.09,
+        "pnl": -1.178513
+      }
     }
   ],
   "network": "devnet",
