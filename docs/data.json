@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-02-14T03:14:19.102Z",
+  "lastUpdated": "2026-02-14T03:18:27.025Z",
   "wallet": "BGYMcHT1XkWP2a9b6YNAjw5cBKYPoJh3R1ujao7i3Mgq",
   "treasury": "GYqf6NVVhJqhv6ywyYy9d1cptjjSkiD8tWTdF5xswrZU",
   "balances": {
@@ -14,9 +14,9 @@
     "totalPnLPercent": 0.000002666666731045093,
     "realizedPnL": -99.91845799999996,
     "unrealizedPnL": 0,
-    "strategyPnL": 0.3430451570103385,
+    "strategyPnL": 0.34162939485837995,
     "strategyRealizedPnL": 0.3496520470528114,
-    "strategyUnrealizedPnL": -0.006606890042472891,
+    "strategyUnrealizedPnL": -0.008022652194431415,
     "strategyTrades": [
       {
         "time": 1770788163884,
@@ -182,20 +182,6 @@
     "spreadCost": -100.26811004705277
   },
   "balanceHistory": [
-    {
-      "time": 1771013841424,
-      "total": 36.407836,
-      "agent": 10,
-      "treasury": 10,
-      "drift": 16.407836
-    },
-    {
-      "time": 1771013965252,
-      "total": 36.394748,
-      "agent": 10,
-      "treasury": 10,
-      "drift": 16.394748
-    },
     {
       "time": 1771014088384,
       "total": 36.389321,
@@ -1581,6 +1567,20 @@
       "agent": 10,
       "treasury": 10,
       "drift": 17.5
+    },
+    {
+      "time": 1771038979333,
+      "total": 37.5,
+      "agent": 10,
+      "treasury": 10,
+      "drift": 17.5
+    },
+    {
+      "time": 1771039103783,
+      "total": 37.5,
+      "agent": 10,
+      "treasury": 10,
+      "drift": 17.5
     }
   ],
   "drift": {
@@ -1590,21 +1590,13 @@
     "hasAccount": true
   },
   "stats": {
-    "totalCycles": 8844,
+    "totalCycles": 8846,
     "totalTransactions": 563,
     "totalVolumeUSDC": 897.3441120000003,
-    "uptime": 667316760,
-    "avgCycleTime": 75454.17910447762
+    "uptime": 667564683,
+    "avgCycleTime": 75465.14616775943
   },
   "prices": [
-    {
-      "time": 1771032764235,
-      "price": 84.87
-    },
-    {
-      "time": 1771032886834,
-      "price": 84.84
-    },
     {
       "time": 1771033009855,
       "price": 84.85
@@ -1796,45 +1788,17 @@
     {
       "time": 1771038854593,
       "price": 84.9
+    },
+    {
+      "time": 1771038979261,
+      "price": 84.93
+    },
+    {
+      "time": 1771039103715,
+      "price": 84.93
     }
   ],
   "trades": [
-    {
-      "time": 1771032766653,
-      "cycle": 8795,
-      "action": "HOLD",
-      "amount": 0,
-      "txSig": null,
-      "confidence": 85,
-      "reason": "Position only held for minutes, need to respect 30-minute minimum hold time. Price showing consolidation between $84.82-$85.01 with weak trend strength (20/100). Current -$1.20 PnL is normal limit order fee. Must allow thesis time to develop before making decisions.",
-      "market_outlook": "neutral",
-      "solPrice": 84.87,
-      "agentBalance": 10,
-      "treasuryBalance": 10,
-      "driftPosition": {
-        "direction": "LONG",
-        "size": 0.09,
-        "pnl": -1.19664
-      }
-    },
-    {
-      "time": 1771032889660,
-      "cycle": 8796,
-      "action": "HOLD",
-      "amount": 0,
-      "txSig": null,
-      "confidence": 75,
-      "reason": "Position only held for minutes, need to respect 30-minute minimum hold time. Price showing consolidation between $84.82-$85.01 with weak trend strength (30/100) and minimal momentum (0.02%). Current -$1.19 PnL is normal limit order fee from limit order. Must allow thesis time to develop in this choppy market.",
-      "market_outlook": "neutral",
-      "solPrice": 84.84,
-      "agentBalance": 10,
-      "treasuryBalance": 10,
-      "driftPosition": {
-        "direction": "LONG",
-        "size": 0.09,
-        "pnl": -1.191473
-      }
-    },
     {
       "time": 1771033012442,
       "cycle": 8797,
@@ -2667,6 +2631,34 @@
       "reason": "Market remains in extremely tight consolidation with weak trend strength (40/100) and minimal momentum (0.11%). Price action shows 4 consecutive up candles but only gained $0.23 total - this is noise within the narrow range. Recent history shows 10+ consecutive position closures due to choppy conditions. No clear directional catalyst or breakout from the $0.09 range. Trading discipline demands waiting for stronger trend development.",
       "market_outlook": "neutral",
       "solPrice": 84.9,
+      "agentBalance": 10,
+      "treasuryBalance": 10,
+      "driftPosition": null
+    },
+    {
+      "time": 1771038983494,
+      "cycle": 8845,
+      "action": "HOLD",
+      "amount": 0,
+      "txSig": null,
+      "confidence": 85,
+      "reason": "Market shows 5 consecutive up candles but trend strength remains weak at 51/100. Price at resistance ($84.93) after climbing from $84.70. Recent history shows 10+ consecutive position closures due to choppy conditions in this range. Despite the up momentum, this appears to be noise within ongoing consolidation rather than a breakout. Need to see decisive break above resistance or stronger trend strength before trading.",
+      "market_outlook": "neutral",
+      "solPrice": 84.93,
+      "agentBalance": 10,
+      "treasuryBalance": 10,
+      "driftPosition": null
+    },
+    {
+      "time": 1771039106997,
+      "cycle": 8846,
+      "action": "HOLD",
+      "amount": 0,
+      "txSig": null,
+      "confidence": 15,
+      "reason": "Market remains in extremely tight consolidation with weak trend strength (1/100) and minimal momentum (0.12%). Price at resistance after 5 consecutive up candles but this appears to be noise within ongoing range. Recent history shows 10+ consecutive position closures due to choppy conditions. Need decisive breakout above $84.93 or stronger trend development before deploying capital.",
+      "market_outlook": "neutral",
+      "solPrice": 84.93,
       "agentBalance": 10,
       "treasuryBalance": 10,
       "driftPosition": null
