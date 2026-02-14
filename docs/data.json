@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-02-14T04:34:33.169Z",
+  "lastUpdated": "2026-02-14T04:38:41.310Z",
   "wallet": "BGYMcHT1XkWP2a9b6YNAjw5cBKYPoJh3R1ujao7i3Mgq",
   "treasury": "GYqf6NVVhJqhv6ywyYy9d1cptjjSkiD8tWTdF5xswrZU",
   "balances": {
@@ -14,9 +14,9 @@
     "totalPnLPercent": 0.000002666666731045093,
     "realizedPnL": -99.91845799999996,
     "unrealizedPnL": 0,
-    "strategyPnL": 0.34162939485837995,
+    "strategyPnL": 0.34021363270642213,
     "strategyRealizedPnL": 0.3496520470528114,
-    "strategyUnrealizedPnL": -0.008022652194431415,
+    "strategyUnrealizedPnL": -0.00943841434638927,
     "strategyTrades": [
       {
         "time": 1770788163884,
@@ -182,20 +182,6 @@
     "spreadCost": -100.26811004705277
   },
   "balanceHistory": [
-    {
-      "time": 1771018557777,
-      "total": 36.342771,
-      "agent": 10,
-      "treasury": 10,
-      "drift": 16.342771
-    },
-    {
-      "time": 1771018681064,
-      "total": 36.34101,
-      "agent": 10,
-      "treasury": 10,
-      "drift": 16.34101
-    },
     {
       "time": 1771018804503,
       "total": 36.335916,
@@ -1581,6 +1567,20 @@
       "agent": 10,
       "treasury": 10,
       "drift": 17.5
+    },
+    {
+      "time": 1771043793392,
+      "total": 37.5,
+      "agent": 10,
+      "treasury": 10,
+      "drift": 17.5
+    },
+    {
+      "time": 1771043917178,
+      "total": 37.5,
+      "agent": 10,
+      "treasury": 10,
+      "drift": 17.5
     }
   ],
   "drift": {
@@ -1590,21 +1590,13 @@
     "hasAccount": true
   },
   "stats": {
-    "totalCycles": 8880,
+    "totalCycles": 8882,
     "totalTransactions": 565,
     "totalVolumeUSDC": 897.3441120000003,
-    "uptime": 672130828,
-    "avgCycleTime": 75690.40855855856
+    "uptime": 672378968,
+    "avgCycleTime": 75701.30240936726
   },
   "prices": [
-    {
-      "time": 1771037244425,
-      "price": 84.78
-    },
-    {
-      "time": 1771037368331,
-      "price": 84.81
-    },
     {
       "time": 1771037491675,
       "price": 84.82
@@ -1796,45 +1788,17 @@
     {
       "time": 1771043669653,
       "price": 84.93
+    },
+    {
+      "time": 1771043793328,
+      "price": 84.95
+    },
+    {
+      "time": 1771043917107,
+      "price": 84.96
     }
   ],
   "trades": [
-    {
-      "time": 1771037248151,
-      "cycle": 8831,
-      "action": "HOLD",
-      "amount": 0,
-      "txSig": null,
-      "confidence": 85,
-      "reason": "Bearish thesis clearly invalidated. Price recovered above both SMAs ($84.78 vs SMA5: $84.76, SMA10: $84.73) after 5 consecutive up candles. Market has reversed from breakdown and returned to consolidation range. Position held for 18.7 minutes - sufficient time given. Better to take small loss (-$1.21) than risk further upside in neutral trend environment.",
-      "market_outlook": "neutral",
-      "solPrice": 84.78,
-      "agentBalance": 10,
-      "treasuryBalance": 10,
-      "driftPosition": {
-        "direction": "SHORT",
-        "size": 0.04,
-        "pnl": -1.210486
-      }
-    },
-    {
-      "time": 1771037371495,
-      "cycle": 8832,
-      "action": "HOLD",
-      "amount": 0,
-      "txSig": null,
-      "confidence": 75,
-      "reason": "Bearish thesis clearly invalidated. Price has recovered above both SMAs ($84.81 vs SMA5: $84.78, SMA10: $84.74) with consecutive up candles showing momentum reversal. Position held for 20+ minutes - sufficient time given. Market returned to neutral consolidation range from original breakdown. Better to take small loss (-$1.21) than risk further upside.",
-      "market_outlook": "neutral",
-      "solPrice": 84.81,
-      "agentBalance": 10,
-      "treasuryBalance": 10,
-      "driftPosition": {
-        "direction": "SHORT",
-        "size": 0.04,
-        "pnl": -1.210651
-      }
-    },
     {
       "time": 1771037495041,
       "cycle": 8833,
@@ -2527,6 +2491,34 @@
       "reason": "Trend strength remains weak at 40/100 with minimal momentum (0.02%). Price showing 4 consecutive up candles but only $0.07 movement from $84.86 to $84.93 - still within the same tight consolidation range. 29 consecutive HOLD decisions confirm lack of clear directional catalyst. Market remains choppy without sustained trend strength >60 required for high-conviction trades.",
       "market_outlook": "neutral",
       "solPrice": 84.93,
+      "agentBalance": 10,
+      "treasuryBalance": 10,
+      "driftPosition": null
+    },
+    {
+      "time": 1771043796915,
+      "cycle": 8881,
+      "action": "HOLD",
+      "amount": 0,
+      "txSig": null,
+      "confidence": 85,
+      "reason": "Trend strength improved to 50/100 but still below 60 threshold. Price at resistance $84.95 with 5 consecutive up candles showing only $0.09 movement from $84.86 - still within tight consolidation range. 30 consecutive HOLD decisions confirm lack of clear directional catalyst. Need sustained trend strength >60 and decisive breakout before deploying capital.",
+      "market_outlook": "neutral",
+      "solPrice": 84.95,
+      "agentBalance": 10,
+      "treasuryBalance": 10,
+      "driftPosition": null
+    },
+    {
+      "time": 1771043921252,
+      "cycle": 8882,
+      "action": "HOLD",
+      "amount": 0,
+      "txSig": null,
+      "confidence": 80,
+      "reason": "Trend strength at 60/100 is at the threshold but price is at resistance $84.96 with 6 consecutive up candles totaling only $0.10 movement. This looks like weak momentum hitting resistance rather than a strong breakout. 31 consecutive HOLD decisions confirm market remains in tight consolidation. Need to see a decisive break above $84.96 with sustained momentum before entering.",
+      "market_outlook": "neutral",
+      "solPrice": 84.96,
       "agentBalance": 10,
       "treasuryBalance": 10,
       "driftPosition": null
