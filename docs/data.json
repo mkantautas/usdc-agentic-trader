@@ -1,22 +1,22 @@
 {
-  "lastUpdated": "2026-02-14T09:44:37.213Z",
+  "lastUpdated": "2026-02-14T09:49:42.372Z",
   "wallet": "BGYMcHT1XkWP2a9b6YNAjw5cBKYPoJh3R1ujao7i3Mgq",
   "treasury": "GYqf6NVVhJqhv6ywyYy9d1cptjjSkiD8tWTdF5xswrZU",
   "balances": {
     "agent": 10,
     "treasury": 10,
-    "total": 37.5
+    "total": 36.317384
   },
   "performance": {
     "initialBalance": 37.499999,
-    "currentBalance": 37.5,
-    "totalPnL": 9.999999974752427e-7,
-    "totalPnLPercent": 0.000002666666731045093,
+    "currentBalance": 36.317384,
+    "totalPnL": -1.1826150000000055,
+    "totalPnLPercent": -3.1536400840970833,
     "realizedPnL": -99.91845799999996,
-    "unrealizedPnL": 0,
-    "strategyPnL": 0.39427917564940507,
+    "unrealizedPnL": -1.182616,
+    "strategyPnL": 0.39604077283084965,
     "strategyRealizedPnL": 0.3496520470528114,
-    "strategyUnrealizedPnL": 0.04462712859659371,
+    "strategyUnrealizedPnL": 0.046388725778038285,
     "strategyTrades": [
       {
         "time": 1770788163884,
@@ -182,13 +182,6 @@
     "spreadCost": -100.26811004705277
   },
   "balanceHistory": [
-    {
-      "time": 1771036109256,
-      "total": 37.5,
-      "agent": 10,
-      "treasury": 10,
-      "drift": 17.5
-    },
     {
       "time": 1771036243706,
       "total": 36.298723,
@@ -1581,26 +1574,34 @@
       "agent": 10,
       "treasury": 10,
       "drift": 17.5
+    },
+    {
+      "time": 1771062397456,
+      "total": 36.318792,
+      "agent": 10,
+      "treasury": 10,
+      "drift": 16.318792
     }
   ],
   "drift": {
     "balance": 17.5,
-    "freeCollateral": 16.179606,
-    "position": null,
+    "freeCollateral": 16.188353,
+    "position": {
+      "baseAmount": -0.03,
+      "quoteAmount": 1.398015,
+      "direction": "SHORT",
+      "unrealizedPnl": -1.182616
+    },
     "hasAccount": true
   },
   "stats": {
-    "totalCycles": 9021,
-    "totalTransactions": 580,
+    "totalCycles": 9022,
+    "totalTransactions": 581,
     "totalVolumeUSDC": 902.3441120000003,
-    "uptime": 690734871,
-    "avgCycleTime": 76569.65646824078
+    "uptime": 691040030,
+    "avgCycleTime": 76594.99334958989
   },
   "prices": [
-    {
-      "time": 1771054959877,
-      "price": 84.86
-    },
     {
       "time": 1771055089356,
       "price": 84.87
@@ -1796,23 +1797,13 @@
     {
       "time": 1771062273821,
       "price": 85.91
+    },
+    {
+      "time": 1771062397377,
+      "price": 85.94
     }
   ],
   "trades": [
-    {
-      "time": 1771054969139,
-      "cycle": 8972,
-      "action": "HOLD",
-      "amount": 0,
-      "txSig": null,
-      "confidence": 85,
-      "reason": "Market remains in persistent choppy conditions with only 20/100 trend strength and minimal 0.07% momentum. Price oscillating in tight $84.80-$84.89 range for 28+ consecutive cycles with 2 down candles after touching resistance. No clear directional conviction - need trend strength >70% for any position.",
-      "market_outlook": "neutral",
-      "solPrice": 84.86,
-      "agentBalance": 10,
-      "treasuryBalance": 10,
-      "driftPosition": null
-    },
     {
       "time": 1771055094760,
       "cycle": 8973,
@@ -2578,6 +2569,24 @@
       "agentBalance": 10,
       "treasuryBalance": 10,
       "driftPosition": null
+    },
+    {
+      "time": 1771062582315,
+      "cycle": 9022,
+      "action": "HOLD",
+      "amount": 0,
+      "txSig": "5iQQyPzPVNh4Q4Gx4DVVbWgiLmJWcdVvLiC2PsDm9op2oFwwki6G2jXEcZsvLQrdnSQC5NWrXF9AyJ1iisK6v6GG",
+      "confidence": 75,
+      "reason": "Short position held for 103 minutes showing -$1.18 PnL. Price bounced off support $85.88 and now showing 2 consecutive up candles to $85.94. Trend strength low at 21/100 with minimal momentum suggests sideways consolidation rather than continued breakdown. Time to close and wait for clearer directional signal.",
+      "market_outlook": "neutral",
+      "solPrice": 85.94,
+      "agentBalance": 10,
+      "treasuryBalance": 10,
+      "driftPosition": {
+        "direction": "SHORT",
+        "size": 0.03,
+        "pnl": -1.181208
+      }
     }
   ],
   "network": "devnet",
