@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-02-14T08:59:22.533Z",
+  "lastUpdated": "2026-02-14T09:03:29.941Z",
   "wallet": "BGYMcHT1XkWP2a9b6YNAjw5cBKYPoJh3R1ujao7i3Mgq",
   "treasury": "GYqf6NVVhJqhv6ywyYy9d1cptjjSkiD8tWTdF5xswrZU",
   "balances": {
@@ -14,9 +14,9 @@
     "totalPnLPercent": 0.000002666666731045093,
     "realizedPnL": -99.91845799999996,
     "unrealizedPnL": 0,
-    "strategyPnL": 0.403087161556628,
+    "strategyPnL": 0.4077847540404799,
     "strategyRealizedPnL": 0.3496520470528114,
-    "strategyUnrealizedPnL": 0.05343511450381659,
+    "strategyUnrealizedPnL": 0.058132706987668516,
     "strategyTrades": [
       {
         "time": 1770788163884,
@@ -182,20 +182,6 @@
     "spreadCost": -100.26811004705277
   },
   "balanceHistory": [
-    {
-      "time": 1771033750402,
-      "total": 36.320296,
-      "agent": 10,
-      "treasury": 10,
-      "drift": 16.320296
-    },
-    {
-      "time": 1771033874032,
-      "total": 36.32063,
-      "agent": 10,
-      "treasury": 10,
-      "drift": 16.32063
-    },
     {
       "time": 1771033997186,
       "total": 36.322803,
@@ -1581,6 +1567,20 @@
       "agent": 10,
       "treasury": 10,
       "drift": 17.5
+    },
+    {
+      "time": 1771059682769,
+      "total": 37.5,
+      "agent": 10,
+      "treasury": 10,
+      "drift": 17.5
+    },
+    {
+      "time": 1771059806616,
+      "total": 37.5,
+      "agent": 10,
+      "treasury": 10,
+      "drift": 17.5
     }
   ],
   "drift": {
@@ -1590,21 +1590,13 @@
     "hasAccount": true
   },
   "stats": {
-    "totalCycles": 9002,
+    "totalCycles": 9004,
     "totalTransactions": 575,
     "totalVolumeUSDC": 902.3441120000003,
-    "uptime": 688020191,
-    "avgCycleTime": 76429.70351033103
+    "uptime": 688267600,
+    "avgCycleTime": 76440.20435362062
   },
   "prices": [
-    {
-      "time": 1771052591383,
-      "price": 84.81
-    },
-    {
-      "time": 1771052714121,
-      "price": 84.83
-    },
     {
       "time": 1771052838478,
       "price": 84.83
@@ -1796,37 +1788,17 @@
     {
       "time": 1771059558839,
       "price": 86.06
+    },
+    {
+      "time": 1771059682697,
+      "price": 86.1
+    },
+    {
+      "time": 1771059806551,
+      "price": 86.14
     }
   ],
   "trades": [
-    {
-      "time": 1771052593935,
-      "cycle": 8953,
-      "action": "HOLD",
-      "amount": 0,
-      "txSig": null,
-      "confidence": 15,
-      "reason": "Market remains indecisive with only 11/100 trend strength and minimal 0.14% momentum. Price at resistance $84.81 but no clear directional conviction. 10+ consecutive HOLD cycles confirm choppy, unpredictable conditions. Waiting for trend strength >70% before risking capital.",
-      "market_outlook": "neutral",
-      "solPrice": 84.81,
-      "agentBalance": 10,
-      "treasuryBalance": 10,
-      "driftPosition": null
-    },
-    {
-      "time": 1771052718260,
-      "cycle": 8954,
-      "action": "HOLD",
-      "amount": 0,
-      "txSig": null,
-      "confidence": 15,
-      "reason": "Market remains completely indecisive with only 11/100 trend strength and minimal 0.17% momentum. Price at exact resistance $84.83 but no clear directional conviction after 10+ consecutive HOLD cycles. Choppy conditions persist - need trend strength >70% for conviction trades.",
-      "market_outlook": "neutral",
-      "solPrice": 84.83,
-      "agentBalance": 10,
-      "treasuryBalance": 10,
-      "driftPosition": null
-    },
     {
       "time": 1771052841301,
       "cycle": 8955,
@@ -2575,6 +2547,34 @@
       "reason": "Position held 55+ minutes with +$0.88 gain from $85.15 entry. Price at resistance $86.06 with bullish trend (15/100) but momentum cooling. Should lock in gains before reversal, but no current position shows we already exited. Market at resistance suggests waiting for clearer directional move.",
       "market_outlook": "neutral",
       "solPrice": 86.06,
+      "agentBalance": 10,
+      "treasuryBalance": 10,
+      "driftPosition": null
+    },
+    {
+      "time": 1771059686362,
+      "cycle": 9003,
+      "action": "HOLD",
+      "amount": 0,
+      "txSig": null,
+      "confidence": 75,
+      "reason": "Price at resistance $86.10 with bullish trend (25/100) but low momentum (0.73%). Recent trades show we held a long for 55+ minutes before exiting. No position currently. Price consolidating at resistance after 8.19% daily gain suggests potential pullback. Wait for clearer directional move rather than chasing at resistance.",
+      "market_outlook": "neutral",
+      "solPrice": 86.1,
+      "agentBalance": 10,
+      "treasuryBalance": 10,
+      "driftPosition": null
+    },
+    {
+      "time": 1771059809918,
+      "cycle": 9004,
+      "action": "HOLD",
+      "amount": 0,
+      "txSig": null,
+      "confidence": 15,
+      "reason": "Price at resistance $86.14 (100% of range) with bullish trend but only 35/100 strength. Recent trades show we already captured gains from $85.15 to $86+ range. After 8.19% daily gain, consolidation/pullback likely. Wait for clearer directional move rather than chasing at resistance.",
+      "market_outlook": "neutral",
+      "solPrice": 86.14,
       "agentBalance": 10,
       "treasuryBalance": 10,
       "driftPosition": null
