@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-02-14T06:19:58.914Z",
+  "lastUpdated": "2026-02-14T06:24:06.658Z",
   "wallet": "BGYMcHT1XkWP2a9b6YNAjw5cBKYPoJh3R1ujao7i3Mgq",
   "treasury": "GYqf6NVVhJqhv6ywyYy9d1cptjjSkiD8tWTdF5xswrZU",
   "balances": {
@@ -14,9 +14,9 @@
     "totalPnLPercent": 0.000002666666731045093,
     "realizedPnL": -99.91845799999996,
     "unrealizedPnL": 0,
-    "strategyPnL": 0.3609781442684796,
+    "strategyPnL": 0.35861854068188226,
     "strategyRealizedPnL": 0.3496520470528114,
-    "strategyUnrealizedPnL": 0.011326097215668197,
+    "strategyUnrealizedPnL": 0.00896649362907088,
     "strategyTrades": [
       {
         "time": 1770788163884,
@@ -182,20 +182,6 @@
     "spreadCost": -100.26811004705277
   },
   "balanceHistory": [
-    {
-      "time": 1771024908425,
-      "total": 37.5,
-      "agent": 10,
-      "treasury": 10,
-      "drift": 17.5
-    },
-    {
-      "time": 1771025032161,
-      "total": 37.5,
-      "agent": 10,
-      "treasury": 10,
-      "drift": 17.5
-    },
     {
       "time": 1771025156396,
       "total": 37.5,
@@ -1581,30 +1567,36 @@
       "agent": 10,
       "treasury": 10,
       "drift": 17.5
+    },
+    {
+      "time": 1771050119377,
+      "total": 37.5,
+      "agent": 10,
+      "treasury": 10,
+      "drift": 17.5
+    },
+    {
+      "time": 1771050243143,
+      "total": 37.5,
+      "agent": 10,
+      "treasury": 10,
+      "drift": 17.5
     }
   ],
   "drift": {
     "balance": 17.5,
-    "freeCollateral": 16.284349,
+    "freeCollateral": 16.284642,
     "position": null,
     "hasAccount": true
   },
   "stats": {
-    "totalCycles": 8932,
+    "totalCycles": 8934,
     "totalTransactions": 565,
     "totalVolumeUSDC": 897.3441120000003,
-    "uptime": 678456572,
-    "avgCycleTime": 75957.96820420958
+    "uptime": 678704316,
+    "avgCycleTime": 75968.69442578912
   },
   "prices": [
-    {
-      "time": 1771044041459,
-      "price": 84.96
-    },
-    {
-      "time": 1771044165043,
-      "price": 84.95
-    },
     {
       "time": 1771044288352,
       "price": 84.93
@@ -1796,37 +1788,17 @@
     {
       "time": 1771049995620,
       "price": 84.52
+    },
+    {
+      "time": 1771050119079,
+      "price": 84.53
+    },
+    {
+      "time": 1771050242854,
+      "price": 84.57
     }
   ],
   "trades": [
-    {
-      "time": 1771044044855,
-      "cycle": 8883,
-      "action": "HOLD",
-      "amount": 0,
-      "txSig": null,
-      "confidence": 25,
-      "reason": "Trend strength at 1/100 is extremely weak. Price at resistance $84.96 after 32 consecutive HOLD decisions. Despite positive momentum (0.06%), this appears to be weak consolidation noise within the $84.86-$84.96 range. Need sustained trend strength >60 and decisive breakout before deploying capital.",
-      "market_outlook": "neutral",
-      "solPrice": 84.96,
-      "agentBalance": 10,
-      "treasuryBalance": 10,
-      "driftPosition": null
-    },
-    {
-      "time": 1771044168161,
-      "cycle": 8884,
-      "action": "HOLD",
-      "amount": 0,
-      "txSig": null,
-      "confidence": 75,
-      "reason": "Trend strength only 11/100 with price at resistance $84.95 after 33 consecutive HOLD decisions. Market remains in tight $84.86-$84.96 consolidation range with minimal momentum (0.07%). Need sustained trend strength >60 and decisive breakout before deploying capital.",
-      "market_outlook": "neutral",
-      "solPrice": 84.95,
-      "agentBalance": 10,
-      "treasuryBalance": 10,
-      "driftPosition": null
-    },
     {
       "time": 1771044291572,
       "cycle": 8885,
@@ -2495,6 +2467,34 @@
       "reason": "Extremely strong bearish trend (92/100) with clear breakdown below $84.65 support. 9 consecutive down candles showed genuine momentum breakout from consolidation range. Price at new support $84.44 with high probability of further decline. Minor bounce to $84.52 is just typical pullback in sustained downtrend.",
       "market_outlook": "bearish",
       "solPrice": 84.52,
+      "agentBalance": 10,
+      "treasuryBalance": 10,
+      "driftPosition": null
+    },
+    {
+      "time": 1771050122595,
+      "cycle": 8933,
+      "action": "HOLD",
+      "amount": 0,
+      "txSig": null,
+      "confidence": 85,
+      "reason": "Strong bearish trend (31/100) with clear breakdown below $84.65 support. Price dropped from $84.93 to $84.44 (-$0.49) showing genuine momentum breakout from consolidation. Current minor bounce to $84.53 is typical pullback in sustained downtrend. High conviction short with strong risk/reward setup.",
+      "market_outlook": "bearish",
+      "solPrice": 84.53,
+      "agentBalance": 10,
+      "treasuryBalance": 10,
+      "driftPosition": null
+    },
+    {
+      "time": 1771050246556,
+      "cycle": 8934,
+      "action": "HOLD",
+      "amount": 0,
+      "txSig": null,
+      "confidence": 85,
+      "reason": "Strong bearish breakdown confirmed. Price broke below $84.65 support with 9 consecutive down candles and dropped from $84.93 to $84.44 (-$0.49). Current bounce to $84.57 is typical pullback in sustained downtrend. Trend strength was 92/100 at breakdown. High conviction short opportunity with clear risk management levels.",
+      "market_outlook": "bearish",
+      "solPrice": 84.57,
       "agentBalance": 10,
       "treasuryBalance": 10,
       "driftPosition": null
