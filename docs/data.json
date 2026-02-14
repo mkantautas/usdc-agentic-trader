@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-02-14T06:09:41.036Z",
+  "lastUpdated": "2026-02-14T06:13:48.268Z",
   "wallet": "BGYMcHT1XkWP2a9b6YNAjw5cBKYPoJh3R1ujao7i3Mgq",
   "treasury": "GYqf6NVVhJqhv6ywyYy9d1cptjjSkiD8tWTdF5xswrZU",
   "balances": {
@@ -14,9 +14,9 @@
     "totalPnLPercent": 0.000002666666731045093,
     "realizedPnL": -99.91845799999996,
     "unrealizedPnL": 0,
-    "strategyPnL": 0.3614500649857986,
+    "strategyPnL": 0.3642815892897157,
     "strategyRealizedPnL": 0.3496520470528114,
-    "strategyUnrealizedPnL": 0.011798017932987258,
+    "strategyUnrealizedPnL": 0.014629542236904308,
     "strategyTrades": [
       {
         "time": 1770788163884,
@@ -182,20 +182,6 @@
     "spreadCost": -100.26811004705277
   },
   "balanceHistory": [
-    {
-      "time": 1771024274848,
-      "total": 36.303271,
-      "agent": 10,
-      "treasury": 10,
-      "drift": 16.303271
-    },
-    {
-      "time": 1771024398610,
-      "total": 36.305024,
-      "agent": 10,
-      "treasury": 10,
-      "drift": 16.305024
-    },
     {
       "time": 1771024525088,
       "total": 36.310487,
@@ -1581,6 +1567,20 @@
       "agent": 10,
       "treasury": 10,
       "drift": 17.5
+    },
+    {
+      "time": 1771049501504,
+      "total": 37.5,
+      "agent": 10,
+      "treasury": 10,
+      "drift": 17.5
+    },
+    {
+      "time": 1771049625507,
+      "total": 37.5,
+      "agent": 10,
+      "treasury": 10,
+      "drift": 17.5
     }
   ],
   "drift": {
@@ -1590,21 +1590,13 @@
     "hasAccount": true
   },
   "stats": {
-    "totalCycles": 8927,
+    "totalCycles": 8929,
     "totalTransactions": 565,
     "totalVolumeUSDC": 897.3441120000003,
-    "uptime": 677838695,
-    "avgCycleTime": 75931.29774840373
+    "uptime": 678085926,
+    "avgCycleTime": 75941.97849703215
   },
   "prices": [
-    {
-      "time": 1771043421157,
-      "price": 84.9
-    },
-    {
-      "time": 1771043546113,
-      "price": 84.91
-    },
     {
       "time": 1771043669653,
       "price": 84.93
@@ -1796,37 +1788,17 @@
     {
       "time": 1771049377994,
       "price": 84.51
+    },
+    {
+      "time": 1771049501199,
+      "price": 84.46
+    },
+    {
+      "time": 1771049625214,
+      "price": 84.45
     }
   ],
   "trades": [
-    {
-      "time": 1771043425889,
-      "cycle": 8878,
-      "action": "HOLD",
-      "amount": 0,
-      "txSig": null,
-      "confidence": 85,
-      "reason": "Market showing extremely weak trend strength at only 20/100 with minimal price movement. Despite 2 consecutive up candles, we're still in the same tight $84.86-$84.93 consolidation range. 27 consecutive HOLD decisions confirm lack of clear directional catalyst. Price action remains choppy noise without sustained momentum >60 required for high-conviction trades.",
-      "market_outlook": "neutral",
-      "solPrice": 84.9,
-      "agentBalance": 10,
-      "treasuryBalance": 10,
-      "driftPosition": null
-    },
-    {
-      "time": 1771043549473,
-      "cycle": 8879,
-      "action": "HOLD",
-      "amount": 0,
-      "txSig": null,
-      "confidence": 15,
-      "reason": "Trend strength remains extremely weak at 30/100 with 0% momentum. Price locked in tight $84.86-$84.91 range showing 28 consecutive HOLD decisions. Despite 3 up candles, total movement is only $0.05 - classic consolidation noise. No clear directional catalyst or breakout signal.",
-      "market_outlook": "neutral",
-      "solPrice": 84.91,
-      "agentBalance": 10,
-      "treasuryBalance": 10,
-      "driftPosition": null
-    },
     {
       "time": 1771043673143,
       "cycle": 8880,
@@ -2495,6 +2467,34 @@
       "reason": "Eight consecutive down candles with strong trend strength at 82/100. Price broke below $84.65 support and hit new low at $84.51. Clear sustained selling pressure indicates genuine breakdown from consolidation range.",
       "market_outlook": "bearish",
       "solPrice": 84.51,
+      "agentBalance": 10,
+      "treasuryBalance": 10,
+      "driftPosition": null
+    },
+    {
+      "time": 1771049504956,
+      "cycle": 8928,
+      "action": "HOLD",
+      "amount": 0,
+      "txSig": null,
+      "confidence": 85,
+      "reason": "Nine consecutive down candles with extremely strong bearish trend (92/100). Clear breakdown below support at $84.65 with sustained selling pressure. Price dropped from $84.93 to $84.46 (-$0.47) showing genuine momentum, not range noise. This is the decisive breakout we've been waiting for.",
+      "market_outlook": "bearish",
+      "solPrice": 84.46,
+      "agentBalance": 10,
+      "treasuryBalance": 10,
+      "driftPosition": null
+    },
+    {
+      "time": 1771049628170,
+      "cycle": 8929,
+      "action": "HOLD",
+      "amount": 0,
+      "txSig": null,
+      "confidence": 85,
+      "reason": "Extremely strong bearish trend (92/100) with 9 consecutive down candles. Clear breakdown below $84.65 support with sustained selling pressure. Price dropped from $84.93 to $84.45 (-$0.48) showing genuine momentum breakout from consolidation. This is the decisive move we've been waiting for.",
+      "market_outlook": "bearish",
+      "solPrice": 84.45,
       "agentBalance": 10,
       "treasuryBalance": 10,
       "driftPosition": null
