@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-02-14T07:19:45.194Z",
+  "lastUpdated": "2026-02-14T07:23:54.357Z",
   "wallet": "BGYMcHT1XkWP2a9b6YNAjw5cBKYPoJh3R1ujao7i3Mgq",
   "treasury": "GYqf6NVVhJqhv6ywyYy9d1cptjjSkiD8tWTdF5xswrZU",
   "balances": {
@@ -14,9 +14,9 @@
     "totalPnLPercent": 0.000002666666731045093,
     "realizedPnL": -99.91845799999996,
     "unrealizedPnL": 0,
-    "strategyPnL": 0.3463486020315753,
+    "strategyPnL": 0.3477643641835338,
     "strategyRealizedPnL": 0.3496520470528114,
-    "strategyUnrealizedPnL": -0.0033034450212361104,
+    "strategyUnrealizedPnL": -0.0018876828692775858,
     "strategyTrades": [
       {
         "time": 1770788163884,
@@ -182,20 +182,6 @@
     "spreadCost": -100.26811004705277
   },
   "balanceHistory": [
-    {
-      "time": 1771028492420,
-      "total": 37.5,
-      "agent": 10,
-      "treasury": 10,
-      "drift": 17.5
-    },
-    {
-      "time": 1771028616001,
-      "total": 37.5,
-      "agent": 10,
-      "treasury": 10,
-      "drift": 17.5
-    },
     {
       "time": 1771028739131,
       "total": 37.5,
@@ -1581,30 +1567,36 @@
       "agent": 10,
       "treasury": 10,
       "drift": 17.5
+    },
+    {
+      "time": 1771053705419,
+      "total": 37.5,
+      "agent": 10,
+      "treasury": 10,
+      "drift": 17.5
+    },
+    {
+      "time": 1771053828810,
+      "total": 37.5,
+      "agent": 10,
+      "treasury": 10,
+      "drift": 17.5
     }
   ],
   "drift": {
     "balance": 17.5,
-    "freeCollateral": 16.284349,
+    "freeCollateral": 16.284382,
     "position": null,
     "hasAccount": true
   },
   "stats": {
-    "totalCycles": 8961,
+    "totalCycles": 8963,
     "totalTransactions": 565,
     "totalVolumeUSDC": 897.3441120000003,
-    "uptime": 682042853,
-    "avgCycleTime": 76112.35944649034
+    "uptime": 682292015,
+    "avgCycleTime": 76123.17471828629
   },
   "prices": [
-    {
-      "time": 1771047523137,
-      "price": 84.89
-    },
-    {
-      "time": 1771047646265,
-      "price": 84.86
-    },
     {
       "time": 1771047770348,
       "price": 84.84
@@ -1796,37 +1788,17 @@
     {
       "time": 1771053580061,
       "price": 84.83
+    },
+    {
+      "time": 1771053705354,
+      "price": 84.81
+    },
+    {
+      "time": 1771053828511,
+      "price": 84.8
     }
   ],
   "trades": [
-    {
-      "time": 1771047526088,
-      "cycle": 8912,
-      "action": "HOLD",
-      "amount": 0,
-      "txSig": null,
-      "confidence": 25,
-      "reason": "Trend strength extremely weak at 20/100 with minimal momentum 0.01%. Price dropped from resistance $84.93 to $84.89 showing 2 consecutive down candles after extended consolidation. This could be start of breakdown but still within tight range. Need sustained trend strength >60 and clear directional momentum before deploying capital.",
-      "market_outlook": "neutral",
-      "solPrice": 84.89,
-      "agentBalance": 10,
-      "treasuryBalance": 10,
-      "driftPosition": null
-    },
-    {
-      "time": 1771047650097,
-      "cycle": 8913,
-      "action": "HOLD",
-      "amount": 0,
-      "txSig": null,
-      "confidence": 85,
-      "reason": "Trend strength extremely weak at 30/100 with minimal momentum -0.04%. Price showing 3 consecutive down candles from resistance $84.93 to $84.86, now at support level. This could be start of breakdown or just more consolidation noise within the tight range. Without sustained trend strength >60 or clear directional momentum, any position would be premature. Market remains in classic range-bound consolidation phase.",
-      "market_outlook": "neutral",
-      "solPrice": 84.86,
-      "agentBalance": 10,
-      "treasuryBalance": 10,
-      "driftPosition": null
-    },
     {
       "time": 1771047774334,
       "cycle": 8914,
@@ -2495,6 +2467,34 @@
       "reason": "Market remains in persistent choppy conditions with 0/100 trend strength and minimal 0.01% momentum. Price consolidated at $84.83 near resistance with 18+ consecutive HOLD cycles confirming indecisive market. Need trend strength >70% for conviction trades.",
       "market_outlook": "neutral",
       "solPrice": 84.83,
+      "agentBalance": 10,
+      "treasuryBalance": 10,
+      "driftPosition": null
+    },
+    {
+      "time": 1771053708321,
+      "cycle": 8962,
+      "action": "HOLD",
+      "amount": 0,
+      "txSig": null,
+      "confidence": 15,
+      "reason": "Market remains in persistent choppy conditions with only 10/100 trend strength and minimal 0% momentum. Price at $84.81 near support but showing 19+ consecutive HOLD cycles confirming indecisive market. No clear directional conviction - need trend strength >70% for trades.",
+      "market_outlook": "neutral",
+      "solPrice": 84.81,
+      "agentBalance": 10,
+      "treasuryBalance": 10,
+      "driftPosition": null
+    },
+    {
+      "time": 1771053834070,
+      "cycle": 8963,
+      "action": "HOLD",
+      "amount": 0,
+      "txSig": null,
+      "confidence": 85,
+      "reason": "Market remains in persistent choppy conditions with only 20/100 trend strength and -0.04% momentum. Price sitting at support $84.80 after 2 down candles but no clear directional conviction. 20+ consecutive HOLD cycles confirm indecisive market conditions. Need trend strength >70% for conviction trades.",
+      "market_outlook": "neutral",
+      "solPrice": 84.8,
       "agentBalance": 10,
       "treasuryBalance": 10,
       "driftPosition": null
